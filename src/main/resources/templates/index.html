@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <title>Hello World!</title> 
+    </head> 
+    <body> 
+        <div id="root">
+            <ul> 
+                <li style="margin-bottom: 12px; list-style: none;" v-for="user in users"> 
+                    <user-card v-bind:user="user" v-bind:key="user.id"/> 
+                </li> 
+            </ul> 
+        </div> 
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script> 
+        <script> 
+            Vue.component('user-card', {
+                props: ['user'],
+                template: ` 
+                <div> 
+                    <div>Name: {{ user.name }}</div> 
+                    <div>Description: {{ user.description }}</div> 
+                </div>` 
+            });
+
+            var app = new Vue({ 
+                el: '#root',
+                data: { 
+                    users: [
+                    { id: "1", name: "Tester1", description: "Tester1" },
+                    { id: "2", name: "Tester2", description: "Tester2" }, 
+                    { id: "3", name: "Tester3", description: "Tester3" } 
+                    ] 
+                }
+            }); 
+        </script>
+    </body> 
+</html>
