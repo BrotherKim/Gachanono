@@ -3,10 +3,9 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorator="layouts/layout">
-    <!-- hello.html 고유 CSS 추가 -->
+    <!-- add custom css -->
     <th:block layout:fragment="/css"></th:block>
-
-    <!-- hello.html 고유 스크립트 추가 -->
+    <!-- add custom script -->
     <th:block layout:fragment="script">
         <script>
             //alert("hello");
