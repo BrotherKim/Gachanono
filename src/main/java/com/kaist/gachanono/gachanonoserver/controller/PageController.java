@@ -53,10 +53,10 @@ public class PageController {
         return "error"; 
     }
 
-    @GetMapping("/layout-sidenav-light") 
-    public String layoutSidenavLight() {
-        return "layout-sidenav-light"; 
-    }
+    // @GetMapping("/layout-sidenav-light") 
+    // public String layoutSidenavLight() {
+    //     return "layout-sidenav-light"; 
+    // }
     
     @GetMapping("/layout-static") 
     public String layoutStatic() {

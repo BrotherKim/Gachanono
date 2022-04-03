@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <footer th:fragment="footerFragment">
-    <div style="border: 1px solid gold">
-      Footer영역입니다.
-    </div>
+  <footer th:fragment="footerFragment" class="py-4 bg-light mt-auto">
+      <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+              <div class="text-muted">Copyright &copy; KAIST 2022</div>
+              <div>
+                  <a href="#">Privacy Policy</a>
+                  &middot;
+                  <a href="#">Terms &amp; Conditions</a>
+              </div>
+          </div>
+      </div>
   </footer>
 </html>
