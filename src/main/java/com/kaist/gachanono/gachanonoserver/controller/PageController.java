@@ -1,29 +1,27 @@
 package com.kaist.gachanono.gachanonoserver.controller;
 
-import java.util.List;
+import com.kaist.gachanono.gachanonoserver.dao.UserDAO;
 
-import com.kaist.gachanono.gachanonoserver.service.TestService;
-import com.kaist.gachanono.gachanonoserver.vo.TestVo;
-import com.kaist.gachanono.gachanonoserver.vo.User;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller 
 public class PageController {
     
-    //@Autowired
-    //private TestService testService;
+    Logger logger = LoggerFactory.getLogger(PageController.class);
+
+    @Autowired
+    private UserDAO userDAO;
 
     @GetMapping("/") 
     public String index() {
-        //List<TestVo> testList = testService.selectTestList();
-        //System.out.println(testList);
+        logger.info("{}", userDAO.getUsers());
         // Vue 예제 페이지로 이동
         return "/index"; 
     } 
@@ -86,8 +84,8 @@ public class PageController {
     @GetMapping("/test")
     public String getUser(Model model) {
         // thymeleaf 에서 사용할 데이터 전달
-        User user = new User("kkaok", "테스트", "web") ;
-        model.addAttribute("user", user);
+        //User user = new User(1122, "테스트") ;
+        //model.addAttribute("user", user);
         return "test";
     }
 
