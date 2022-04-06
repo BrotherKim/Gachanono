@@ -13,7 +13,6 @@ public class DataSourceConfig {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
-        DataSourceBuilder dsb = DataSourceBuilder.create();
-        return dsb.build();
+        return DataSourceBuilder.create().build();
     }
 }

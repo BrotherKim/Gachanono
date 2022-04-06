@@ -32,6 +32,8 @@ dependencies {
 	// implementation 'org.mybatis:mybatis:3.5.9'
 	// implementation 'org.mybatis:mybatis-spring:1.2.3'
 
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

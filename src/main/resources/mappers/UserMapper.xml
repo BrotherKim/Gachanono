@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaist.gachanono.gachanonoserver.dao.UserDAO">
-    <select id="getUsers" resultType="com.kaist.gachanono.gachanonoserver.dto.UserDTO">
-        select
-            seq,
-            name
-        from
-            user
+<mapper namespace="com.kaist.gachanono.gachanonoserver.dao.UserMapper">
+
+    <insert id="save"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user(name,email,role) VALUES(#{name}, #{email}, #{role})
+    </insert>
+    <select id="findByEmail" resultType="com.kaist.gachanono.gachanonoserver.domain.User.User">
+        SELECT * FROM user WHERE email = #{email}
     </select>
+    
+  
 </mapper>
