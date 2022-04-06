@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers(
                         "/error",
                         "/favicon.ico",
@@ -39,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/mytravel/**").hasRole(Role.GUEST.name())
                 .anyRequest().authenticated()
+                .and()
+                .oauth2Login().loginPage("/login")
                 .and()
                 .logout().logoutSuccessUrl("/")
                 .and()
