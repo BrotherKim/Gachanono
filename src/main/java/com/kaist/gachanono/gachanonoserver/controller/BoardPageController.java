@@ -1,6 +1,13 @@
 package com.kaist.gachanono.gachanonoserver.controller;
 
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.kaist.gachanono.gachanonoserver.domain.Board.BoardResponseDto;
+import com.kaist.gachanono.gachanonoserver.service.BoardService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +19,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/board")
 public class BoardPageController {
 
+    @Autowired
+    private BoardService boardService;
+
     /**
      * 게시글 리스트 페이지
      */
     @GetMapping("/list")
-    public String openBoardList() {
+    public String openBoardList(Model model) {
+        List<BoardResponseDto> boards = boardService.findAllByDeleteYn('N');
+        model.addAttribute("boards", boards);
+        model.addAttribute("nowDate", LocalDateTime.now());
         return "board/list";
     }
 

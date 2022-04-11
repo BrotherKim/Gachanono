@@ -59,4 +59,5 @@ public class ThymeleafViewResolverConfig {
         viewResolver.setOrder(0);
         return viewResolver;
     }
+
 }
