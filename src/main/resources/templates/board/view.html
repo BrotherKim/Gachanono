@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layouts/layout">
+    <!-- add custom css -->
+    <th:block layout:fragment="/css"></th:block>
+    <!-- add custom script -->
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            window.onload = () => {
+                findBoard();
+            }
+
+            /**
+        * 게시글 조회
+        */
+            function findBoard() {
+
+                const id =/*[[ ${id} ]]*/;
+
+                fetch(`/api/boards/${id}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Request failed...');
+                        }
+                        return response.json();
+
+                    })
+                    .then(json => {
+                        console.table(json);
+                        json.createdDate = moment(json.createdDate).format('YYYY-MM-DD HH:mm:ss');
+
+                        Object
+                            .keys(json)
+                            .forEach(key => {
+                                const elem = document.getElementById(key);
+                                if (elem) {
+                                    elem.innerText = json[key];
+                                }
+                            });
+
+                    })
+                    .catch(error => {
+                        alert('게시글 정보를 찾을 수 없습니다.');
+                        goList();
+                    });
+            }
+
+            /**
+        * 뒤로가기
+        */
+            function goList() {
+                location.href = '/board/list';
+            }
+
+            /**
+        * 수정하기
+        */
+            function goWrite() {
+                location.href = `/board/write?id=[[ ${id} ]]`;
+            }
+
+            /**
+        * 삭제하기
+        */
+            function deleteBoard() {
+
+                const id =/*[[ ${id} ]]*/;
+
+                if (!confirm(`${id}번 게시글을 삭제할까요?`)) {
+                    return false;
+                }
+
+                fetch(`/api/boards/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Request failed...');
+                        }
+
+                        alert('삭제되었습니다.');
+                        goList();
+
+                    })
+                    .catch(error => {
+                        alert('오류가 발생하였습니다.');
+                    });
+            }
+
+            /*]]>*/
+        </script>
+    </th:block>
+
+    <div layout:fragment="content">
+        <div class="card-content">
+            <form class="form-horizontal form-view">
+                <div class="form-group">
+                    <label for="inp-type-1" class="col-sm-2 control-label">제목</label>
+                    <div class="col-sm-10">
+                        <p id="title" class="form-control"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inp-type-2" class="col-sm-2 control-label">이름</label>
+                    <div class="col-sm-10">
+                        <p id="writer" class="form-control"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inp-type-5" class="col-sm-2 control-label">내용</label>
+                    <div class="col-sm-10">
+                        <p id="content" class="form-control"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inp-type-5" class="col-sm-2 control-label">등록일</label>
+                    <div class="col-sm-10">
+                        <p id="createdDate" class="form-control"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inp-type-5" class="col-sm-2 control-label">조회 수</label>
+                    <div class="col-sm-10">
+                        <p id="hits" class="form-control"></p>
+                    </div>
+                </div>
+            </form>
+
+            <div class="btn_wrap text-center">
+                <a
+                    href="javascript: void(0);"
+                    onclick="goList();"
+                    class="btn btn-default waves-effect waves-light">뒤로가기</a>
+                <a
+                    href="javascript: void(0);"
+                    onclick="goWrite();"
+                    class="btn btn-primary waves-effect waves-light">수정하기</a>
+                <button
+                    type="button"
+                    onclick="deleteBoard();"
+                    class="btn btn-danger waves-effect waves-light">삭제하기</button>
+            </div>
+        </div>
+        <!-- /.card-content -->
+    </div>
+</html>
