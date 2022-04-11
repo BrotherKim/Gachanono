@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver;
+package com.kaist.gachanono.gachanonoserver.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
