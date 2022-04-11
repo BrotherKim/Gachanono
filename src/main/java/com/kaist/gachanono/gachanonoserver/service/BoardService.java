@@ -10,6 +10,7 @@ import com.kaist.gachanono.gachanonoserver.domain.Board.BoardResponseDto;
 import com.kaist.gachanono.gachanonoserver.exception.CustomException;
 import com.kaist.gachanono.gachanonoserver.exception.ErrorCode;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardService {
 
+    @Autowired
     private final BoardRepository boardRepository;
 
     /**

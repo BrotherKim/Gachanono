@@ -3,9 +3,7 @@ package com.kaist.gachanono.gachanonoserver.config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaAuditing
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.kaist.gachanono.gachanonoserver"})
 public class AppConfig {
