@@ -39,26 +39,6 @@
                 </div>
             </div>
             <div class="card mb-4">
-                <!--/* 검색 영역 */-->
-                <div class="card-header" id="adv-search">
-                    <select id="searchType" class="form-control" style="width: 100px;">
-                        <option value="">전체</option>
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                        <option value="writer">작성자</option>
-                    </select>
-                    <input
-                        type="text"
-                        id="searchKeyword"
-                        class="form-control"
-                        placeholder="키워드를 입력해 주세요."
-                        style="width: 300px;"/>
-                    <button type="button" class="btn btn-primary">
-                        <span aria-hidden="true" class="glyphicon glyphicon-search"></span>
-                    </button>
-                </div>
-
-                <!--/* 게시글 영역 */-->
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
                     자유게시판
@@ -85,8 +65,7 @@
                                     </a>
                                 </td>
                                 <td th:text="${board.writer}"></td>
-                                <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd')}"></td-->
-                                <td th:text="${board.createdDate}"></td>
+                                <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                 <td th:text="${board.hits}"></td>
                             </tr>
                         </tbody>
