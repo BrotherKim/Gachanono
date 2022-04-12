@@ -23,24 +23,21 @@
 
     <div layout:fragment="content">
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Tables</h1>
+            <h1 class="mt-4">자유게시판</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item">
                     <a href="/">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">Tables</li>
+                <li class="breadcrumb-item active">Board</li>
             </ol>
             <div class="card mb-4">
                 <div class="card-body">
-                    DataTables is a third party plugin that is used to generate the demo table
-                    below. For more information about DataTables, please visit the
-                    <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                    .
+                    자유게시판 페이지의 매뉴얼 위치입니다.
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
+                    <i class="fa-solid fa-comment-dots"></i>
                     자유게시판
                 </div>
                 <div class="card-body">
@@ -61,7 +58,7 @@
                                 <td th:text="${board.id}"></td>
                                 <td class="text-left">
                                     <a th:href="@{'/board/view/' + ${board.id}}">
-                                        <p th:text="${board.title}"></p>
+                                        <div th:text="${board.title}"></div>
                                     </a>
                                 </td>
                                 <td th:text="${board.writer}"></td>
