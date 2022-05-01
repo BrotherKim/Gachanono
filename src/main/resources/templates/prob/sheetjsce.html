@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layouts/layout">
+    <!-- add custom css -->
+    <th:block layout:fragment="/css"></th:block>
+    <!-- add custom script -->
+    <th:block layout:fragment="script">
+
+        <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://bossanova.uk/jspreadsheet/v4/jexcel.css"
+            type="text/css"/>
+        <script src="https://jsuites.net/v4/jsuites.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://jsuites.net/v4/jsuites.css"
+            type="text/css"/>
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://fonts.googleapis.com/css?family=Material+Icons"/>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            /*]]>*/
+        </script>
+    </th:block>
+
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">sheetdemo</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item">
+                    <a href="/">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">sheetdemo</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-body">
+                    jspreadsheet 데모 페이지의 매뉴얼 위치입니다.
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                    카러플 확률표
+                </div>
+                <div class="card-body">
+                    <div id="krpCrawledProbTable" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                    메이플 확률표
+                </div>
+                <div class="card-body">
+                    <div id="mapleCrawledProbTable" style="width: 100%;"></div>
+                </div>
+            </div>
+
+
+        </div>
+        <script>
+
+            var krpCrawledProbTable = new Vue({
+                el: '#krpCrawledProbTable',
+                mounted: function () {
+                    let spreadsheet = jspreadsheet(this.$el, {
+                        minDimensions: [30, 30],
+                        defaultColWidth: 100,
+                        tableOverflow: true,
+                        tableWidth: "100%",
+                        csv: '/assets/crawled/kartriderrushplus.csv',    
+                        csvHeaders: false,
+                        editable: false,
+                        toolbar: [
+                            {
+                                type: 'i',
+                                content: 'undo',
+                                onclick: function () {
+                                    spreadsheet.undo();
+                                }
+                            }, {
+                                type: 'i',
+                                content: 'redo',
+                                onclick: function () {
+                                    spreadsheet.redo();
+                                }
+                            }, {
+                                type: 'i',
+                                content: 'save',
+                                onclick: function () {
+                                    spreadsheet.download();
+                                }
+                            }, {
+                                type: 'select',
+                                k: 'font-family',
+                                v: ['Arial', 'Verdana']
+                            }, {
+                                type: 'select',
+                                k: 'font-size',
+                                v: [
+                                    '9px',
+                                    '10px',
+                                    '11px',
+                                    '12px',
+                                    '13px',
+                                    '14px',
+                                    '15px',
+                                    '16px',
+                                    '17px',
+                                    '18px',
+                                    '19px',
+                                    '20px'
+                                ]
+                            }, {
+                                type: 'i',
+                                content: 'format_align_left',
+                                k: 'text-align',
+                                v: 'left'
+                            }, {
+                                type: 'i',
+                                content: 'format_align_center',
+                                k: 'text-align',
+                                v: 'center'
+                            }, {
+                                type: 'i',
+                                content: 'format_align_right',
+                                k: 'text-align',
+                                v: 'right'
+                            }, {
+                                type: 'i',
+                                content: 'format_bold',
+                                k: 'font-weight',
+                                v: 'bold'
+                            }, {
+                                type: 'color',
+                                content: 'format_color_text',
+                                k: 'color'
+                            }, {
+                                type: 'color',
+                                content: 'format_color_fill',
+                                k: 'background-color'
+                            }
+                        ],
+                    });
+                    Object.assign(this, spreadsheet);
+                }
+            });
+
+            var vm1 = new Vue({
+                el: '#mapleCrawledProbTable',
+                mounted: function () {
+                    let spreadsheet = jspreadsheet(this.$el, {
+                        minDimensions: [30, 30],
+                        defaultColWidth: 100,
+                        tableOverflow: true,
+                        tableWidth: "100%",
+                        //csv: '/assets/crawled/kartriderrushplus.csv',    
+                        csvHeaders: false,
+                        editable: true,
+                    });
+                    Object.assign(this, spreadsheet);
+                }
+            });
+        </script>
+    </div>
+
+</div>
+</html>

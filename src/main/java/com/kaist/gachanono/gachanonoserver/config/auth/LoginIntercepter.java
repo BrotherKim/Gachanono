@@ -17,7 +17,7 @@ public class LoginIntercepter implements HandlerInterceptor {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public List loginEssential = Arrays.asList("/**");
-    public List loginInessential = Arrays.asList("/login", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/error**");
+    public List loginInessential = Arrays.asList("/login", "/css/**", "/js/**", "/luckysheet/**", "/img/**", "/favicon.ico", "/error**");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
