@@ -1,6 +1,5 @@
 package com.kaist.gachanono.gachanonoserver.controller;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,31 +23,53 @@ public class CalcPageController {
     private CalcService calcService;
 
     /**
-     *  복원추출 페이지
+     * 복원추출 페이지
      */
     @GetMapping("/samplingWithReplacement")
-    public String samplingWithReplacement(int price, float prob, int tryCnt) {
-        // 
-        calcService.samplingWithReplacement(price, prob, tryCnt);
+    public String samplingWithReplacement(float prob, int try_count) {
+        //
+        calcService.samplingWithReplacement(prob, try_count);
         return "/";
     }
 
     /**
-     * 게시글 등록 페이지
+     * 복원추출 천장시스템
      */
-    @GetMapping("/write")
-    public String openBoardWrite(@RequestParam(required = false) final Long id, Model model) {
-        model.addAttribute("id", id);
-        return "board/write";
+    @GetMapping("/samplingWithReplacementCeiling")
+    public String samplingWithReplacementCeiling(float p, int try_count, int limit) {
+        //
+        calcService.samplingWithReplacementCeiling(p, try_count, limit);
+        return "/";
     }
 
     /**
-     * 게시글 상세 페이지
+     * 구간별 확률(동일 아이템)
      */
-    @GetMapping("/view/{id}")
-    public String openBoardView(@PathVariable final Long id, Model model) {
-        model.addAttribute("id", id);
-        return "board/view";
+    @GetMapping("/probByIntervalSameItem")
+    public String probByIntervalSameItem(int[] range_list, float[] prob_list, int try_pick) {
+        //
+        calcService.probByIntervalSameItem(range_list, prob_list, try_pick);
+        return "/";
+    }
+
+    /**
+     * 구간확률(다른 아이템)
+     */
+    @GetMapping("/probByIntervalDiffItem")
+    public String probByIntervalDiffItem(int start_count, float prob, int try_pick) {
+        //
+        calcService.probByIntervalDiffItem(start_count, prob, try_pick);
+        return "/";
+    }
+
+    /**
+     * 컴플리트 가챠
+     */
+    @GetMapping("/completeGacha")
+    public String completeGacha(int all_coupon_count, float[] prob_list) {
+        //
+        calcService.completeGacha(all_coupon_count, prob_list);
+        return "/";
     }
 
 }
