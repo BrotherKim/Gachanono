@@ -26,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardApiController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BoardApiController.class);
+
     @Autowired
     private BoardService boardService;
 
