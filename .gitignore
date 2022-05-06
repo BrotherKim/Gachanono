@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### jython ###
+.jython_cache
+.pyc
+
+application.properties
