@@ -1,8 +1,8 @@
 import requests, bs4
 import pandas as pd
 
-def Call(func, args):
-  return func(*args)
+def printHello():
+  print('Hello World!')
 
 def Craw(URLs, tableSpecStr, lineSpecStr, cellSpecStr):
   for URL in URLs:
@@ -17,6 +17,6 @@ def Craw(URLs, tableSpecStr, lineSpecStr, cellSpecStr):
         cells = line.select(cellSpecStr)
         for cell in cells:
           data = cell.text.replace('\r', ' ').replace('\n', ' ').strip()
-          print('%s' % (data), end = ',')
+          print ('%s' % (data), end = ',')
         print(',')
       print(',')

@@ -36,5 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-### jytho ###
+### jython ###
 .jython_cache
+.pyc

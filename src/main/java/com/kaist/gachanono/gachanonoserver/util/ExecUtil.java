@@ -64,15 +64,20 @@ public class ExecUtil {
         PumpStreamHandler psh = new PumpStreamHandler(so, se);
         exec.setStreamHandler(psh);
 
+        logger.info("exec: {}", command);
+
         try{
             this.exitValue = exec.execute(commandLine);
             this.stdout = so.getLines();
+            logger.info("stdout: {}", this.stdout);
         } catch (ExecuteException ee) {
             this.exitValue = ee.getExitValue();
             this.stderr = se.getLines();
+            logger.info("stderr: {}", this.stderr);
         } catch (IOException ioe) {
             this.exitValue = -1;
             this.stderr = se.getLines();
+            logger.info("stderr: {}", this.stderr);
         }
     }
 

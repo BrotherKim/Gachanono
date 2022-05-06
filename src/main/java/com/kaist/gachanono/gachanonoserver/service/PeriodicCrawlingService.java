@@ -2,6 +2,8 @@ package com.kaist.gachanono.gachanonoserver.service;
 
 import java.util.List;
 
+import com.kaist.gachanono.gachanonoserver.util.ExecUtil;
+
 import org.python.util.PythonInterpreter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +23,15 @@ public class PeriodicCrawlingService {
     public String craw(List<String> URLs, String tableSpecStr, String lineSpecStr, String cellSpecStr){
         String retval = "";
 
-        intp = new PythonInterpreter();
-        intp.execfile("src/main/python/template.py");
+        // intp = new PythonInterpreter();
+        // intp.execfile("src/main/python/template.py");
         
-        intp.exec(String.format("Craw(%s, '%s', '%s', '%s'"
-                , URLs.toString()
-                , tableSpecStr
-                , lineSpecStr
-                , cellSpecStr
-                ));
+        // intp.exec(String.format("Craw(%s, '%s', '%s', '%s')"
+        //         , URLs.toString()
+        //         , tableSpecStr
+        //         , lineSpecStr
+        //         , cellSpecStr
+        //         ));
 
         // PyFunction func = intp.get("crawler", PyFunction.class);
         // int a = 10, b = 20;
@@ -38,15 +40,22 @@ public class PeriodicCrawlingService {
 
         // return result.toString();
 
-
-        // try {
-        //     String cmd = String.format("python src/main/python/template.py %s %s %s %s");
-        //     ExecUtil.getInstance().exec(cmd);
-        //     retval = ExecUtil.getInstance().getStdOutString();
-        //     logger.info("retval: {}", retval);
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.template import *; Craw(%s, '%s', '%s', '%s');\""
+                , URLs.toString()
+                , tableSpecStr
+                , lineSpecStr
+                , cellSpecStr
+            );
+            logger.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            logger.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return retval;
     }
