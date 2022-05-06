@@ -10,15 +10,15 @@ import java.util.HashMap;
 @Service
 @RequiredArgsConstructor
 public class ChartDataService {
-    int length;
-    final int[] sucCnt;
-    final float[] prob;
+    // int length;
+    // final int[] sucCnt;
+    // final float[] prob;
 
-    ChartDataService(int length, int[] sucCnt, float[] prob) {
-        this.length = length;
-        this.sucCnt = sucCnt.clone();
-        this.prob = prob.clone();
-    }
+    // ChartDataService(int length, int[] sucCnt, float[] prob) {
+    //     this.length = length;
+    //     this.sucCnt = sucCnt.clone();
+    //     this.prob = prob.clone();
+    // }
 
     public HashMap<Integer, Double> barData() {   // 계산된 데이터 중 자연어로 표현할 데이터 선택
         HashMap<Integer, Double> dataMap = new HashMap<Integer, Double>();

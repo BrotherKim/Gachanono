@@ -1,6 +1,9 @@
 import requests, bs4
 import pandas as pd
 
+def Call(func, args):
+  return func(*args)
+
 def Craw(URLs, tableSpecStr, lineSpecStr, cellSpecStr):
   for URL in URLs:
     response = requests.get(URL).text.encode('utf-8')
