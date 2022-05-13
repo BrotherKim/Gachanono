@@ -19,36 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/chart")
 public class ChartPageController {
 
-    @Autowired
-    private BoardService boardService;
-
     /**
-     * 게시글 리스트 페이지
+     * chpater3
      */
-    @GetMapping("/list")
-    public String openBoardList(Model model) {
-        List<BoardResponseDto> boards = boardService.findAllByDeleteYn('N');
-        model.addAttribute("boards", boards);
-        model.addAttribute("nowDate", LocalDateTime.now());
-        return "board/list";
-    }
-
-    /**
-     * 게시글 등록 페이지
-     */
-    @GetMapping("/write")
-    public String openBoardWrite(@RequestParam(required = false) final Long id, Model model) {
-        model.addAttribute("id", id);
-        return "board/write";
-    }
-
-    /**
-     * 게시글 상세 페이지
-     */
-    @GetMapping("/view/{id}")
-    public String openBoardView(@PathVariable final Long id, Model model) {
-        model.addAttribute("id", id);
-        return "board/view";
+    @GetMapping("/chapter3")
+    public String chapter3(Model model) {
+        return "chart/chapter3";
     }
 
 }
