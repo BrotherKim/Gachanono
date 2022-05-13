@@ -43,9 +43,8 @@ output:
 """
 
 from math import factorial
-
 def bin_dist(n, k, p):
-    # 확률이 p일 때, n회 시행에서 k번 일어날 확률
+    # 확률이 p일 때, n회 dsfadsfadsf시행에서 k번 일어날 확률
     nCk = factorial(n) / (factorial(k) * factorial(n - k))
     pd = nCk * (p**k) * ((1-p)**(n-k))
     return pd

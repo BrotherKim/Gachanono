@@ -39,5 +39,6 @@ out/
 ### jython ###
 .jython_cache
 .pyc
+__pycache__
 
 application.properties
