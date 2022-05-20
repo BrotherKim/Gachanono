@@ -22,6 +22,16 @@ public class ProbController {
     @Autowired
     private HttpSession httpSession;
 
+    @GetMapping("/gacha") 
+    public String gacha(Model model) {
+        // Vue 예제 페이지로 이동
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        
+        logger.info("user[{}]", user.toString());
+
+        return "/prob/gacha"; 
+    } 
+
     @GetMapping("/calculation") 
     public String calculation(Model model) {
         // Vue 예제 페이지로 이동
