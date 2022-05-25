@@ -19,20 +19,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/chart")
 public class ChartPageController {
 
-    /**
-     * chpater1
-     */
-    @GetMapping("/chapter1")
-    public String chapter1(Model model) {
-        return "chart/chapter1";
-    }
-
-    /**
-     * chpater3
-     */
-    @GetMapping("/chapter3")
-    public String chapter3(Model model) {
-        return "chart/chapter3";
-    }
 
 }
