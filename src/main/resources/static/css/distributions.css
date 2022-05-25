@@ -1,81 +1,68 @@
-
 body {
-    background-color: #FEF9D4;
-    
+  /*background-color: #FEF9D4;*/
 }
 
 .header {
-    background-color: #FEF9D4;
-    background: -webkit-linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));
-    /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));
-    /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));
-    /* For Firefox 3.6 to 15 */
-    background: linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));
-    /* Standard syntax */
+  /*background-color: #FEF9D4;
+    background: -webkit-linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));*/
+  /* For Safari 5.1 to 6.0 */
+  /*background: -o-linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));*/
+  /* For Opera 11.1 to 12.0 */
+  /*background: -moz-linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));*/
+  /* For Firefox 3.6 to 15 */
+  /*background: linear-gradient(rgba(254,249,212, 1), rgba(254,249,212, 1), rgba(254,249,212, 0));*/
+  /* Standard syntax */
 }
 
 .col-left {
-
-    background-color: #FEF9D4;
+  /*background-color: #fef9d4;*/
 }
 
 .action-buttons ul a li:hover {
-    color: #F5D800;
+  color: #f5d800;
 }
 
 #next-chapter-color:hover {
-    background-color: #FF9B41;
+  background-color: #ff9b41;
 }
-
 
 .action-buttons ul {
-
-    border-top: 1px solid rgba(245,216,0, 0.8);
+  border-top: 1px solid rgba(245, 216, 0, 0.8);
 }
 
-input[type=range].blueSlider::-webkit-slider-thumb {
-
- /* border: 0.5px solid #F5D800;*/
-  background: #F5D800;
- /* box-shadow: 0px 0px 5px #F5D800;*/
-
+input[type="range"].blueSlider::-webkit-slider-thumb {
+  /* border: 0.5px solid #F5D800;*/
+  background: #f5d800;
+  /* box-shadow: 0px 0px 5px #F5D800;*/
 }
 
-input[type=range].greenSlider::-webkit-slider-thumb {
-
- /* border: 0.5px solid #F5D800;*/
-  background: #FF8B22;
- /* box-shadow: 0px 0px 5px #F5D800;*/
-
+input[type="range"].greenSlider::-webkit-slider-thumb {
+  /* border: 0.5px solid #F5D800;*/
+  background: #ff8b22;
+  /* box-shadow: 0px 0px 5px #F5D800;*/
 }
-
-
 
 @media screen and (min-width: 750px) {
-    #pd {
-        display: block;
-    }
+  #pd {
+    display: block;
+  }
 
-    #cp,
-    #ra,
-    #bp,
-    #fi,
-    #bi {
-        display: none;
-    }
+  #cp,
+  #ra,
+  #bp,
+  #fi,
+  #bi {
+    display: none;
+  }
 }
 
 .progress-bar-color {
-    background-color: #F5D800;
+  background-color: #f5d800;
 }
 
-
-.radio-inline .checkmark:after{
-  background: #F5D800;
+.radio-inline .checkmark:after {
+  background: #f5d800;
 }
-
 
 /*Random Variable*/
 .hexagon {
@@ -101,7 +88,7 @@ input[type=range].greenSlider::-webkit-slider-thumb {
 .mesh {
   fill: none;
   stroke: #000;
-  stroke-opacity: .2;
+  stroke-opacity: 0.2;
   pointer-events: none;
 }
 
@@ -116,7 +103,6 @@ input[type=range].greenSlider::-webkit-slider-thumb {
   cursor: pointer;
 }
 
-
 /*Discrete and Continuous*/
 
 svg g image {
@@ -124,11 +110,9 @@ svg g image {
   cursor: pointer;
 }
 
-
 svg g image:hover {
   opacity: 1;
 }
-
 
 /*graph table*/
 /*.click { background-color: rgba(255,155,60,0.6); }
@@ -147,75 +131,74 @@ svg g image:hover {
   align-items: center;
   text-align: left;
   margin: 0 auto;
-
 }
 label {
   padding-right: 10px;
-  font-weight: normal; 
+  font-weight: normal;
 }
 .slider.slider-horizontal {
   width: 140px;
   margin-right: 10px;
+  background: rgba(245, 216, 0, 0.8);
 }
 
-#graph{
-	height: 500px;
+#graph {
+  height: 500px;
 }
 
 .axis path,
 .axis line {
-	fill: none;
-	stroke: black;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
 }
 
 .axis text {
-	font-family: "Helvetica Neue";
-	font-size: 11px;
-	fill: black;
+  font-family: "Helvetica Neue";
+  font-size: 11px;
+  fill: black;
 }
 
-.distribution{
-	display: none;
+.distribution {
+  display: none;
 }
 
-#shift{
-	cursor: move;
+#shift {
+  cursor: move;
 }
 
 #pdf {
-	fill: none;
-	stroke:	#F5D800;
+  fill: none;
+  stroke: #f5d800;
   stroke-width: 5;
 }
 #cdf {
-	fill: none;
-	stroke:	#FF8B22;
+  fill: none;
+  stroke: #ff8b22;
   stroke-width: 5;
 }
 
 #pdfArea {
-	fill: #F5D800;
-	opacity: 0.5;
+  fill: #f5d800;
+  opacity: 0.5;
 }
 
 .ticks {
   display: none;
 }
 .handle {
-  fill: #FF8B22;
+  fill: #ff8b22;
 }
-
 
 /*Central Limit Theorem*/
 
 circle {
-  fill: #F5D800;
+  fill: #f5d800;
 }
 
 .bar rect {
-  fill: #FF8B22;
+  fill: #ff8b22;
   fill-opacity: 0.5;
 }
 
@@ -223,39 +206,29 @@ circle {
   fill: black;
 }
 
-
 .normal {
-	fill: #FF8B22;
+  fill: #ff8b22;
 }
 
 #dt {
   width: 150px;
 }
 
-#rvNewMap{
+#rvNewMap {
   height: 100%;
 }
 
-
 @media screen and (max-width: 680px) {
-
-
-  .slider-align{
+  .slider-align {
     text-align: left;
   }
-  label.form-check{
-  /*  font-size: 12px;*/
-
+  label.form-check {
+    /*  font-size: 12px;*/
   }
-
-
-
 }
 
 @media screen and (min-width: 680px) {
-
-
-  .slider-align{
+  .slider-align {
     text-align: center;
   }
 }
