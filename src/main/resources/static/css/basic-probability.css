@@ -274,7 +274,6 @@ input[type="checkbox"]:checked + label {
 
   .button-1 {
     width: 6.5em;
-    font-size: 10px;
     padding: 0.8em;
     text-align: center;
   }

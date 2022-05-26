@@ -9,7 +9,7 @@ $(window).load(function () {
 
 function clt() {
   // define width, height, margin
-  var margin = { top: 15, right: 5, bottom: 15, left: 5 };
+  var margin = { top: 50, right: 5, bottom: 15, left: 5 };
   var width = 800; //parseInt(d3.select("#graph").style("width")) - margin.left - margin.right,
   height = 500;
   // create svg
@@ -31,16 +31,15 @@ function clt() {
 
   // constants
   var dt = 100,
-    n = 1,
     draws = 1,
-    alpha = 1,
-    beta = 1,
     y1 = height / 3,
     y2 = height / 4,
     bins = 10, // # of items
     counts = [],
-    interval_clt;
+    interval_clt,
+    total_cnt = 0; // 누적횟수
 
+  // json 파일 받아오기
   var data_json = [
     { name: "a", prob: 0.15 },
     { name: "b", prob: 0.05 },
@@ -54,10 +53,12 @@ function clt() {
     { name: "j", prob: 0.05 },
   ];
 
+  //jason 파일 preprocessing
   var data_prep = [
-    0, 0, 0, 0.1, 0.2, 0.2, 0.2, 0.3, 0.4, 0, 4, 0.4, 0.5, 0.6, 0.6, 0.6, 0.7,
+    0, 0, 0, 0.1, 0.2, 0.2, 0.2, 0.3, 0.4, 0.4, 0.4, 0.5, 0.6, 0.6, 0.6, 0.7,
     0.8, 0.8, 0.8, 0.9,
   ];
+  var cost = 1;
 
   // scales
   var x_scale_clt = d3.scale.linear().domain([0, 1]).range([0, width]);
@@ -100,16 +101,6 @@ function clt() {
   svg_clt.call(draw_bar, y1, "draw");
   svg_clt.call(draw_bar, 3 * y1, "count");
 
-  // path and area elements
-  var sampling_path = svg_clt.append("path").attr("id", "pdf"),
-    sampling_area = svg_clt.append("path").attr("id", "pdfArea"),
-    theoretical_path = svg_clt
-      .append("path")
-      .attr("id", "cdf")
-      .attr("opacity", 0)
-      .attr("clip-path", "url(#view_clt)")
-      .moveToBack();
-
   var probability = d3.layout
     .histogram()
     .bins(x_scale_clt.ticks(bins))
@@ -118,7 +109,8 @@ function clt() {
 
   function draw_probability() {
     var data = probability(data_prep);
-    console.log(data);
+    //console.log(data_prep);
+    //console.log(data);
     var ymax = d3.max(
       data.map(function (d) {
         return d.y;
@@ -127,7 +119,7 @@ function clt() {
     y_scale_clt.domain([0, ymax * bins]);
     // enter bars
     var bar = p.selectAll("g").data(data);
-    var barEnter = bar.enter().append("g").attr("class", "bar");
+    var barEnter = bar.enter().append("g").attr("class", "prob");
     barEnter.append("rect");
     barEnter
       .append("text")
@@ -167,18 +159,21 @@ function clt() {
     .frequency(false);
   var bars = svg_clt.append("g").attr("class", "histogram");
 
+  var data_histo = [[]];
   function draw_histogram() {
     // get histrogram of counts
-    var data = histogram(counts);
+    data_histo = histogram(counts);
+
+    console.log(data_histo);
     // update scale
     var ymax = d3.max(
-      data.map(function (d) {
+      data_histo.map(function (d) {
         return d.y;
       })
     );
     y_scale_clt.domain([0, ymax * bins]);
     // enter bars
-    var bar = bars.selectAll("g").data(data);
+    var bar = bars.selectAll("g").data(data_histo);
     var barEnter = bar.enter().append("g").attr("class", "bar");
     barEnter.append("rect");
     barEnter
@@ -191,7 +186,7 @@ function clt() {
       .attr("x", function (d) {
         return x_scale_clt(d.x) + 1;
       })
-      .attr("width", x_scale_clt(data[0].dx) - 1)
+      .attr("width", x_scale_clt(data_histo[0].dx) - 1)
       .transition()
       .duration(250)
       .attr("y", function (d) {
@@ -270,49 +265,66 @@ function clt() {
       });
   }
 
+  function check_pop() {
+    for (var i = 0; i < bins; i++) {
+      if (JSON.stringify(data_histo[i]) == JSON.stringify([])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  var flag = true;
+
   // initiate sampling
   function start_sampling() {
-    dt = 350 / Math.pow(1.04, draws);
+    //dt = 350 / Math.pow(1.04, draws);
     var count = 0;
+
     interval_clt = setInterval(function () {
       tick();
+
       if (++count === draws) {
+        total_cnt += draws;
         clearInterval(interval_clt);
+      }
+
+      if (flag && check_pop()) {
+        flag = false;
+
+        total_cnt += count;
+        console.log(total_cnt);
+
+        var total_cost = total_cnt * cost;
+
+        // 여기에 창띄우기
+        toastr.options = {
+          closeButton: true,
+          debug: false,
+          newestOnTop: false,
+          progressBar: false,
+          positionClass: "toast-bottom-right",
+          preventDuplicates: false,
+          onclick: null,
+          showDuration: "500",
+          hideDuration: "1000",
+          timeOut: "5000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+        };
+        toastr["success"](
+          " 모든 아이템이 뽑힐 때 까지<br> 시도횟수 " +
+            String(total_cnt) +
+            "회,<br> 총 금액 " +
+            String(total_cost) +
+            "원<br> 소비되었습니다."
+        );
       }
     }, dt);
   }
-
-  // reset and clear CLT
-  function reset_clt() {
-    clearInterval(interval_clt);
-    counts = [];
-    d3.timer.flush();
-    svg_clt.selectAll("circle").remove();
-    svg_clt.selectAll(".bar").remove();
-    y_scale_clt.domain([0, 3]);
-    draw_probability();
-  }
-
-  // update alpha
-  $("#alpha_clt").on("input", function (e) {
-    alpha = parseFloat($(this).val());
-    d3.select("#alpha_clt-value").text(round(alpha, 2));
-    reset_clt();
-  });
-
-  // update beta
-  $("#beta_clt").on("input", function (e) {
-    beta = parseFloat($(this).val());
-    d3.select("#beta_clt-value").text(round(beta, 2));
-    reset_clt();
-  });
-
-  // update sample size
-  d3.select("#sample").on("input", function () {
-    n = +this.value;
-    d3.select("#sample-value").text(n);
-    reset_clt();
-  });
 
   // update number of draws
   d3.select("#draws").on("input", function () {
