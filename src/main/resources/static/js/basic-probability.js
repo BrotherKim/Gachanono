@@ -33,7 +33,7 @@ function cumsum(array) {
 //*******************************************************************************//
 function chance() {
   //Constants
-  var probTheo = [0.5, 0.5];
+  var probTheo = [0.5, 0.5]; // 가져오기
   var countCoin = [0, 0];
   var coinData = [
     {
@@ -51,6 +51,10 @@ function chance() {
       state: "True probabilities",
     },
   ];
+  var total_cnt = 0,
+    cost = 1,
+    interval,
+    draws = 1;
 
   var margin = { top: 15, right: 5, bottom: 15, left: 5 };
   var width = 800; //parseInt(d3.select("#graph").style("width")) - margin.left - margin.right,
@@ -192,16 +196,6 @@ function chance() {
     $("#barCoin").parent().on("mouseup", tipCoinTheo.hide);
   }
 
-  function reset_clt() {
-    clearInterval(interval_clt);
-    counts = [];
-    d3.timer.flush();
-    svg_clt.selectAll("circle").remove();
-    svg_clt.selectAll(".bar").remove();
-    y_scale_clt.domain([0, 3]);
-    draw_sampling();
-  }
-
   function update() {
     var num = Math.random();
     if (num < probTheo[0]) {
@@ -212,23 +206,67 @@ function chance() {
     updateCoin(100);
   }
 
-  // new
-  d3.select("#try").on("input", function () {
-    var n = this.value;
-    d3.select("#try-value").text(n);
-    reset_clt();
-  });
+  function check_pop() {
+    if (countCoin[0] > 0) return true;
+    else return false;
+  }
 
-  // new
-  $("#form_chance").click(function () {
-    var try_num = $("#try").val();
+  var flag = true;
+
+  function start_sampling() {
     var cnt = 0;
-    var interval = setInterval(function () {
+
+    interval = setInterval(function () {
       update();
-      if (++cnt == try_num) {
+      cnt++;
+      total_cnt++;
+
+      if (flag && check_pop()) {
+        flag = false;
+
+        var total_cost = total_cnt * cost;
+
+        // 여기에 창띄우기
+        toastr.options = {
+          closeButton: true,
+          debug: false,
+          newestOnTop: false,
+          progressBar: false,
+          positionClass: "toast-bottom-right",
+          preventDuplicates: false,
+          onclick: null,
+          showDuration: "500",
+          hideDuration: "1000",
+          timeOut: "5000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+        };
+        toastr["success"](
+          " 아이템이 뽑힐 때 까지<br> 시도횟수 " +
+            String(total_cnt) +
+            "회,<br> 총 금액 " +
+            String(total_cost) +
+            "원<br> 소비되었습니다."
+        );
+      }
+
+      if (cnt == draws) {
         clearInterval(interval);
       }
-    }, 30); // 그래프 바뀌는 속도 수정
+    }, 40);
+  }
+
+  d3.select("#try").on("input", function () {
+    draws = this.value;
+    d3.select("#try-value").text(draws);
+  });
+
+  $("#form_chance").click(function () {
+    clearInterval(interval);
+    start_sampling();
   });
 
   //Update SVG based on width of container

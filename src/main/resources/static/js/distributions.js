@@ -37,7 +37,8 @@ function clt() {
     bins = 10, // # of items
     counts = [],
     interval_clt,
-    total_cnt = 0; // 누적횟수
+    total_cnt = 0, // 누적횟수
+    cost = 1;
 
   // json 파일 받아오기
   var data_json = [
@@ -58,7 +59,6 @@ function clt() {
     0, 0, 0, 0.1, 0.2, 0.2, 0.2, 0.3, 0.4, 0.4, 0.4, 0.5, 0.6, 0.6, 0.6, 0.7,
     0.8, 0.8, 0.8, 0.9,
   ];
-  var cost = 1;
 
   // scales
   var x_scale_clt = d3.scale.linear().domain([0, 1]).range([0, width]);
@@ -283,17 +283,11 @@ function clt() {
 
     interval_clt = setInterval(function () {
       tick();
-
-      if (++count === draws) {
-        total_cnt += draws;
-        clearInterval(interval_clt);
-      }
+      count++;
+      total_cnt++;
 
       if (flag && check_pop()) {
         flag = false;
-
-        total_cnt += count;
-        console.log(total_cnt);
 
         var total_cost = total_cnt * cost;
 
@@ -322,6 +316,10 @@ function clt() {
             String(total_cost) +
             "원<br> 소비되었습니다."
         );
+      }
+
+      if (count === draws) {
+        clearInterval(interval_clt);
       }
     }, dt);
   }
