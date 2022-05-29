@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.config;
+package com.kaist.gachanono.gachanonoserver.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Configuration
+//@Configuration
 public class ThymeleafViewResolverConfig { 
     
     private Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -47,10 +47,10 @@ public class LoginController {
         return "login"; 
     }
 
-    @GetMapping("/logout") 
-    public String logout(Model model) throws Exception {
-        model.addAttribute("user", null);
-        return "logout"; 
-    }
+    // @GetMapping("/logout") 
+    // public String logout(Model model) throws Exception {
+    //     model.addAttribute("user", null);
+    //     return "logout"; 
+    // }
 
 }

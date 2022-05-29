@@ -2,8 +2,6 @@ package com.kaist.gachanono.gachanonoserver.controller;
 
 import javax.servlet.http.HttpSession;
 
-import com.kaist.gachanono.gachanonoserver.config.auth.SessionUser;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,8 @@ public class ProbController {
     @GetMapping("/gacha") 
     public String gacha(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        
-        logger.info("user[{}]", user.toString());
+
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/gacha"; 
     } 
@@ -35,9 +32,9 @@ public class ProbController {
     @GetMapping("/calculation") 
     public String calculation(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
         
-        logger.info("user[{}]", user.toString());
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/calculation"; 
     } 
@@ -45,9 +42,9 @@ public class ProbController {
     @GetMapping("/report") 
     public String report(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
         
-        logger.info("user[{}]", user.toString());
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/report"; 
     } 
@@ -55,9 +52,9 @@ public class ProbController {
     @GetMapping("/simulation")
     public String simulation(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
         
-        logger.info("user[{}]", user.toString());
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/simulation";
     } 
@@ -65,9 +62,9 @@ public class ProbController {
     @GetMapping("/simulation2")
     public String simulation2(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
         
-        logger.info("user[{}]", user.toString());
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/simulation2";
     } 
@@ -75,9 +72,9 @@ public class ProbController {
     @GetMapping("/sheetlucky")
     public String sheetlucky(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
         
-        logger.info("user[{}]", user.toString());
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/sheetlucky";
     } 
@@ -85,9 +82,9 @@ public class ProbController {
     @GetMapping("/sheetjsce")
     public String sheetjsce(Model model) {
         // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
         
-        logger.info("user[{}]", user.toString());
+        // logger.info("user[{}]", user.toString());
 
         return "/prob/sheetjsce";
     } 
