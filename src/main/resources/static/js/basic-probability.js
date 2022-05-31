@@ -148,6 +148,7 @@ function chance() {
         round(d.value, 2) + " = " + round(d.value * total, 0) + "/" + total
       );
     });
+    
     tipCoinTheo.html(function (d, i) {
       return round(d.value, 2);
     });
@@ -235,7 +236,7 @@ function chance() {
           positionClass: "toast-bottom-right",
           preventDuplicates: false,
           onclick: null,
-          showDuration: "500",
+          showDuration: "2000",
           hideDuration: "1000",
           timeOut: "5000",
           extendedTimeOut: "1000",
