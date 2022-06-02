@@ -34,6 +34,7 @@
                                     <thead id="thead">
                                         <tr>
                                             <th>번호</th>
+                                            <th>게임명</th>
                                             <th class="col-md-6 text-center">제목</th>
                                             <th>작성자</th>
                                             <th>작성일</th>
@@ -45,6 +46,7 @@
                                         {{#posts}}
                                             <tr>
                                                 <td>{{id}}</td>
+                                                <td>{{gamename}}</td>
                                                 <td>
                                                     <a href="/posts/read/{{id}}">{{title}}</a>
                                                 </td>

@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.config;
+package com.kaist.gachanono.gachanonoserver.config.dev;
 
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;

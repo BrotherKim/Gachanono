@@ -1,19 +1,29 @@
 {{>layout/header}}
 <div id="posts_list">
-    <div class="container col-md-8">
-            <form>
-                <div class="form-group">
+    <div class="col-md-12">
+            <form class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <label for="writer">작성자 : {{user.nickname}}</label>
+                    <input type="hidden" class="form-control" id="writer" value="{{user.nickname}}">
+                </div>
+                <div class="card-body">
+                    <select class="form-control" id="game">
+                        {{#games}}
+                        <option value="{{id}}">{{gamename}}</option>
+                        {{/games}}
+                    </select>
+                </div>
+                <div class="card-body">
                     <label for="title">제목</label>
                     <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
                 </div>
-                <input type="hidden" class="form-control" id="writer" value="{{user.nickname}}">
-                <div class="form-group">
+                <div class="card-body">
                     <label for="content">내용</label>
                     <textarea rows="10" class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
                 </div>
             </form>
             <button type="button" id="btn-save" class="btn btn-primary bi bi-pencil-fill"> 작성</button>
-            <a href="/" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
+            <a href="/board/free" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
     </div>
 </div>
 {{>layout/footer}}

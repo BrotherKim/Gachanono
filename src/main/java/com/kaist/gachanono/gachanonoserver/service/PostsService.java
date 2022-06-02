@@ -26,6 +26,7 @@ public class PostsService {
     @Transactional
     public Long save(PostsDto.Request dto, String nickname) {
         /* User 정보를 가져와 dto에 담아준다. */
+        log.info("dto[{}], nickname[{}]", dto.toString(), nickname);
         User user = userRepository.findByNickname(nickname);
         dto.setUser(user);
         log.info("PostsService save() 실행");

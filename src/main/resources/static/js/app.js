@@ -38,8 +38,11 @@ const main = {
         const data = {
             title: $('#title').val(),
             writer: $('#writer').val(),
-            content: $('#content').val()
+            content: $('#content').val(),
+            game_id: $('#game option:selected').val(),
+            gamename: $('#game option:selected').text(),
         };
+        console.log(data);
         // 공백 및 빈 문자열 체크
         if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
             alert("공백 또는 입력하지 않은 부분이 있습니다.");
@@ -53,7 +56,7 @@ const main = {
                 data: JSON.stringify(data)
             }).done(function () {
                 alert('등록되었습니다.');
-                window.location.href = '/';
+                window.location.href = '/board/free';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });

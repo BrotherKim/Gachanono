@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.presentation;
+package com.kaist.gachanono.gachanonoserver.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

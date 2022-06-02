@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.config;
+package com.kaist.gachanono.gachanonoserver.config.db;
 
 import javax.sql.DataSource;
 

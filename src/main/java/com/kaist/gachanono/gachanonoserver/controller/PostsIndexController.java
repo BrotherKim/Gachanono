@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.presentation;
+package com.kaist.gachanono.gachanonoserver.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +15,12 @@ import java.util.List;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
 import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.dto.CommentDto;
+import com.kaist.gachanono.gachanonoserver.dto.GameDto;
 import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
+import com.kaist.gachanono.gachanonoserver.service.GameService;
 import com.kaist.gachanono.gachanonoserver.service.PostsService;
 
 /**
@@ -29,6 +32,7 @@ import com.kaist.gachanono.gachanonoserver.service.PostsService;
 public class PostsIndexController {
 
     private final PostsService postsService;
+    private final GameService gameService;
 
     /* default page = 0, size = 10  */
     @GetMapping("/board/free")                 
@@ -57,18 +61,15 @@ public class PostsIndexController {
         if (user != null) {
             model.addAttribute("user", user);
         }
-
-        model.addAttribute("posts", list);
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-        model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("hasNext", list.hasNext());
-        model.addAttribute("hasPrev", list.hasPrevious());
-
-        return "index";
+        
+        return "prob/gacha";
     }
     /* 글 작성 */
     @GetMapping("/posts/write")
     public String write(@LoginUser UserDto.Response user, Model model) {
+        List<Game> games = gameService.gameList();
+        model.addAttribute("games", games);
+
         if (user != null) {
             model.addAttribute("user", user);
         }

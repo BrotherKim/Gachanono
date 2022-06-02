@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 
 /**
@@ -26,6 +27,8 @@ public class PostsDto {
         private String createdDate, modifiedDate;
         private int view;
         private User user;
+        private String gamename;
+        private Long game_id;
 
         /* Dto -> Entity */
         public Posts toEntity() {
@@ -36,6 +39,8 @@ public class PostsDto {
                     .content(content)
                     .view(0)
                     .user(user)
+                    .gamename(gamename)
+                    .game_id(game_id)
                     .build();
 
             return posts;
@@ -54,6 +59,7 @@ public class PostsDto {
         private String writer;
         private String content;
         private String createdDate, modifiedDate;
+        private String gamename;
         private int view;
         private Long userId;
         private List<CommentDto.Response> comments;
@@ -66,6 +72,7 @@ public class PostsDto {
             this.content = posts.getContent();
             this.createdDate = posts.getCreatedDate();
             this.modifiedDate = posts.getModifiedDate();
+            this.gamename = posts.getGamename();
             this.view = posts.getView();
             this.userId = posts.getUser().getId();
             this.comments = posts.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());
