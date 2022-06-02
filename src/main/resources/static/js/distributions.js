@@ -1,6 +1,20 @@
 //Handles functionality of Distributions
+/*var data_prep = [];
+var bins = 0;
+*/
 $(window).load(function () {
   clt();
+  /*$.ajax({
+    url: "",
+    dataType: "json",
+    success: function (data) {
+      $.each(data, function () {
+        for (var i = 0; i < this.prob * 10000; i++) {
+          data_prep.append();
+        }
+      });
+    },
+  });*/
 });
 
 //*******************************************************************************//
@@ -34,15 +48,41 @@ function clt() {
     draws = 1,
     y1 = height / 3,
     y2 = height / 4,
-    bins = 10, // # of items
+    bins = 100, // # of items
     counts = [],
     interval_clt,
     total_cnt = 0, // 누적횟수
     cost = 1;
 
-  // json 파일 받아오기
+  // json 파일 받아오기 (ajax)
   var data_json = [
-    { name: "a", prob: 0.15 },
+    /*{ name: "a", prob: 0.04 },
+    { name: "b", prob: 0.04 },
+    { name: "c", prob: 0.04 },
+    { name: "d", prob: 0.04 },
+    { name: "e", prob: 0.04 },
+    { name: "f", prob: 0.04 },
+    { name: "g", prob: 0.04 },
+    { name: "h", prob: 0.04 },
+    { name: "i", prob: 0.04 },
+    { name: "j", prob: 0.04 },
+    { name: "k", prob: 0.04 },
+    { name: "l", prob: 0.04 },
+    { name: "m", prob: 0.04 },
+    { name: "n", prob: 0.04 },
+    { name: "o", prob: 0.04 },
+    { name: "p", prob: 0.04 },
+    { name: "q", prob: 0.04 },
+    { name: "r", prob: 0.04 },
+    { name: "s", prob: 0.04 },
+    { name: "t", prob: 0.04 },
+    { name: "u", prob: 0.04 },
+    { name: "v", prob: 0.04 },
+    { name: "w", prob: 0.04 },
+    { name: "x", prob: 0.04 },
+    { name: "y", prob: 0.04 },*/ // bins=25
+
+    /*{ name: "a", prob: 0.15 },
     { name: "b", prob: 0.05 },
     { name: "c", prob: 0.15 },
     { name: "d", prob: 0.05 },
@@ -51,14 +91,118 @@ function clt() {
     { name: "g", prob: 0.15 },
     { name: "h", prob: 0.05 },
     { name: "i", prob: 0.15 },
-    { name: "j", prob: 0.05 },
+    { name: "j", prob: 0.05 },*/ // bins=10
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 },
+    { name: "a", prob: 0.015 },
+    { name: "b", prob: 0.005 },
+    { name: "c", prob: 0.015 },
+    { name: "d", prob: 0.005 },
+    { name: "e", prob: 0.015 },
+    { name: "f", prob: 0.005 },
+    { name: "g", prob: 0.015 },
+    { name: "h", prob: 0.005 },
+    { name: "i", prob: 0.015 },
+    { name: "j", prob: 0.005 }, //bins=100
   ];
 
-  //jason 파일 preprocessing
-  var data_prep = [
-    0, 0, 0, 0.1, 0.2, 0.2, 0.2, 0.3, 0.4, 0.4, 0.4, 0.5, 0.6, 0.6, 0.6, 0.7,
-    0.8, 0.8, 0.8, 0.9,
-  ];
+  data_prep = [];
+  function test() {
+    for (var i = 0; i < data_json.length; i++) {
+      for (var j = 0; j < data_json[i].prob * 10000; j++) {
+        data_prep.push(i / bins);
+      }
+    }
+  }
+  test();
 
   // scales
   var x_scale_clt = d3.scale.linear().domain([0, 1]).range([0, width]);
@@ -68,15 +212,14 @@ function clt() {
     .range([0, height - 2 * y1]);
   var z_scale_clt = d3.scale.linear().domain([0, 3]).range([0, y1]);
 
-  // clip path
-  var clip_clt = svg_clt
-    .append("clipPath")
-    .attr("id", "view_clt")
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", height - (2 * y1 - y2))
-    .attr("width", width)
-    .attr("height", 2 * y1 - y2);
+  var ticks_array = [];
+  function custom_ticks() {
+    for (var i = 0; i < bins; i++) {
+      ticks_array.push(i / bins);
+    }
+    ticks_array.push(1);
+  }
+  custom_ticks();
 
   // draw horizontal bar
   function draw_bar(selection, dy, label) {
@@ -97,28 +240,49 @@ function clt() {
       .attr("dy", "1em")
       .text(label);
   }
-  // create three bars
+
+  var tipProb = d3
+    .tip()
+    .attr("id", "tipProb")
+    .attr("class", "d3-tip")
+    .offset([-10, 0]);
+
+  var tipHisto = d3
+    .tip()
+    .attr("id", "tipHisto")
+    .attr("class", "d3-tip")
+    .offset([-10, 0]);
+
+  tipProb.html(function (d) {
+    return d.y > 0 ? d3.format(".2%")(d.y) : "";
+  });
+
+  tipHisto.html(function (d) {
+    return d.y > 0 ? d3.format(".2%")(d.y) : "";
+  });
+
+  // create two bars
   svg_clt.call(draw_bar, y1, "draw");
   svg_clt.call(draw_bar, 3 * y1, "count");
+  svg_clt.call(tipProb);
+  svg_clt.call(tipHisto);
 
-  var probability = d3.layout
-    .histogram()
-    .bins(x_scale_clt.ticks(bins))
-    .frequency(false);
+  var probability = d3.layout.histogram().bins(ticks_array).frequency(false);
   var p = svg_clt.append("g").attr("class", "histogram");
 
   function draw_probability() {
     var data = probability(data_prep);
-    //console.log(data_prep);
-    //console.log(data);
+    console.log(data);
     var ymax = d3.max(
       data.map(function (d) {
         return d.y;
       })
     );
     y_scale_clt.domain([0, ymax * bins]);
+
     // enter bars
     var bar = p.selectAll("g").data(data);
+
     var barEnter = bar.enter().append("g").attr("class", "prob");
     barEnter.append("rect");
     barEnter
@@ -140,23 +304,31 @@ function clt() {
       .attr("height", function (d) {
         return y_scale_clt(d.y * bins);
       });
-    bar
-      .select("text")
-      .attr("x", function (d) {
-        return x_scale_clt(d.x + 1 / (2 * bins));
-      })
-      .text(function (d) {
-        return d.y > 0 ? d3.format("%")(d.y) : "";
+
+    if (bins <= 25) {
+      bar
+        .select("text")
+        .attr("x", function (d) {
+          return x_scale_clt(d.x + 1 / (2 * bins));
+        })
+        .text(function (d) {
+          return d.y > 0 ? d3.format("%")(d.y) : "";
+        });
+    } else {
+      bar.each(function () {
+        d3.select(this)
+          .on("mouseover", tipProb.show)
+          .on("mouseout", tipProb.hide);
       });
+    }
+
     // exit bars
     bar.exit().remove();
   }
 
   // create histogram
-  var histogram = d3.layout
-    .histogram()
-    .bins(x_scale_clt.ticks(bins))
-    .frequency(false);
+  var histogram = d3.layout.histogram().bins(ticks_array).frequency(false);
+
   var bars = svg_clt.append("g").attr("class", "histogram");
 
   var data_histo = [[]];
@@ -172,8 +344,10 @@ function clt() {
       })
     );
     y_scale_clt.domain([0, ymax * bins]);
+
     // enter bars
     var bar = bars.selectAll("g").data(data_histo);
+
     var barEnter = bar.enter().append("g").attr("class", "bar");
     barEnter.append("rect");
     barEnter
@@ -195,14 +369,24 @@ function clt() {
       .attr("height", function (d) {
         return y_scale_clt(d.y * bins);
       });
-    bar
-      .select("text")
-      .attr("x", function (d) {
-        return x_scale_clt(d.x + 1 / (2 * bins));
-      })
-      .text(function (d) {
-        return d.y > 0 ? d3.format("%")(d.y) : "";
+
+    if (bins <= 25) {
+      bar
+        .select("text")
+        .attr("x", function (d) {
+          return x_scale_clt(d.x + 1 / (2 * bins));
+        })
+        .text(function (d) {
+          return d.y > 0 ? d3.format("%")(d.y) : "";
+        });
+    } else {
+      bar.each(function (d) {
+        d3.select(this)
+          .on("mouseover", tipHisto.show)
+          .on("mouseout", tipHisto.hide);
       });
+    }
+
     // exit bars
     bar.exit().remove();
   }
@@ -271,6 +455,7 @@ function clt() {
         return false;
       }
     }
+    console.log("pop");
     return true;
   }
 
@@ -286,11 +471,21 @@ function clt() {
       count++;
       total_cnt++;
 
+      flag = true;
+
       if (flag && check_pop()) {
         flag = false;
 
         var total_cost = total_cnt * cost;
 
+        document.getElementById("success_test").innerText =
+          " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
+          String(total_cnt) +
+          "회, 총 금액 " +
+          String(total_cost) +
+          "원 소비되었습니다.";
+
+        /*
         // 여기에 창띄우기
         toastr.options = {
           closeButton: true,
@@ -300,7 +495,7 @@ function clt() {
           positionClass: "toast-bottom-right",
           preventDuplicates: false,
           onclick: null,
-          showDuration: "500",
+          showDuration: "2000",
           hideDuration: "1000",
           timeOut: "5000",
           extendedTimeOut: "1000",
@@ -315,10 +510,11 @@ function clt() {
             "회,<br> 총 금액 " +
             String(total_cost) +
             "원<br> 소비되었습니다."
-        );
+        );*/
       }
 
       if (count === draws) {
+        flag = false;
         clearInterval(interval_clt);
       }
     }, dt);
