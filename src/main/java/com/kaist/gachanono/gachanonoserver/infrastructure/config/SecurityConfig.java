@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-     return super.authenticationManagerBean();
+        return super.authenticationManagerBean();
     }
 
     /* 시큐리티가 로그인 과정에서 password를 가로챌때 어떤 해쉬로 암호화 했는지 확인 */
@@ -67,20 +67,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+                    "/",
+                    "/auth/**",
+                    "/posts/read/**",
+                    "/posts/search/**",
                     "/login",
-                        "/error",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/luckysheet/**",
-                        "/",
-                        "/home/**",
-                        "/test/**")
+                    "/error",
+                    "/favicon.ico",
+                    "/**/*.png",
+                    "/**/*.gif",
+                    "/**/*.svg",
+                    "/**/*.jpg",
+                    "/**/*.html",
+                    "/**/*.css",
+                    "/**/*.js",
+                    "/luckysheet/**",
+                    "/home/**",
+                    "/test/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

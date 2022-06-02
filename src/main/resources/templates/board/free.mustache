@@ -9,39 +9,65 @@
         {{>layout/side}}
         <div id="layoutSidenav_content">
             <main>
-                <!-- content -->
-                <div id="posts_list">
-                    <table id="table" class="table table-horizontal">
-                        <thead id="thead">
-                            <tr>
-                                <th>번호</th>
-                                <th class="col-md-6 text-center">제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-                            {{#posts}}
-                            <tr>
-                                <td>{{id}}</td>
-                                <td><a href="/posts/read/{{id}}">{{title}}</a></td>
-                                <td>{{writer}}</td>
-                                <td>{{createdDate}}</td>
-                                <td>{{view}}</td>
-                            </tr>
-                            {{/posts}}
-                            </tbody>
-                        </table>
-                        <div class="text-right">
-                            <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
+                <div class="container-fluid px-4">
+                    <!-- content -->
+                    <h1 class="mt-4">자유게시판</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item">
+                            <a href="/">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Board</li>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            자유게시판 페이지의 매뉴얼 위치입니다.
                         </div>
-                        {{! Page }}
-                        {{>posts/posts-page}}
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fa-solid fa-comment-dots"></i>
+                            자유게시판
+                        </div>
+                        <div class="card-body">
+                            <div id="posts_list">
+                                <table id="table" class="table table-horizontal">
+                                    <thead id="thead">
+                                        <tr>
+                                            <th>번호</th>
+                                            <th class="col-md-6 text-center">제목</th>
+                                            <th>작성자</th>
+                                            <th>작성일</th>
+                                            <th>조회수</th>
+                                            <th>좋아요</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        {{#posts}}
+                                            <tr>
+                                                <td>{{id}}</td>
+                                                <td>
+                                                    <a href="/posts/read/{{id}}">{{title}}</a>
+                                                </td>
+                                                <td>{{writer}}</td>
+                                                <td>{{createdDate}}</td>
+                                                <td>{{view}}</td>
+                                                <td>{{good}}</td>
+                                            </tr>
+                                        {{/posts}}
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill">
+                                        글쓰기</a>
+                                </div>
+                                {{! Page }}
+                                {{>posts/posts-page}}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {{>layout/footer}}
             </main>
+            {{>layout/footer}}
         </div>
     </div>
 </body>

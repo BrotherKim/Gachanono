@@ -30,7 +30,8 @@ public class PostsIndexController {
 
     private final PostsService postsService;
 
-    @GetMapping("/board/free")                 /* default page = 0, size = 10  */
+    /* default page = 0, size = 10  */
+    @GetMapping("/board/free")                 
     public String free(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
             Pageable pageable, @LoginUser UserDto.Response user) {
         Page<Posts> list = postsService.pageList(pageable);
@@ -119,6 +120,41 @@ public class PostsIndexController {
         model.addAttribute("posts", dto);
 
         return "posts/posts-update";
+    }
+
+    @GetMapping("/posts/good/{id}")
+    public String good(@PathVariable Long id, @LoginUser UserDto.Response user, Model model) {
+        PostsDto.Response dto = postsService.findById(id);
+        List<CommentDto.Response> comments = dto.getComments();
+
+
+        /* 댓글 관련 */
+        if (comments != null && !comments.isEmpty()) {
+            model.addAttribute("comments", comments);
+        }
+
+        /* 사용자 관련 */
+        if (user != null) {
+            model.addAttribute("user", user);
+
+            /* 게시글 작성자 본인인지 확인 */
+            if (dto.getUserId().equals(user.getId())) {
+                model.addAttribute("writer", true);
+            }
+
+            /* 댓글 작성자 본인인지 확인 */
+            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
+                model.addAttribute("isWriter", true);
+            }
+/*            for (int i = 0; i < comments.size(); i++) {
+                boolean isWriter = comments.get(i).getUserId().equals(user.getId());
+                model.addAttribute("isWriter",isWriter);
+            }*/
+        }
+
+        postsService.updateGood(id); // views ++
+        model.addAttribute("posts", dto);
+        return "posts/posts-read";
     }
 
     @GetMapping("/posts/search")

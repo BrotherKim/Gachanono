@@ -70,6 +70,12 @@ public class PostsService {
         return postsRepository.updateView(id);
     }
 
+    /* Goods Counting */
+    @Transactional
+    public int updateGood(Long id) {
+        return postsRepository.updateGood(id);
+    }
+
 
     /* Paging and Sort */
     @Transactional(readOnly = true)

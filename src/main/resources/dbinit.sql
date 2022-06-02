@@ -7,6 +7,8 @@ CREATE TABLE `gachanono`.`posts` (
   `created_date` VARCHAR(255) NOT NULL,
   `modified_date` VARCHAR(255) NOT NULL,
   `user_id` BIGINT NOT NULL,
+  `good` BIGINT NOT NULL,
+  `game_id` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `gachanono`.`user` (
@@ -36,3 +38,22 @@ CREATE TABLE `gachanono`.`comments` (
 
 ALTER TABLE comments add FOREIGN KEY(posts_id) REFERENCES posts(id);
 ALTER TABLE comments add FOREIGN KEY(user_id) REFERENCES user(id);
+
+CREATE TABLE `gachanono`.`game` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `gamename` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `gachanono`.`gacha` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `gachaname` VARCHAR(255) NOT NULL,
+  `templatefilename` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `gachanono`.`item` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `itemname` VARCHAR(255) NOT NULL,
+  `game_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE item add FOREIGN KEY(game_id) REFERENCES game(id);

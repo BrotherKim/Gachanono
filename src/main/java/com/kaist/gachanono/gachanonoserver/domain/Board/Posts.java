@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.User.BaseTimeEntity;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 
@@ -35,6 +36,13 @@ public class Posts extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int good;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private Game game;
 
     @OneToMany(mappedBy = "posts", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc") // 댓글 정렬
