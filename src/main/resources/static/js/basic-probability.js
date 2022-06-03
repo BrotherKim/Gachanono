@@ -52,9 +52,17 @@ function chance() {
     },
   ];
   var total_cnt = 0,
-    cost = 1,
     interval,
-    draws = 1;
+    draws = 1,
+    flag = true;
+
+  var avail_money = document.getElementById("avail_money");
+  var item_cost = document.getElementById("item_cost");
+  var left_money = document.getElementById("left_money");
+  var total_try = document.getElementById("total_try");
+  avail_money.onchange = function () {
+    left_money.innerText = avail_money.value;
+  };
 
   var margin = { top: 15, right: 5, bottom: 15, left: 5 };
   var width = 800; //parseInt(d3.select("#graph").style("width")) - margin.left - margin.right,
@@ -148,7 +156,7 @@ function chance() {
         round(d.value, 2) + " = " + round(d.value * total, 0) + "/" + total
       );
     });
-    
+
     tipCoinTheo.html(function (d, i) {
       return round(d.value, 2);
     });
@@ -204,6 +212,23 @@ function chance() {
     } else {
       countCoin[1] = countCoin[1] + 1;
     }
+
+    total_try.innerText = total_cnt;
+    left_money.innerText = left_money.innerText - item_cost.innerText;
+
+    if (flag && check_pop()) {
+      flag = false;
+
+      var total_cost = total_cnt * item_cost.innerText;
+
+      document.getElementById("success_test").innerText =
+        " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
+        String(total_cnt) +
+        "회, 총 금액 " +
+        String(total_cost) +
+        "원 소비되었습니다.";
+    }
+
     updateCoin(100);
   }
 
@@ -212,47 +237,14 @@ function chance() {
     else return false;
   }
 
-  var flag = true;
-
   function start_sampling() {
     var cnt = 0;
 
     interval = setInterval(function () {
-      update();
       cnt++;
       total_cnt++;
 
-      if (flag && check_pop()) {
-        flag = false;
-
-        var total_cost = total_cnt * cost;
-
-        // 여기에 창띄우기
-        toastr.options = {
-          closeButton: true,
-          debug: false,
-          newestOnTop: false,
-          progressBar: false,
-          positionClass: "toast-bottom-right",
-          preventDuplicates: false,
-          onclick: null,
-          showDuration: "2000",
-          hideDuration: "1000",
-          timeOut: "5000",
-          extendedTimeOut: "1000",
-          showEasing: "swing",
-          hideEasing: "linear",
-          showMethod: "fadeIn",
-          hideMethod: "fadeOut",
-        };
-        toastr["success"](
-          " 아이템이 뽑힐 때 까지<br> 시도횟수 " +
-            String(total_cnt) +
-            "회,<br> 총 금액 " +
-            String(total_cost) +
-            "원<br> 소비되었습니다."
-        );
-      }
+      update();
 
       if (cnt == draws) {
         clearInterval(interval);

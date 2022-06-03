@@ -48,11 +48,19 @@ function clt() {
     draws = 1,
     y1 = height / 3,
     y2 = height / 4,
-    bins = 100, // # of items
+    bins = 10, // # of items
     counts = [],
     interval_clt,
     total_cnt = 0, // 누적횟수
-    cost = 1;
+    flag = true;
+
+  var avail_money = document.getElementById("avail_money");
+  var item_cost = document.getElementById("item_cost");
+  var left_money = document.getElementById("left_money");
+  var total_try = document.getElementById("total_try");
+  avail_money.onchange = function () {
+    left_money.innerText = avail_money.value;
+  };
 
   // json 파일 받아오기 (ajax)
   var data_json = [
@@ -81,8 +89,7 @@ function clt() {
     { name: "w", prob: 0.04 },
     { name: "x", prob: 0.04 },
     { name: "y", prob: 0.04 },*/ // bins=25
-
-    /*{ name: "a", prob: 0.15 },
+    { name: "a", prob: 0.15 },
     { name: "b", prob: 0.05 },
     { name: "c", prob: 0.15 },
     { name: "d", prob: 0.05 },
@@ -91,8 +98,8 @@ function clt() {
     { name: "g", prob: 0.15 },
     { name: "h", prob: 0.05 },
     { name: "i", prob: 0.15 },
-    { name: "j", prob: 0.05 },*/ // bins=10
-    { name: "a", prob: 0.015 },
+    { name: "j", prob: 0.05 }, // bins=10
+    /*{ name: "a", prob: 0.015 },
     { name: "b", prob: 0.005 },
     { name: "c", prob: 0.015 },
     { name: "d", prob: 0.005 },
@@ -191,7 +198,7 @@ function clt() {
     { name: "g", prob: 0.015 },
     { name: "h", prob: 0.005 },
     { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 }, //bins=100
+    { name: "j", prob: 0.005 }, */ //bins=100
   ];
 
   data_prep = [];
@@ -253,6 +260,16 @@ function clt() {
     .attr("class", "d3-tip")
     .offset([-10, 0]);
 
+  var tipProb_name = d3
+    .tip()
+    .attr("id", "tipHisto_name")
+    .attr("class", "d3-tip");
+
+  var tipHisto_name = d3
+    .tip()
+    .attr("id", "tipHisto_name")
+    .attr("class", "d3-tip");
+
   tipProb.html(function (d) {
     return d.y > 0 ? d3.format(".2%")(d.y) : "";
   });
@@ -261,18 +278,28 @@ function clt() {
     return d.y > 0 ? d3.format(".2%")(d.y) : "";
   });
 
+  tipProb_name.html(function (d, i) {
+    return data_json[i].name;
+  });
+
+  tipHisto_name.html(function (d, i) {
+    return data_json[i].name;
+  });
+
   // create two bars
   svg_clt.call(draw_bar, y1, "draw");
   svg_clt.call(draw_bar, 3 * y1, "count");
   svg_clt.call(tipProb);
   svg_clt.call(tipHisto);
+  svg_clt.call(tipProb_name);
+  svg_clt.call(tipHisto_name);
 
   var probability = d3.layout.histogram().bins(ticks_array).frequency(false);
   var p = svg_clt.append("g").attr("class", "histogram");
 
   function draw_probability() {
     var data = probability(data_prep);
-    console.log(data);
+    //console.log(data);
     var ymax = d3.max(
       data.map(function (d) {
         return d.y;
@@ -305,6 +332,8 @@ function clt() {
         return y_scale_clt(d.y * bins);
       });
 
+    bar.on("mouseover", tipProb_name.show).on("mouseout", tipProb_name.hide);
+
     if (bins <= 25) {
       bar
         .select("text")
@@ -326,6 +355,15 @@ function clt() {
     bar.exit().remove();
   }
 
+  function check_pop() {
+    for (var i = 0; i < bins; i++) {
+      if (JSON.stringify(data_histo[i]) == JSON.stringify([])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   // create histogram
   var histogram = d3.layout.histogram().bins(ticks_array).frequency(false);
 
@@ -335,8 +373,24 @@ function clt() {
   function draw_histogram() {
     // get histrogram of counts
     data_histo = histogram(counts);
-
     console.log(data_histo);
+
+    total_try.innerText = total_cnt;
+    left_money.innerText = left_money.innerText - item_cost.innerText;
+
+    if (flag && check_pop()) {
+      flag = false;
+
+      var total_cost = total_cnt * item_cost.innerText;
+
+      document.getElementById("success_test").innerText =
+        " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
+        String(total_cnt) +
+        "회, 총 금액 " +
+        String(total_cost) +
+        "원 소비되었습니다.";
+    }
+
     // update scale
     var ymax = d3.max(
       data_histo.map(function (d) {
@@ -370,6 +424,8 @@ function clt() {
         return y_scale_clt(d.y * bins);
       });
 
+    bar.on("mouseover", tipHisto_name.show).on("mouseout", tipHisto_name.hide);
+
     if (bins <= 25) {
       bar
         .select("text")
@@ -380,7 +436,7 @@ function clt() {
           return d.y > 0 ? d3.format("%")(d.y) : "";
         });
     } else {
-      bar.each(function (d) {
+      bar.each(function () {
         d3.select(this)
           .on("mouseover", tipHisto.show)
           .on("mouseout", tipHisto.hide);
@@ -449,72 +505,18 @@ function clt() {
       });
   }
 
-  function check_pop() {
-    for (var i = 0; i < bins; i++) {
-      if (JSON.stringify(data_histo[i]) == JSON.stringify([])) {
-        return false;
-      }
-    }
-    console.log("pop");
-    return true;
-  }
-
-  var flag = true;
-
   // initiate sampling
   function start_sampling() {
     //dt = 350 / Math.pow(1.04, draws);
     var count = 0;
 
     interval_clt = setInterval(function () {
-      tick();
       count++;
       total_cnt++;
 
-      flag = true;
-
-      if (flag && check_pop()) {
-        flag = false;
-
-        var total_cost = total_cnt * cost;
-
-        document.getElementById("success_test").innerText =
-          " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
-          String(total_cnt) +
-          "회, 총 금액 " +
-          String(total_cost) +
-          "원 소비되었습니다.";
-
-        /*
-        // 여기에 창띄우기
-        toastr.options = {
-          closeButton: true,
-          debug: false,
-          newestOnTop: false,
-          progressBar: false,
-          positionClass: "toast-bottom-right",
-          preventDuplicates: false,
-          onclick: null,
-          showDuration: "2000",
-          hideDuration: "1000",
-          timeOut: "5000",
-          extendedTimeOut: "1000",
-          showEasing: "swing",
-          hideEasing: "linear",
-          showMethod: "fadeIn",
-          hideMethod: "fadeOut",
-        };
-        toastr["success"](
-          " 모든 아이템이 뽑힐 때 까지<br> 시도횟수 " +
-            String(total_cnt) +
-            "회,<br> 총 금액 " +
-            String(total_cost) +
-            "원<br> 소비되었습니다."
-        );*/
-      }
+      tick();
 
       if (count === draws) {
-        flag = false;
         clearInterval(interval_clt);
       }
     }, dt);
