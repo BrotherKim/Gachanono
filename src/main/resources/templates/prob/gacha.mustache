@@ -1,0 +1,229 @@
+<!-- add custom css -->
+<th:block layout:fragment="/css"></th:block>
+
+{{>layout/config}}
+
+<body class="sb-nav-fixed">
+    {{>layout/header}}
+    <!-- script -->
+    <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://bossanova.uk/jspreadsheet/v4/jexcel.css"
+        type="text/css"/>
+    <script src="https://jsuites.net/v4/jsuites.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://jsuites.net/v4/jsuites.css"
+        type="text/css"/>
+
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://fonts.googleapis.com/css?family=Material+Icons"/>
+
+    <div id="layoutSidenav">
+        {{>layout/side}}
+        <div id="layoutSidenav_content">
+            <main>
+                <!-- content -->
+                <div layout:fragment="content">
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">가챠 시뮬레이션</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item">
+                                <a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Gacha</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                가챠를 시뮬레이션하는 페이지의 매뉴얼 위치입니다.
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-database"></i>
+                                확률 정보
+                            </div>
+                            <div class="card-body">
+                                <div style="float: left;">
+                                    <p>
+                                        게임 이름
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        아이템 이름
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        가챠 종류
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        1회 뽑기 가격
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-square-poll-vertical"></i>
+                                확률 정보 선택 및 아이템 정보 입력
+                            </div>
+                            <div class="card-body">
+                                <div id="crawledProbTable" style="width: 100%;"></div>
+                            </div>
+                            <div class="card-body">
+                                <div id="selectedProbTable" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-calculator"></i>
+                                확률 계산기
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <div style="float: left;">
+                                        <input type="text" class="form-control" id="input" placeholder="몇"/></div>
+                                    <div style="float: left;">
+                                        <p>
+                                            퍼센트 확률로
+                                        </p>
+                                    </div>
+                                    <div style="float: left;">
+                                        <input type="text" class="form-control" id="input" placeholder="몇"/></div>
+                                    <div style="float: left;">
+                                        <p>
+                                            회 시도했을 때 확률은?
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="button" class="btn btn-primary" value="계산" onclick="calc()"/></div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                아이템별 가챠 추천
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid px-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-calculator"></i>
+                                확률 정보
+                            </div>
+                            <div class="card-body">
+                                <div style="float: left;">
+                                    <p>
+                                        게임 이름
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        아이템 이름
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        가챠 종류
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        1회 뽑기 가격
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <div style="float: left;">
+                                        <input type="text" class="form-control" id="input" placeholder="몇"/></div>
+                                    <div style="float: left;">
+                                        <p>
+                                            퍼센트 확률로
+                                        </p>
+                                    </div>
+                                    <div style="float: left;">
+                                        <input type="text" class="form-control" id="input" placeholder="몇"/></div>
+                                    <div style="float: left;">
+                                        <p>
+                                            회 시도했을 때 확률은?
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-square-poll-vertical"></i>
+                                확률 결과
+                            </div>
+                            <div class="card-body">
+                                <canvas id="myBarChart" width="100%" height="40"></canvas>
+                                <p>0회 뽑힐 확률은 81%입니다.</p>
+                                <p>1회 뽑힐 확률은 10%입니다.</p>
+                                <p>2회 뽑힐 확률은 1%입니다.</p>
+                                <p>한번도 뽑히지 않을 확률은 81%입니다.</p>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                                <p>1번 이상 50% 확률로 성공하기 위해서는 7회 이상 시도하셔야 합니다.</p>
+                                <p>1번 이상 80% 확률로 성공하기 위해서는 16회 이상 시도하셔야 합니다.</p>
+                                <p>1번 이상 90% 확률로 성공하기 위해서는 22회 이상 시도하셔야 합니다.</p>
+                                <p>1번 이상 99% 확률로 성공하기 위해서는 44회 이상 시도하셔야 합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid px-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                                시뮬레이션
+                            </div>
+                            <div class="card-body">
+                                <div style="float: left;">
+                                    <p>
+                                        투입 희망 금액
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        남은 금액
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        전체 시도 횟수
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                                <div style="float: left;">
+                                    <p>
+                                        1회 뽑기 가격
+                                    </p>
+                                    <input type="text" class="form-control" id="input" placeholder="입력하세요."/></div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-square-poll-vertical"></i>
+                                시뮬레이션 결과
+                            </div>
+                            <div class="card-body">
+                                <canvas id="myBarChart" width="100%" height="40"></canvas>
+                            </div>
+                        </div>
+                        <input type="button" class="btn btn-primary" value="시뮬레이션" onclick="calc()"/>
+                    </div>
+                    {{>layout/footer}}
+                    <script src="/js/prob/gacha.js"></script>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>

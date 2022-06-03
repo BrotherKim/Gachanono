@@ -2,8 +2,6 @@ package com.kaist.gachanono.gachanonoserver.controller;
 
 import javax.servlet.http.HttpSession;
 
-import com.kaist.gachanono.gachanonoserver.config.auth.SessionUser;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +18,6 @@ public class PageController {
 
     @Autowired
     private HttpSession httpSession;
-
-    @GetMapping("/") 
-    public String index(Model model) {
-        // Vue 예제 페이지로 이동
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        
-        logger.info("user[{}]", user.toString());
-
-        return "index"; 
-    } 
 
     @GetMapping("/401") 
     public String error401() {
