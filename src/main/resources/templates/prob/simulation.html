@@ -128,36 +128,21 @@
             <input
               type="text"
               class="form-control"
-              id="input"
+              id="avail_money"
               placeholder="입력하세요."
             />
+          </div>
+          <div style="float: left">
+            <p>1회 뽑기 가격</p>    <!-- 전 세션 에서 받아오기 -->
+            <p class="form-control" style="width: 185px;" id="item_cost">1000</p>
           </div>
           <div style="float: left">
             <p>남은 금액</p>
-            <input
-              type="text"
-              class="form-control"
-              id="input"
-              placeholder="입력하세요."
-            />
+            <p class="form-control" style="width: 185px;" id="left_money">0</p>
           </div>
           <div style="float: left">
             <p>전체 시도 횟수</p>
-            <input
-              type="text"
-              class="form-control"
-              id="input"
-              placeholder="입력하세요."
-            />
-          </div>
-          <div style="float: left">
-            <p>1회 뽑기 가격</p>
-            <input
-              type="text"
-              class="form-control"
-              id="input"
-              placeholder="입력하세요."
-            />
+            <p class="form-control" style="width: 185px;" id="total_try">0</p>
           </div>
         </div>
       </div>
@@ -169,20 +154,21 @@
         <div class="card-body">    <!--distributions-->
             <div class="visualization-wrapper" id="barCoin"></div>
             <div class="interactive-wrapper">
-                <label for="try">
-                  시도횟수 = <span id="try-value">1</span>
-                </label>
-                <input
-                  id="try"
-                  class="inputDist greenSlider"
-                  type="range"
-                  min="1"
-                  max="100"
-                  step="1"
-                  value="1"
-                />
-                <div class="button-1" id="form_chance">Try</label>
+              <label for="try">
+                시도횟수 = <span id="try-value">1</span>
+              </label>
+              <input
+                id="try"
+                class="inputDist greenSlider"
+                type="range"
+                min="1"
+                max="100"
+                step="1"
+                value="1"
+              />
+              <div class="button-1" id="form_chance">Try</label>
             </div>
+            <div style="text-align:center"><span id="success_test"></span><br><br></div>
             
             <div id="share"></div>
             <!-- Share CSS and JavaScript -->
