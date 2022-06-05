@@ -18,29 +18,19 @@
             </div>
             <div class="card-body">
                 <label for="title">제목</label>
-                <input type="text" class="form-control" id="title" value="{{posts.title}}" readonly>
-                <br/>
+                <input type="text" class="form-control" id="title" value="{{posts.title}}">
+            </div>
+
+            <div class="card-body">
                 <label for="content">내용</label>
-                <textarea rows="5" class="form-control" id="content" readonly>{{posts.content}}</textarea>
+                <textarea rows="10" class="form-control" id="content">{{posts.content}}</textarea>
             </div>
         </form>
 
-
-        {{! Buttons }}
-        {{#user}}
-            <a href="/posts/free" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
-            {{#writer}}
-            <a href="/posts/update/{{posts.id}}" role="button" class="btn btn-primary bi bi-pencil-square"> 수정</a>
-            <button type="button" onclick="" id="btn-delete" class="btn btn-danger bi bi-trash"> 삭제</button>
-            {{/writer}}
-            <a href="/posts/good/{{posts.id}}" role="button" class="btn btn-info bi bi-arrow-return-left"> 좋아요</a>
-        {{/user}}
-        {{^user}}
-            <a href="/posts/free" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
-        {{/user}}
-        {{! Comments }}
-        {{>comment/list}}
-        {{>comment/form}}
+        <!--버튼-->
+        <a href="/posts/read/{{id}}" role="button" class="btn btn-info bi bi-arrow-return-left"> 취소</a>
+        <button type="button" id="btn-update" class="btn btn-primary bi bi-pencil-square"> 완료</button>
     </div>
 </div>
+
 {{>layout/footer}}

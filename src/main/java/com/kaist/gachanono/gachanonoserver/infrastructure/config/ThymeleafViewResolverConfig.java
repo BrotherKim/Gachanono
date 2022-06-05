@@ -16,7 +16,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//@Configuration
+@Configuration
 public class ThymeleafViewResolverConfig { 
     
     private Logger logger = LoggerFactory.getLogger(this.getClass());

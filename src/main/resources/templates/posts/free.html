@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layouts/layout">
+    <!-- add custom css -->
+    <th:block layout:fragment="/css"></th:block>
+    <!-- add custom script -->
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            /**
+    		 * 게시글 조회
+	        */
+            function goView(id) {
+                location.href = `/board/view/${id}`;
+            }
+
+            /*]]>*/
+        </script>
+    </th:block>
+
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <!-- content -->
+            <h1 class="mt-4">자유게시판</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item">
+                    <a href="/">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Board</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-body">
+                    자유게시판 페이지의 매뉴얼 위치입니다.
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    자유게시판
+                </div>
+                <div class="card-body">
+                    <div id="posts_list">
+                        <table id="table" class="table table-horizontal">
+                            <thead id="thead">
+                                <tr>
+                                    <th>번호</th>
+                                    <th>게임명</th>
+                                    <th class="col-md-6 text-center">제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                    <th>조회수</th>
+                                    <th>좋아요</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr th:each="post : ${posts}">
+                                    <td>[[${post.id}]]</td>
+                                    <td>[[${post.gamename}]]</td>
+                                    <td>
+                                        <a href="/posts/read/${post.id}">[[${post.title}]]</a>
+                                    </td>
+                                    <td>[[${post.writer}]]</td>
+                                    <td>[[${post.createdDate}]]</td>
+                                    <td>[[${post.view}]]</td>
+                                    <td>[[${post.good}]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill">
+                                글쓰기</a>
+                        </div>
+                        {{! Page }}
+                        {{>posts/posts-page}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

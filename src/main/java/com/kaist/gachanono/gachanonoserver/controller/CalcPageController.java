@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.kaist.gachanono.gachanonoserver.domain.Board.BoardResponseDto;
-import com.kaist.gachanono.gachanonoserver.service.BoardService;
 import com.kaist.gachanono.gachanonoserver.service.CalcService;
 
 import org.springframework.beans.factory.annotation.Autowired;

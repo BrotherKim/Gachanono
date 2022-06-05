@@ -1,5 +1,7 @@
 package com.kaist.gachanono.gachanonoserver.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,8 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
+import com.kaist.gachanono.gachanonoserver.service.GameService;
+
+import lombok.RequiredArgsConstructor;
+
 
 @Controller 
+@RequiredArgsConstructor
 @RequestMapping("/prob")
 public class ProbController {
     
@@ -20,11 +28,15 @@ public class ProbController {
     @Autowired
     private HttpSession httpSession;
 
+    private final GameService gameService;
+
     @GetMapping("/gacha") 
     public String gacha(Model model) {
         // Vue 예제 페이지로 이동
 
         // logger.info("user[{}]", user.toString());
+        List<Game> games = gameService.gameList();
+        model.addAttribute("games", games);
 
         return "/prob/gacha"; 
     } 

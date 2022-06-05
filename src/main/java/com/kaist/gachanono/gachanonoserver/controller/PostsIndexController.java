@@ -35,9 +35,12 @@ public class PostsIndexController {
     private final GameService gameService;
 
     /* default page = 0, size = 10  */
-    @GetMapping("/board/free")                 
-    public String free(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable, @LoginUser UserDto.Response user) {
+    @GetMapping("/posts/free")
+    public String free(
+        Model model,
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable,
+        @LoginUser UserDto.Response user
+    ) {
         Page<Posts> list = postsService.pageList(pageable);
 
         if (user != null) {
@@ -50,19 +53,25 @@ public class PostsIndexController {
         model.addAttribute("hasNext", list.hasNext());
         model.addAttribute("hasPrev", list.hasPrevious());
 
-        return "board/free";
+        return "posts/free";
     }
 
-    @GetMapping("/")                 /* default page = 0, size = 10  */
-    public String index(Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable, @LoginUser UserDto.Response user) {
-        Page<Posts> list = postsService.pageList(pageable);
+    @GetMapping("/")/* default page = 0, size = 10  */
+    public String index(
+        Model model,
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable,
+        @LoginUser UserDto.Response user
+    ) {
 
         if (user != null) {
             model.addAttribute("user", user);
         }
-        
+
+        List<Game> games = gameService.gameList();
+        model.addAttribute("games", games);
+
         return "prob/gacha";
+        //return "/index";
     }
     /* 글 작성 */
     @GetMapping("/posts/write")
@@ -78,10 +87,13 @@ public class PostsIndexController {
 
     /* 글 상세보기 */
     @GetMapping("/posts/read/{id}")
-    public String read(@PathVariable Long id, @LoginUser UserDto.Response user, Model model) {
+    public String read(
+        @PathVariable Long id,
+        @LoginUser UserDto.Response user,
+        Model model
+    ) {
         PostsDto.Response dto = postsService.findById(id);
-        List<CommentDto.Response> comments = dto.getComments();
-
+        List < CommentDto.Response > comments = dto.getComments();
 
         /* 댓글 관련 */
         if (comments != null && !comments.isEmpty()) {
@@ -98,10 +110,10 @@ public class PostsIndexController {
             }
 
             /* 댓글 작성자 본인인지 확인 */
-            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
+            if (comments.stream().anyMatch(s - >s.getUserId().equals(user.getId()))) {
                 model.addAttribute("isWriter", true);
             }
-/*            for (int i = 0; i < comments.size(); i++) {
+            /*            for (int i = 0; i < comments.size(); i++) {
                 boolean isWriter = comments.get(i).getUserId().equals(user.getId());
                 model.addAttribute("isWriter",isWriter);
             }*/
@@ -113,7 +125,11 @@ public class PostsIndexController {
     }
 
     @GetMapping("/posts/update/{id}")
-    public String update(@PathVariable Long id, @LoginUser UserDto.Response user, Model model) {
+    public String update(
+        @PathVariable Long id,
+        @LoginUser UserDto.Response user,
+        Model model
+    ) {
         PostsDto.Response dto = postsService.findById(id);
         if (user != null) {
             model.addAttribute("user", user);
@@ -124,10 +140,13 @@ public class PostsIndexController {
     }
 
     @GetMapping("/posts/good/{id}")
-    public String good(@PathVariable Long id, @LoginUser UserDto.Response user, Model model) {
+    public String good(
+        @PathVariable Long id,
+        @LoginUser UserDto.Response user,
+        Model model
+    ) {
         PostsDto.Response dto = postsService.findById(id);
-        List<CommentDto.Response> comments = dto.getComments();
-
+        List < CommentDto.Response > comments = dto.getComments();
 
         /* 댓글 관련 */
         if (comments != null && !comments.isEmpty()) {
@@ -144,10 +163,10 @@ public class PostsIndexController {
             }
 
             /* 댓글 작성자 본인인지 확인 */
-            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
+            if (comments.stream().anyMatch(s - >s.getUserId().equals(user.getId()))) {
                 model.addAttribute("isWriter", true);
             }
-/*            for (int i = 0; i < comments.size(); i++) {
+            /*            for (int i = 0; i < comments.size(); i++) {
                 boolean isWriter = comments.get(i).getUserId().equals(user.getId());
                 model.addAttribute("isWriter",isWriter);
             }*/
@@ -159,8 +178,12 @@ public class PostsIndexController {
     }
 
     @GetMapping("/posts/search")
-    public String search(String keyword, Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
-            Pageable pageable, @LoginUser UserDto.Response user) {
+    public String search(
+        String keyword,
+        Model model,
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable,
+        @LoginUser UserDto.Response user
+    ) {
         Page<Posts> searchList = postsService.search(keyword, pageable);
 
         if (user != null) {
@@ -176,4 +199,3 @@ public class PostsIndexController {
         return "posts/posts-search";
     }
 }
-

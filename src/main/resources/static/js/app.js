@@ -56,7 +56,7 @@ const main = {
                 data: JSON.stringify(data)
             }).done(function () {
                 alert('등록되었습니다.');
-                window.location.href = '/board/free';
+                window.location.href = '/posts/free';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
