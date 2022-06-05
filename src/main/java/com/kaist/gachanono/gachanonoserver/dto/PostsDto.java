@@ -60,6 +60,7 @@ public class PostsDto {
         private String content;
         private String createdDate, modifiedDate;
         private String gamename;
+        private Long game_id;
         private int view;
         private Long userId;
         private List<CommentDto.Response> comments;
@@ -73,6 +74,7 @@ public class PostsDto {
             this.createdDate = posts.getCreatedDate();
             this.modifiedDate = posts.getModifiedDate();
             this.gamename = posts.getGamename();
+            this.game_id = posts.getGame_id();
             this.view = posts.getView();
             this.userId = posts.getUser().getId();
             this.comments = posts.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());

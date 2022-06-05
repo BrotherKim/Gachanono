@@ -28,27 +28,22 @@
                 <div class="col-md-12">
                     <form class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <label for="id">번호 :
-                                [[${posts.id}]]</label>
+                            <label for="id">번호 : [[${posts.id}]]</label>
                             <input type="hidden" id="id" th:value="${posts.id}">
                             <label for="createdDate">[[${posts.createdDate}]]</label>
                         </div>
                         <div class="card-header d-flex justify-content-between">
-                            <label for="writer">작성자 :
-                                [[${posts.writer}]]</label>
+                            <label for="writer">작성자 : [[${posts.writer}]]</label>
                             <label for="view">
                                 <i class=" bi bi-eye-fill">
                                     [[${posts.view}]]</i>
                             </label>
                         </div>
                         <div class="card-body">
-                            <label for="title">게임명</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="title"
-                                th:value="${posts.gamename}"
-                                readonly="readonly">
+                            <label for="game">게임명</label>
+                            <select id="game" class="form-control" readonly="readonly">
+                                <option th:value="${posts.game_id}" th:text="${posts.gamename}"/>
+                            </select>
                         </div>
                         <div class="card-body">
                             <label for="title">제목</label>

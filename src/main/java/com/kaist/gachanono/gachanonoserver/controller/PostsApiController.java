@@ -1,6 +1,7 @@
 package com.kaist.gachanono.gachanonoserver.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
 import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * REST API Controller
  */
+@Slf4j
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
@@ -35,6 +37,7 @@ public class PostsApiController {
     /* UPDATE */
     @PutMapping("/posts/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody PostsDto.Request dto) {
+        log.info(dto.toString());
         postsService.update(id, dto);
         return ResponseEntity.ok(id);
     }

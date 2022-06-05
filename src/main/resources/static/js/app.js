@@ -42,7 +42,7 @@ const main = {
             game_id: $('#game option:selected').val(),
             gamename: $('#game option:selected').text(),
         };
-        console.log(data);
+        
         // 공백 및 빈 문자열 체크
         if (!data.title || data.title.trim() === "" || !data.content || data.content.trim() === "") {
             alert("공백 또는 입력하지 않은 부분이 있습니다.");
@@ -68,8 +68,12 @@ const main = {
         const data = {
             id: $('#id').val(),
             title: $('#title').val(),
-            content: $('#content').val()
+            content: $('#content').val(),
+            game_id: $('#game option:selected').val(),
+            gamename: $('#game option:selected').text(),
         };
+
+        console.log(data)
 
         const con_check = confirm("수정하시겠습니까?");
         if (con_check === true) {

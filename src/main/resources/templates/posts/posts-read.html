@@ -83,17 +83,11 @@
                         class="btn btn-danger bi bi-trash">
                         삭제</button>
                     <a
-                        th:if="${user} and !${writer}"
+                        th:if="${user}"
                         th:href="@{'/posts/good/' + ${posts.id}}"
                         role="button"
-                        class="btn btn-info bi bi-arrow-return-left">
+                        class="btn btn-success bi bi-hand-thumbs-up">
                         좋아요</a>
-                    <a
-                        th:if="${user}"
-                        href="/posts/free"
-                        role="button"
-                        class="btn btn-info bi bi-arrow-return-left">
-                        목록</a>
 
                     <div th:replace="comment/list :: list"></div>
                     <div th:replace="comment/form :: form"></div>

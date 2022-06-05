@@ -92,8 +92,6 @@ public class PostsIndexController {
         @LoginUser UserDto.Response user,
         Model model
     ) {
-        log.info("id[{}], user[{}], modle[{}]", id, user, model);
-
         PostsDto.Response dto = postsService.findById(id);
         List < CommentDto.Response > comments = dto.getComments();
 
@@ -132,6 +130,9 @@ public class PostsIndexController {
         @LoginUser UserDto.Response user,
         Model model
     ) {
+        List<Game> games = gameService.gameList();
+        model.addAttribute("games", games);
+
         PostsDto.Response dto = postsService.findById(id);
         if (user != null) {
             model.addAttribute("user", user);
@@ -174,7 +175,7 @@ public class PostsIndexController {
             }*/
         }
 
-        postsService.updateGood(id); // views ++
+        postsService.updateGood(id); // goods ++
         model.addAttribute("posts", dto);
         return "posts/posts-read";
     }
