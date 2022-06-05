@@ -60,7 +60,7 @@
                                     <td>[[${post.id}]]</td>
                                     <td>[[${post.gamename}]]</td>
                                     <td>
-                                        <a href="/posts/read/${post.id}">[[${post.title}]]</a>
+                                        <a th:href="@{'/posts/read/' + ${post.id}}">[[${post.title}]]</a>
                                     </td>
                                     <td>[[${post.writer}]]</td>
                                     <td>[[${post.createdDate}]]</td>
@@ -73,8 +73,7 @@
                             <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill">
                                 글쓰기</a>
                         </div>
-                        {{! Page }}
-                        {{>posts/posts-page}}
+                        <div th:replace="posts/posts-page :: pagenation"></div>
                     </div>
                 </div>
             </div>

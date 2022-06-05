@@ -92,6 +92,8 @@ public class PostsIndexController {
         @LoginUser UserDto.Response user,
         Model model
     ) {
+        log.info("id[{}], user[{}], modle[{}]", id, user, model);
+
         PostsDto.Response dto = postsService.findById(id);
         List < CommentDto.Response > comments = dto.getComments();
 
@@ -110,7 +112,7 @@ public class PostsIndexController {
             }
 
             /* 댓글 작성자 본인인지 확인 */
-            if (comments.stream().anyMatch(s - >s.getUserId().equals(user.getId()))) {
+            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
                 model.addAttribute("isWriter", true);
             }
             /*            for (int i = 0; i < comments.size(); i++) {
@@ -163,7 +165,7 @@ public class PostsIndexController {
             }
 
             /* 댓글 작성자 본인인지 확인 */
-            if (comments.stream().anyMatch(s - >s.getUserId().equals(user.getId()))) {
+            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
                 model.addAttribute("isWriter", true);
             }
             /*            for (int i = 0; i < comments.size(); i++) {

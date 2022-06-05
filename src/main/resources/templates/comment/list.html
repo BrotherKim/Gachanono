@@ -1,0 +1,42 @@
+<div th:fragment="list" class="card">
+    <div th:if="${comments}" class="card-header bi bi-chat-dots">
+        [[${comments.size}]] Comments</div>
+    <div class="card-header bi bi-chat-dots">Comments</div>
+    <ul class="list-group-flush">
+        <li
+            th:each="comment : ${comments}"
+            th:id="@{'comments-' + ${comment.id}}"
+            class="list-group-item">
+            <span>
+                <span style="font-size: small">[[${comment.nickname}]]</span>
+                <span style="font-size: xx-small">[[${comment.createdDate}]]</span>
+            </span>
+            <a
+                th:if="${isWriter}"
+                type="button"
+                data-toggle="collapse"
+                th:data-target="@{'.multi-collapse-' + ${comment.id}}"
+                class="bi bi-pencil-square"></a>
+            <a type="button" th:attr="onclick=|main.commentDelete('${comment.postsId}','${comment.id}','${comment.userId}','${user.id}')|"
+                   class="bi bi-x-square"></a>
+
+            <p th:class="@{'collapse multi-collapse-' + ${comment.id} + ' show'}">[[${comment.comment}]]</p>
+
+            <form th:class="@{'collapse multi-collapse-' + ${comment.id}}">
+                <input type="hidden" id="id" th:value="${comment.id}"/>
+                <input type="hidden" id="postsId" th:value="${comment.postsId}"/>
+                <input type="hidden" id="writerUserId" th:value="${comment.userId}"/>
+                <input th:if="${user}" type="hidden" id="sessionUserId" th:value="${user.id}"/>
+                <div class="form-group">
+                    <textarea class="form-control" id="comment-content" rows="3">[[${comment.comment}]]</textarea>
+                </div>
+                <button
+                    type="button"
+                    id="btn-comment-update"
+                    class="btn btn-outline-primary bi bi-pencil-square">
+                    수정</button>
+            </form>
+        </li>
+    </ul>
+</div>
+<br/>

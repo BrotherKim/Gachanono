@@ -169,6 +169,8 @@ const main = {
             comment: $('#comment').val()
         }
 
+        console.log(data);
+
         // 공백 및 빈 문자열 체크
         if (!data.comment || data.comment.trim() === "") {
             alert("공백 또는 입력하지 않은 부분이 있습니다.");
