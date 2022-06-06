@@ -1,30 +1,12 @@
 //Handles functionality of Distributions
-/*var data_prep = [];
-var bins = 0;
-*/
 $(window).load(function () {
   clt();
-  /*$.ajax({
-    url: "",
-    dataType: "json",
-    success: function (data) {
-      $.each(data, function () {
-        for (var i = 0; i < this.prob * 10000; i++) {
-          data_prep.append();
-        }
-      });
-    },
-  });*/
 });
-
-//*******************************************************************************//
-//Central Limit Theorem
-//*******************************************************************************//
 
 function clt() {
   // define width, height, margin
   var margin = { top: 50, right: 5, bottom: 15, left: 5 };
-  var width = 800; //parseInt(d3.select("#graph").style("width")) - margin.left - margin.right,
+  var width = 800;
   height = 500;
   // create svg
   var svg_clt = d3
@@ -64,31 +46,6 @@ function clt() {
 
   // json 파일 받아오기 (ajax)
   var data_json = [
-    /*{ name: "a", prob: 0.04 },
-    { name: "b", prob: 0.04 },
-    { name: "c", prob: 0.04 },
-    { name: "d", prob: 0.04 },
-    { name: "e", prob: 0.04 },
-    { name: "f", prob: 0.04 },
-    { name: "g", prob: 0.04 },
-    { name: "h", prob: 0.04 },
-    { name: "i", prob: 0.04 },
-    { name: "j", prob: 0.04 },
-    { name: "k", prob: 0.04 },
-    { name: "l", prob: 0.04 },
-    { name: "m", prob: 0.04 },
-    { name: "n", prob: 0.04 },
-    { name: "o", prob: 0.04 },
-    { name: "p", prob: 0.04 },
-    { name: "q", prob: 0.04 },
-    { name: "r", prob: 0.04 },
-    { name: "s", prob: 0.04 },
-    { name: "t", prob: 0.04 },
-    { name: "u", prob: 0.04 },
-    { name: "v", prob: 0.04 },
-    { name: "w", prob: 0.04 },
-    { name: "x", prob: 0.04 },
-    { name: "y", prob: 0.04 },*/ // bins=25
     { name: "a", prob: 0.15 },
     { name: "b", prob: 0.05 },
     { name: "c", prob: 0.15 },
@@ -98,107 +55,7 @@ function clt() {
     { name: "g", prob: 0.15 },
     { name: "h", prob: 0.05 },
     { name: "i", prob: 0.15 },
-    { name: "j", prob: 0.05 }, // bins=10
-    /*{ name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 },
-    { name: "a", prob: 0.015 },
-    { name: "b", prob: 0.005 },
-    { name: "c", prob: 0.015 },
-    { name: "d", prob: 0.005 },
-    { name: "e", prob: 0.015 },
-    { name: "f", prob: 0.005 },
-    { name: "g", prob: 0.015 },
-    { name: "h", prob: 0.005 },
-    { name: "i", prob: 0.015 },
-    { name: "j", prob: 0.005 }, */ //bins=100
+    { name: "j", prob: 0.05 },
   ];
 
   data_prep = [];
@@ -217,7 +74,6 @@ function clt() {
     .linear()
     .domain([0, 3])
     .range([0, height - 2 * y1]);
-  var z_scale_clt = d3.scale.linear().domain([0, 3]).range([0, y1]);
 
   var ticks_array = [];
   function custom_ticks() {
@@ -376,12 +232,12 @@ function clt() {
     console.log(data_histo);
 
     total_try.innerText = total_cnt;
-    left_money.innerText = left_money.innerText - item_cost.innerText;
+    left_money.innerText = left_money.innerText - item_cost.value;
 
     if (flag && check_pop()) {
       flag = false;
 
-      var total_cost = total_cnt * item_cost.innerText;
+      var total_cost = total_cnt * item_cost.value;
 
       document.getElementById("success_test").innerText =
         " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
@@ -507,7 +363,6 @@ function clt() {
 
   // initiate sampling
   function start_sampling() {
-    //dt = 350 / Math.pow(1.04, draws);
     var count = 0;
 
     interval_clt = setInterval(function () {

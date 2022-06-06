@@ -134,7 +134,12 @@
           </div>
           <div style="float: left">
             <p>1회 뽑기 가격</p>    <!-- 전 세션 에서 받아오기 -->
-            <p class="form-control" style="width: 185px;" id="item_cost">1000</p>
+            <input
+              type="text"
+              class="form-control"
+              id="item_cost"
+              value = "1000"
+            />
           </div>
           <div style="float: left">
             <p>남은 금액</p>
@@ -152,7 +157,8 @@
           시뮬레이션 결과
         </div>
         <div class="card-body">    <!--distributions-->
-            <div class="visualization-wrapper" id="barCoin"></div>
+            <div class="visualization-wrapper" id="barCoin">              
+            </div>
             <div class="interactive-wrapper">
               <label for="try">
                 시도횟수 = <span id="try-value">1</span>
