@@ -2,24 +2,24 @@
     
     <a
         th:if="${hasPrev}"
-        href="?page=${previous}"
+        th:href="@{'?page=' + ${previous}}"
         role="button"
         class="btn btn-lg bi bi-caret-left-square-fill"></a>
 
     <a
         th:if="!${hasPrev}"
-        href="?page=${previous}"
+        th:href="@{'?page=' + ${previous}}"
         role="button"
         class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
 
     <a
         th:if="${hasPrev}"
-        href="?page=${next}"
+        th:href="@{'?page=' + ${next}}"
         role="button"
         class="btn btn-lg bi bi-caret-right-square-fill"></a>
     <a
         th:if="!${hasPrev}"
-        href="?page=${next}"
+        th:href="@{'?page=' + ${next}}"
         role="button"
         class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
 
