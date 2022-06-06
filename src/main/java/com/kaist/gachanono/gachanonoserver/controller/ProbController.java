@@ -97,6 +97,36 @@ public class ProbController {
         return "/prob/simulation2";
     } 
 
+    @GetMapping("/simulation3")
+    public String simulation3(Model model) {
+        // Vue 예제 페이지로 이동
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        
+        // logger.info("user[{}]", user.toString());
+
+        return "/prob/simulation3";
+    } 
+
+    @GetMapping("/simulation4")
+    public String simulation4(Model model) {
+        // Vue 예제 페이지로 이동
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        
+        // logger.info("user[{}]", user.toString());
+
+        return "/prob/simulation4";
+    } 
+
+    @GetMapping("/simulation5")
+    public String simulation5(Model model) {
+        // Vue 예제 페이지로 이동
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        
+        // logger.info("user[{}]", user.toString());
+
+        return "/prob/simulation5";
+    } 
+
     @GetMapping("/sheetlucky")
     public String sheetlucky(Model model) {
         // Vue 예제 페이지로 이동

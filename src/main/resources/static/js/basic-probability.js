@@ -5,7 +5,8 @@ $(window).load(function () {
 
 function chance() {
   //Constants
-  var probTheo = [0.5, 0.5]; // json
+  var item_type = $("item_type").attr("value"); // 전달
+  var probTheo = [0.5, 0.5]; // 전달
   var countCoin = [0, 0];
   var coinData = [
     {
