@@ -3,31 +3,6 @@ $(window).load(function () {
   chance();
 });
 
-//Handles CSS animation for coin and die
-//Adapted from http://jsfiddle.net/byrichardpowell/38MGS/1/
-$.fn.animatecss = function (anim, time, cb) {
-  if (time) this.css("-webkit-transition", time / 1000 + "s");
-  this.addClass(anim);
-  if ($.isFunction(cb)) {
-    setTimeout(
-      function () {
-        $(this).each(cb);
-      },
-      time ? time : 250
-    );
-  }
-  return this;
-};
-
-//Cumulative Sum function for array
-function cumsum(array) {
-  var resultArray = [];
-  array.reduce(function (a, b, i) {
-    return (resultArray[i] = a + b.p);
-  }, 0);
-  return resultArray;
-}
-
 function chance() {
   //Constants
   var probTheo = [0.5, 0.5]; // json
@@ -222,7 +197,7 @@ function chance() {
         .on("mouseout", tipCoinTheo.hide)
         .call(dragCoin);
     });
-    $("#barCoin").parent().on("mouseup", tipCoinTheo.show);
+    $("#barCoin").parent().on("mouseup", tipCoinTheo.hide);
   }
 
   function update() {
@@ -290,8 +265,6 @@ function chance() {
 
     //Update SVG
     svgCoin
-      //.attr("width", width)
-      //.attr("height", height)
       .call(tipCoinObs)
       .call(tipCoinTheo);
 
