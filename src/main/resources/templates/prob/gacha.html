@@ -91,14 +91,15 @@
                                 th:text="${gacha.gachaname}"/>
                         </select>
                     </div>
-                    <div style="float: left;">
-                        <input type="button" class="btn btn-primary" value="계산" onclick="calc()"/>
-                    </div>
 
+                </div>
+                <div class="card-body">
+                    <input type="button" class="btn btn-primary" value="계산" v-on:click="Calc()"/>
                 </div>
                 <div class="card-body">
                     <div id="userProbTable" style="width: 100%;"></div>
                 </div>
+                <input type="button" value="Toggle Collapse" v-on:click="ToggleCrawled()"/>
                 <div class="card-body">
                     <div id="crawledProbTable" style="width: 100%;"></div>
                 </div>
@@ -135,3 +136,6 @@
         <script src="/js/prob/gacha.js"></script>
     </div>
 </html>
+
+
+        

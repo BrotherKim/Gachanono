@@ -19,6 +19,7 @@ import com.kaist.gachanono.gachanonoserver.dto.GameDto.Response;
 
 import java.util.List;
 
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,7 @@ public class GachaService {
     public List<Gacha> gachaList() {
         return gachaRepository.findAll();
     }
+    
 
     // /* search */
     // @Transactional(readOnly = true)

@@ -1,5 +1,6 @@
 package com.kaist.gachanono.gachanonoserver.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -118,6 +119,11 @@ public class CalcService {
 
     @Transactional
     public Map<Integer, Float> completeGacha(int all_coupon_count, float[] prob_list) {
+        return null;
+    }
+
+    @Transactional
+    public String completeGacha(int itemCnt, List<Long> itemNames, List<Long> itemProbs) {
         return null;
     }
 
