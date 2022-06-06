@@ -15,11 +15,13 @@ import java.util.List;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
 import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Gacha;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.dto.CommentDto;
 import com.kaist.gachanono.gachanonoserver.dto.GameDto;
 import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
+import com.kaist.gachanono.gachanonoserver.service.GachaService;
 import com.kaist.gachanono.gachanonoserver.service.GameService;
 import com.kaist.gachanono.gachanonoserver.service.PostsService;
 
@@ -33,6 +35,7 @@ public class PostsIndexController {
 
     private final PostsService postsService;
     private final GameService gameService;
+    private final GachaService gachaService;
 
     /* default page = 0, size = 10  */
     @GetMapping("/posts/free")
@@ -70,8 +73,10 @@ public class PostsIndexController {
         List<Game> games = gameService.gameList();
         model.addAttribute("games", games);
 
+        List<Gacha> gachas = gachaService.gachaList();
+        model.addAttribute("gachas", gachas);
+
         return "prob/gacha";
-        //return "/index";
     }
     /* 글 작성 */
     @GetMapping("/posts/write")

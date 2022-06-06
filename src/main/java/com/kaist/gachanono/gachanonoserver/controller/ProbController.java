@@ -7,12 +7,19 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Gacha;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
+import com.kaist.gachanono.gachanonoserver.dto.UserDto;
+import com.kaist.gachanono.gachanonoserver.service.GachaService;
 import com.kaist.gachanono.gachanonoserver.service.GameService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,16 +36,25 @@ public class ProbController {
     private HttpSession httpSession;
 
     private final GameService gameService;
+    private final GachaService gachaService;
 
     @GetMapping("/gacha") 
-    public String gacha(Model model) {
-        // Vue 예제 페이지로 이동
+    public String gacha(Model model,
+    @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable,
+    @LoginUser UserDto.Response user
+    )  {
+        
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
 
-        // logger.info("user[{}]", user.toString());
         List<Game> games = gameService.gameList();
         model.addAttribute("games", games);
 
-        return "/prob/gacha"; 
+        List<Gacha> gachas = gachaService.gachaList();
+        model.addAttribute("gachas", gachas);
+
+        return "prob/gacha";
     } 
 
     @GetMapping("/calculation") 

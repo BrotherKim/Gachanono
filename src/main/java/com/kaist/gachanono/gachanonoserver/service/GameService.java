@@ -98,6 +98,11 @@ public class GameService {
         return itemRepository.findByGameid(gameid, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public String getProbtableName(Long gameid) {
+        return null;
+    }
+
     // /* search */
     // @Transactional(readOnly = true)
     // public Page<Posts> search(String keyword, Pageable pageable) {

@@ -25,16 +25,7 @@
             href="https://fonts.googleapis.com/css?family=Material+Icons"/>
 
         <script th:inline="javascript">
-            /*<![CDATA[*/
-
-            /**
-    		 * 게시글 조회
-	        */
-            function goView(id) {
-                location.href = `/board/view/${id}`;
-            }
-            console.log('include done');
-            /*]]>*/
+            
         </script>
     </th:block>
 
@@ -43,14 +34,14 @@
             <div class="container col-md-4">
                 <form>
                     <label for="id"></label>
-                    <input type="hidden" id="id" value="{{user.id}}"/>
-                    <input type="hidden" id="id" value="{{user.modifiedDate}}"/>
+                    <input type="hidden" id="id" th:value="${user.id}"/>
+                    <input type="hidden" id="modifiedDate" th:value="${user.modifiedDate}"/>
                     <div class="form-group">
                         <label for="username">아이디</label>
                         <input
                             type="text"
                             id="username"
-                            value="{{user.username}}"
+                            th:value="${user.username}"
                             class="form-control"
                             readonly="readonly"/>
                     </div>
@@ -69,7 +60,7 @@
                         <input
                             type="text"
                             id="nickname"
-                            value="{{user.nickname}}"
+                            th:value="${user.nickname}"
                             class="form-control"
                             placeholder="수정할 닉네임을 입력해주세요"/>
                     </div>
@@ -79,7 +70,7 @@
                         <input
                             type="email"
                             id="email"
-                            value="{{user.email}}"
+                            th:value="${user.email}"
                             class="form-control"
                             readonly="readonly"/>
                     </div>

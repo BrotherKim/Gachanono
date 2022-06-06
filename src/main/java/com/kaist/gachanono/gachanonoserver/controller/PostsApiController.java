@@ -65,9 +65,11 @@ public class PostsApiController {
         return ResponseEntity.ok(gameService.getItemList(gameid, pageable));
     }
 
-    /* Get itemlist with game_id */
+    /* Get probtable name with game_id */
     @GetMapping("/prob/probtable/{gameid}")
-    public ResponseEntity getItemList() {
-        return ResponseEntity.ok(gachaService.getGachaInfo());
+    public ResponseEntity getProbtableName(
+        @PathVariable Long gameid
+    ) {
+        return ResponseEntity.ok(gameService.getProbtableName(gameid));
     }
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Gacha;
 import com.kaist.gachanono.gachanonoserver.domain.Game.GachaRepository;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.Game.GameRepository;
@@ -85,10 +86,8 @@ public class GachaService {
     //     return postsRepository.updateGood(id);
     // }
 
-
-    /* Paging and Sort */
     @Transactional(readOnly = true)
-    public List<Item> getGachaInfo() {
+    public List<Gacha> gachaList() {
         return gachaRepository.findAll();
     }
 
