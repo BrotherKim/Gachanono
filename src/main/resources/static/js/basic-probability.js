@@ -28,12 +28,9 @@ function cumsum(array) {
   return resultArray;
 }
 
-//*******************************************************************************//
-//Chance Events
-//*******************************************************************************//
 function chance() {
   //Constants
-  var probTheo = [0.5, 0.5]; // 가져오기
+  var probTheo = [0.5, 0.5]; // json
   var countCoin = [0, 0];
   var coinData = [
     {
@@ -65,7 +62,7 @@ function chance() {
   };
 
   var margin = { top: 15, right: 5, bottom: 15, left: 5 };
-  var width = 800; //parseInt(d3.select("#graph").style("width")) - margin.left - margin.right,
+  var width = 800;
   height = 500;
 
   //Create SVG
@@ -125,6 +122,15 @@ function chance() {
     })
     .enter()
     .append("rect");
+
+  var sides = states
+    .selectAll("image")
+    .data(function (d) {
+      return d.data;
+    })
+    .enter()
+    .append("image")
+    .attr("class", "coin");
 
   var axisCoin = svgCoin.append("g").attr("class", "x axis");
 
@@ -186,11 +192,25 @@ function chance() {
         return d.side;
       });
 
+    sides
+      .attr("xlink:href", function (d) {
+        return "/assets/img/" + d.side + ".png";
+      })
+      .attr("x", function (d) {
+        return x1ScaleCoin(d.side) + x1ScaleCoin.rangeBand() / 6;
+      })
+      .attr("y", function (d) {
+        return yScaleCoin(0) + 20;
+      })
+      .attr("width", (x1ScaleCoin.rangeBand() * 2) / 3)
+      .attr("height", (x1ScaleCoin.rangeBand() * 2) / 3);
+
     containerCoin.selectAll("g.Observed rect").each(function () {
       d3.select(this)
         .on("mouseover", tipCoinObs.show)
         .on("mouseout", tipCoinObs.hide);
     });
+
     containerCoin.selectAll("g.True rect").each(function () {
       d3.select(this)
         .on("mousedown", function (d) {
@@ -202,7 +222,7 @@ function chance() {
         .on("mouseout", tipCoinTheo.hide)
         .call(dragCoin);
     });
-    $("#barCoin").parent().on("mouseup", tipCoinTheo.hide);
+    $("#barCoin").parent().on("mouseup", tipCoinTheo.show);
   }
 
   function update() {
@@ -214,12 +234,12 @@ function chance() {
     }
 
     total_try.innerText = total_cnt;
-    left_money.innerText = left_money.innerText - item_cost.innerText;
+    left_money.innerText = left_money.innerText - item_cost.value;
 
     if (flag && check_pop()) {
       flag = false;
 
-      var total_cost = total_cnt * item_cost.innerText;
+      var total_cost = total_cnt * item_cost.value;
 
       document.getElementById("success_test").innerText =
         " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
