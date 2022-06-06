@@ -23,7 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation. *;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST API Controller
@@ -131,29 +131,19 @@ public class PostsApiController {
         // Parse JSON
         JSONObject d = new JSONObject(dto);
         log.info("d[{}]", d);
-        int itemCnt = d.getInt("itemCnt");
-        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
-        List<String> itemNames = new ArrayList<String>();
-        for (int i = 0; i < itemNamesRaw.length(); i++) {
-            itemNames.add(itemNamesRaw.getString(i));
-        }
-        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
-        List<Double> itemProbs = new ArrayList<Double>();
-        for (int i = 0; i < itemProbsRaw.length(); i++) {
-            Double itemProb = itemProbsRaw.getDouble(i);
-            itemProb = itemProb * 0.01;
-            itemProbs.add(itemProb);
-        }
+        int startCnt = d.getInt("startCnt");
+        int tryCnt = d.getInt("tryCnt");
+        Double itemProb = d.getDouble("itemProb");
 
         log.info(
-            "itemCnt[{}] itemList[{}] itemProbs[{}]",
-            itemCnt,
-            itemNames,
-            itemProbs
+            "startCnt[{}] tryCnt[{}] itemProb[{}]",
+            startCnt,
+            tryCnt,
+            itemProb
         );
 
         // Compute
-        return calcService.segDiff(itemCnt, itemNames, itemProbs);
+        return calcService.segDiff(startCnt, tryCnt, itemProb);
     }
 
     /* completegacha */
@@ -166,12 +156,19 @@ public class PostsApiController {
         // Parse JSON
         JSONObject d = new JSONObject(dto);
         log.info("d[{}]", d);
-        int itemCnt = d.getInt("itemCnt");
-        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
-        List<String> itemNames = new ArrayList<String>();
-        for (int i = 0; i < itemNamesRaw.length(); i++) {
-            itemNames.add(itemNamesRaw.getString(i));
+        
+        JSONArray startCntsRaw = d.getJSONArray("startCnts");
+        List<Integer> startCnts = new ArrayList<Integer>();
+        for (int i = 0; i < startCntsRaw.length(); i++) {
+            startCnts.add(startCntsRaw.getInt(i));
         }
+
+        JSONArray endCntsRaw = d.getJSONArray("endCnts");
+        List<Integer> endCnts = new ArrayList<Integer>();
+        for (int i = 0; i < endCntsRaw.length(); i++) {
+            endCnts.add(endCntsRaw.getInt(i));
+        }
+
         JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
         List<Double> itemProbs = new ArrayList<Double>();
         for (int i = 0; i < itemProbsRaw.length(); i++) {
@@ -181,14 +178,14 @@ public class PostsApiController {
         }
 
         log.info(
-            "itemCnt[{}] itemList[{}] itemProbs[{}]",
-            itemCnt,
-            itemNames,
+            "startCnts[{}] endCnts[{}] itemProbs[{}]",
+            startCnts,
+            endCnts,
             itemProbs
         );
 
         // Compute
-        return calcService.segSame(itemCnt, itemNames, itemProbs);
+        return calcService.segSame(startCnts, endCnts, itemProbs);
     }
 
     /* completegacha */
@@ -201,29 +198,18 @@ public class PostsApiController {
         // Parse JSON
         JSONObject d = new JSONObject(dto);
         log.info("d[{}]", d);
-        int itemCnt = d.getInt("itemCnt");
-        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
-        List<String> itemNames = new ArrayList<String>();
-        for (int i = 0; i < itemNamesRaw.length(); i++) {
-            itemNames.add(itemNamesRaw.getString(i));
-        }
-        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
-        List<Double> itemProbs = new ArrayList<Double>();
-        for (int i = 0; i < itemProbsRaw.length(); i++) {
-            Double itemProb = itemProbsRaw.getDouble(i);
-            itemProb = itemProb * 0.01;
-            itemProbs.add(itemProb);
-        }
-
+        Double itemProb = d.getDouble("itemProb");
+        int tryCnt = d.getInt("tryCnt");
+        int maxTryCnt = d.getInt("maxTryCnt");
         log.info(
-            "itemCnt[{}] itemList[{}] itemProbs[{}]",
-            itemCnt,
-            itemNames,
-            itemProbs
+            "itemProb[{}] tryCnt[{}] maxTryCnt[{}]",
+            itemProb,
+            tryCnt,
+            maxTryCnt
         );
 
         // Compute
-        return calcService.swrCeiling(itemCnt, itemNames, itemProbs);
+        return calcService.swrCeiling(itemProb, tryCnt, maxTryCnt);
     }
 
     /* completegacha */
@@ -236,28 +222,16 @@ public class PostsApiController {
         // Parse JSON
         JSONObject d = new JSONObject(dto);
         log.info("d[{}]", d);
-        int itemCnt = d.getInt("itemCnt");
-        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
-        List<String> itemNames = new ArrayList<String>();
-        for (int i = 0; i < itemNamesRaw.length(); i++) {
-            itemNames.add(itemNamesRaw.getString(i));
-        }
-        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
-        List<Double> itemProbs = new ArrayList<Double>();
-        for (int i = 0; i < itemProbsRaw.length(); i++) {
-            Double itemProb = itemProbsRaw.getDouble(i);
-            itemProb = itemProb * 0.01;
-            itemProbs.add(itemProb);
-        }
+        Double itemProb = d.getDouble("itemProb");
+        int tryCnt = d.getInt("tryCnt");
 
         log.info(
-            "itemCnt[{}] itemList[{}] itemProbs[{}]",
-            itemCnt,
-            itemNames,
-            itemProbs
+            "itemProb[{}] tryCnt[{}]",
+            itemProb,
+            tryCnt
         );
 
         // Compute
-        return calcService.swr(itemCnt, itemNames, itemProbs);
+        return calcService.swr(itemProb, tryCnt);
     }
 }

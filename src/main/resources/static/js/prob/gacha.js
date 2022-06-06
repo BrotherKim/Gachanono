@@ -188,6 +188,346 @@ const gacha = {
                 ToggleCrawled: function () {
                     this.crawled.display = !this.crawled.display;
                 },
+                CompleteGacha: function () {
+                    // 입력 가져오기
+                    let itemCnt = this
+                        .table
+                        .userProbTable
+                        .getColumnData(1)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let itemNames = this
+                        .table
+                        .userProbTable
+                        .getColumnData(2)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let itemProbs = this
+                        .table
+                        .userProbTable
+                        .getColumnData(3)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+
+                    console.log(itemCnt);
+                    console.log(itemNames);
+                    console.log(itemProbs);
+
+                    // 입력 유효성 검사
+                    if (itemCnt.length != 2) {
+                        alert('아이템 개수를 한개만 입력해주세요');
+                        return;
+                    } else {
+                        itemCnt = itemCnt[1];
+                    }
+                    if (itemNames.length - 1 != itemCnt) {
+                        alert('아이템 개수와 아이템 이름의 개수가 맞지 않습니다.');
+                        return;
+                    } else {
+                        itemNames = itemNames.slice(1);
+                    }
+                    if (itemProbs.length - 1 != itemCnt) {
+                        alert('아이템 개수와 아이템 확률의 개수가 맞지 않습니다.');
+                        return;
+                    } else {
+                        itemProbs = itemProbs.slice(1);
+                    }
+
+                    // 서버로 요청
+                    const data = {
+                        // gamename: gamename, itemname: itemname, tryprice: tryprice,
+                        itemCnt: itemCnt,
+                        itemNames: itemNames,
+                        itemProbs: itemProbs
+                    };
+
+                    $
+                        .ajax({
+                            type: 'POST', url: '/api/calc/completegacha',
+                            //dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                console.log(retval);
+                            }
+                        })
+                        .done(function () {})
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
+                SegDiff: function () {
+                    // 입력 가져오기
+                    let startCnt = this
+                        .table
+                        .userProbTable
+                        .getColumnData(1)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let tryCnt = this
+                        .table
+                        .userProbTable
+                        .getColumnData(2)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let itemProbs = this
+                        .table
+                        .userProbTable
+                        .getColumnData(3)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+
+                    console.log(startCnt);
+                    console.log(tryCnt);
+                    console.log(itemProbs);
+
+                    // 입력 유효성 검사
+                    if (startCnt.length != 2) {
+                        alert('시작 구간은 한개만 입력해주세요');
+                        return;
+                    } else {
+                        startCnt = startCnt[1];
+                    }
+                    if (tryCnt.length != 2) {
+                        alert('시도 횟수는 한개만 입력해주세요');
+                        return;
+                    } else {
+                        tryCnt = tryCnt[1];
+                    }
+                    if (itemProbs.length != 2) {
+                        alert('확률은 한개만 입력해주세요');
+                        return;
+                    } else {
+                        itemProbs = itemProbs[1];
+                    }
+
+                    // 서버로 요청
+                    const data = {
+                        // gamename: gamename, itemname: itemname, tryprice: tryprice,
+                        startCnt: startCnt,
+                        tryCnt: tryCnt,
+                        itemProbs: itemProbs
+                    };
+
+                    $
+                        .ajax({
+                            type: 'POST', url: '/api/calc/segDiff',
+                            //dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                console.log(retval);
+                            }
+                        })
+                        .done(function () {})
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
+                SegSame: function () {
+                    // 입력 가져오기
+                    let startCnts = this
+                        .table
+                        .userProbTable
+                        .getColumnData(1)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let endCnts = this
+                        .table
+                        .userProbTable
+                        .getColumnData(2)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let itemProbs = this
+                        .table
+                        .userProbTable
+                        .getColumnData(3)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+
+                    console.log(startCnts);
+                    console.log(endCnts);
+                    console.log(itemProbs);
+
+                    // 입력 유효성 검사
+                    // if (itemCnt.length != 2) {
+                    //     alert('아이템 개수를 한개만 입력해주세요');
+                    //     return;
+                    // } else {
+                        startCnts = startCnts.slice(1);
+                    // }
+                    // if (itemNames.length - 1 != itemCnt) {
+                    //     alert('아이템 개수와 아이템 이름의 개수가 맞지 않습니다.');
+                    //     return;
+                    // } else {
+                        endCnts = endCnts.slice(1);
+                    // }
+                    // if (itemProbs.length - 1 != itemCnt) {
+                    //     alert('아이템 개수와 아이템 확률의 개수가 맞지 않습니다.');
+                    //     return;
+                    // } else {
+                        itemProbs = itemProbs.slice(1);
+                    // }
+
+                    // 서버로 요청
+                    const data = {
+                        // gamename: gamename, itemname: itemname, tryprice: tryprice,
+                        startCnts: startCnts,
+                        endCnts: endCnts,
+                        itemProbs: itemProbs
+                    };
+
+                    $
+                        .ajax({
+                            type: 'POST', url: '/api/calc/segSame',
+                            //dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                console.log(retval);
+                            }
+                        })
+                        .done(function () {})
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
+                SwrCeiling: function () {
+                    // 입력 가져오기
+                    let itemProb = this
+                        .table
+                        .userProbTable
+                        .getColumnData(1)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let tryCnt = this
+                        .table
+                        .userProbTable
+                        .getColumnData(2)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let maxTryCnt = this
+                        .table
+                        .userProbTable
+                        .getColumnData(3)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+
+                    console.log(itemProb);
+                    console.log(tryCnt);
+                    console.log(maxTryCnt);
+
+                    // 입력 유효성 검사
+                    if (itemProb.length != 2) {
+                        alert('확률은 한개만 입력해주세요');
+                        return;
+                    } else {
+                        itemProb = itemProb[1];
+                    }
+                    if (tryCnt.length != 2) {
+                        alert('시도 횟수는 한개만 입력해주세요');
+                        return;
+                    } else {
+                        tryCnt = tryCnt[1];
+                    }
+                    if (maxTryCnt.length != 2) {
+                        alert('최대 시도 횟수는 한개만 입력해주세요');
+                        return;
+                    } else {
+                        maxTryCnt = maxTryCnt[1];
+                    }
+
+                    // 서버로 요청
+                    const data = {
+                        // gamename: gamename, itemname: itemname, tryprice: tryprice,
+                        itemProb: itemProb,
+                        tryCnt: tryCnt,
+                        maxTryCnt: maxTryCnt
+                    };
+
+                    $
+                        .ajax({
+                            type: 'POST', url: '/api/calc/swrCeiling',
+                            //dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                console.log(retval);
+                            }
+                        })
+                        .done(function () {})
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
+                Swr: function () {
+                    // 입력 가져오기
+                    let itemProb = this
+                        .table
+                        .userProbTable
+                        .getColumnData(1)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+                    let tryCnt = this
+                        .table
+                        .userProbTable
+                        .getColumnData(2)
+                        .filter(function (el) {
+                            return 0 < el.length;
+                        });
+
+                    console.log(itemProb);
+                    console.log(tryCnt);
+
+                    // 입력 유효성 검사
+                    if (itemProb.length != 2) {
+                        alert('아이템 개수를 한개만 입력해주세요');
+                        return;
+                    } else {
+                        itemProb = itemProb[1];
+                    }
+                    if (tryCnt.length != 2) {
+                        alert('아이템 개수를 한개만 입력해주세요');
+                        return;
+                    } else {
+                        tryCnt = tryCnt[1];
+                    }
+
+                    // 서버로 요청
+                    const data = {
+                        // gamename: gamename, itemname: itemname, tryprice: tryprice,
+                        itemProb: itemProb,
+                        tryCnt: tryCnt,
+                    };
+
+                    $
+                        .ajax({
+                            type: 'POST', url: '/api/calc/swr',
+                            //dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                console.log(retval);
+                            }
+                        })
+                        .done(function () {})
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
                 Calc: function () {
                     console.log('Calc');
 
@@ -196,104 +536,23 @@ const gacha = {
                     switch (selectedGacha) {
                         // 컴플리트가챠
                         case '1':
-                            {
-                                // 입력 가져오기
-                                let itemCnt = this
-                                    .table
-                                    .userProbTable
-                                    .getColumnData(1)
-                                    .filter(function (el) {
-                                        return 0 < el.length;
-                                    });
-                                let itemNames = this
-                                    .table
-                                    .userProbTable
-                                    .getColumnData(2)
-                                    .filter(function (el) {
-                                        return 0 < el.length;
-                                    });
-                                let itemProbs = this
-                                    .table
-                                    .userProbTable
-                                    .getColumnData(3)
-                                    .filter(function (el) {
-                                        return 0 < el.length;
-                                    });
-
-                                console.log(itemCnt);
-                                console.log(itemNames);
-                                console.log(itemProbs);
-
-                                // 입력 유효성 검사
-                                if (itemCnt.length != 2) {
-                                    alert('아이템 개수를 한개만 입력해주세요');
-                                    return;
-                                } else {
-                                    itemCnt = itemCnt[1];
-                                }
-                                if (itemNames.length - 1 != itemCnt) {
-                                    alert('아이템 개수와 아이템 이름의 개수가 맞지 않습니다.');
-                                    return;
-                                } else {
-                                    itemNames = itemNames.slice(1);
-                                }
-                                if (itemProbs.length -1 != itemCnt) {
-                                    alert('아이템 개수와 아이템 확률의 개수가 맞지 않습니다.');
-                                    return;
-                                } else {
-                                    itemProbs = itemProbs.slice(1);
-                                }
-
-                                // 서버로 요청
-                                const data = {
-                                    // gamename: gamename,
-                                    // itemname: itemname,
-                                    // tryprice: tryprice,
-                                    itemCnt: itemCnt,
-                                    itemNames: itemNames,
-                                    itemProbs: itemProbs
-                                };
-
-                                $
-                                    .ajax({
-                                        type: 'POST',
-                                        url: '/api/calc/completegacha',
-                                        //dataType: 'JSON',
-                                        contentType: 'application/json; charset=utf-8',
-                                        data: JSON.stringify(data),
-                                        success: function (retval) {
-                                            console.log(retval);
-                                        }
-                                    })
-                                    .done(function () {})
-                                    .fail(function (error) {
-                                        alert(JSON.stringify(error));
-                                    });
-                            }
+                            this.CompleteGacha();
                             break;
-                            // 다른 아이템 구간별 확률
+                        // 다른 아이템 구간별 확률
                         case '2':
-                            {
-                                console.log("900원");
-                            }
+                            this.SegDiff();
                             break;
-                            // 동일 아이템 구간별 확률
+                        // 동일 아이템 구간별 확률
                         case '3':
-                            {
-                                console.log("700원");
-                            }
+                            this.SegSame();
                             break;
-                            // 천장이 있는 복원추출
+                        // 천장이 있는 복원추출
                         case '4':
-                            {
-                                console.log("700원");
-                            }
+                            this.SwrCeiling();
                             break;
-                            // 복원추출
+                        // 복원추출
                         case '5':
-                            {
-                                console.log("700원");
-                            }
+                            this.Swr();
                             break;
                     }
                     // 시트에서 확률 정보 가져옴 ajax로 서버로 정보 전달 후, 계산 결과 받아옴 받아온 계산 결과 바탕으로 차트 그림

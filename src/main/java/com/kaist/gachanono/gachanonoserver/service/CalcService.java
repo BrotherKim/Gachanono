@@ -148,13 +148,36 @@ public class CalcService {
     }
 
     @Transactional
-    public String segDiff(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+    public String segDiff(int startCnt, int tryCnt, Double itemProb) {
         String retval = "";
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_2(%d, %s);\""
-                , itemCnt
+                "python -c \"from src.main.python.compute import *; FUNC_2(%d, %d, %f);\""
+                , startCnt
+                , tryCnt
+                , itemProb
+            );
+            log.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            log.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    @Transactional
+    public String segSame(List<Integer> startCnts, List<Integer> endCnts, List<Double> itemProbs) {
+        String retval = "";
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %s);\""
+                , startCnts.toString()
+                , endCnts.toString()
                 , itemProbs.toString()
             );
             log.info(cmd);
@@ -169,14 +192,15 @@ public class CalcService {
     }
 
     @Transactional
-    public String segSame(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+    public String swrCeiling(Double itemProb, int tryCnt, int maxTryCnt) {
         String retval = "";
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_3(%d, %s);\""
-                , itemCnt
-                , itemProbs.toString()
+                "python -c \"from src.main.python.compute import *; FUNC_4(%f, %d, %d);\""
+                , itemProb
+                , tryCnt
+                , maxTryCnt
             );
             log.info(cmd);
             ExecUtil.getInstance().exec(cmd);
@@ -190,14 +214,14 @@ public class CalcService {
     }
 
     @Transactional
-    public String swrCeiling(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+    public String swr(Double itemProb, int tryCnt) {
         String retval = "";
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_4(%d, %s);\""
-                , itemCnt
-                , itemProbs.toString()
+                "python -c \"from src.main.python.compute import *; FUNC_5(%f, %d);\""
+                , itemProb
+                , tryCnt
             );
             log.info(cmd);
             ExecUtil.getInstance().exec(cmd);
@@ -210,25 +234,6 @@ public class CalcService {
         return retval;
     }
 
-    @Transactional
-    public String swr(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
-        String retval = "";
-        try {
-            String cmd = 
-            String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_5(%d, %s);\""
-                , itemCnt
-                , itemProbs.toString()
-            );
-            log.info(cmd);
-            ExecUtil.getInstance().exec(cmd);
-            retval = ExecUtil.getInstance().getStdOutString();
-            log.info("retval: {}", retval);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return retval;
-    }
-
+    
+    
 }
