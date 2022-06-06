@@ -1,8 +1,7 @@
-package com.kaist.gachanono.gachanonoserver.infrastructure.config;
+package com.kaist.gachanono.gachanonoserver.config;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.CustomUserDetailsService;
 import com.kaist.gachanono.gachanonoserver.config.oauth.CustomOAuth2UserService;
-import com.kaist.gachanono.gachanonoserver.domain.User.Role;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

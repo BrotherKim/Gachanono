@@ -3,16 +3,10 @@ package com.kaist.gachanono.gachanonoserver.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.Game.GameRepository;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Item;
 import com.kaist.gachanono.gachanonoserver.domain.Game.ItemRepository;
-import com.kaist.gachanono.gachanonoserver.domain.User.User;
-import com.kaist.gachanono.gachanonoserver.domain.persistence.PostsRepository;
-import com.kaist.gachanono.gachanonoserver.domain.persistence.UserRepository;
-import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
-import com.kaist.gachanono.gachanonoserver.dto.GameDto.Response;
 
 import java.util.List;
 

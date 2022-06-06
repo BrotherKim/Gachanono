@@ -1,23 +1,15 @@
 package com.kaist.gachanono.gachanonoserver.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller 
 public class PageController {
     
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private HttpSession httpSession;
 
     @GetMapping("/401") 
     public String error401() {
@@ -32,44 +24,5 @@ public class PageController {
     @GetMapping("/500") 
     public String error500() {
         return "401"; 
-    }
-    
-    @GetMapping("/charts") 
-    public String charts() {
-        return "charts"; 
-    }
-    
-    @GetMapping("/error") 
-    public String error() {
-        return "error"; 
-    }
-
-    // @GetMapping("/layout-sidenav-light") 
-    // public String layoutSidenavLight() {
-    //     return "layout-sidenav-light"; 
-    // }
-    
-    @GetMapping("/layout-static") 
-    public String layoutStatic() {
-        return "layout-static"; 
-    }
-    
-    @GetMapping("/tables") 
-    public String tables() {
-        return "tables"; 
-    }
-
-    @GetMapping("/test")
-    public String getUser(Model model) {
-        // thymeleaf 에서 사용할 데이터 전달
-        //User user = new User(1122, "테스트") ;
-        //model.addAttribute("user", user);
-        return "test";
-    }
-
-    @RequestMapping("/hello")
-    public String hello(){
-        // thymeleaf 에서 사용할 데이터 전달
-        return "hello";
     }
 }

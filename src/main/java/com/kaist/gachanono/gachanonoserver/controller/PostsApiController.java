@@ -3,12 +3,10 @@ package com.kaist.gachanono.gachanonoserver.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import com.google.gson.Gson;
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
 import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
 import com.kaist.gachanono.gachanonoserver.service.CalcService;
-import com.kaist.gachanono.gachanonoserver.service.GachaService;
 import com.kaist.gachanono.gachanonoserver.service.GameService;
 import com.kaist.gachanono.gachanonoserver.service.PostsService;
 

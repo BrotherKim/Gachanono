@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
 import com.kaist.gachanono.gachanonoserver.service.UserService;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

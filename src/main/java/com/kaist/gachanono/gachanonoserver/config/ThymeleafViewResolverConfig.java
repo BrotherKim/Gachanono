@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.infrastructure.config;
+package com.kaist.gachanono.gachanonoserver.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
