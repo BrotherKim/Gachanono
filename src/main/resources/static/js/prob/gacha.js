@@ -194,7 +194,7 @@ const gacha = {
                     // 게임 이름과 아이템 유효성검사 switch 조건문
                     let selectedGacha = this.gacha.selected;
                     switch (selectedGacha) {
-                            // 컴플리트가챠
+                        // 컴플리트가챠
                         case '1':
                             {
                                 // 입력 가져오기
