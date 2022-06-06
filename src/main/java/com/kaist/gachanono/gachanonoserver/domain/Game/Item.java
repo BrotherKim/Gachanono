@@ -18,7 +18,7 @@ public class Item {
     @Column(nullable = false)
     private String itemname;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id")
-    private Game game;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gameid")
+    private Long gameid;
 }

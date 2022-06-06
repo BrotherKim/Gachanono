@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.Game.GameRepository;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Item;
 import com.kaist.gachanono.gachanonoserver.domain.Game.ItemRepository;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 import com.kaist.gachanono.gachanonoserver.domain.persistence.PostsRepository;
@@ -88,6 +89,13 @@ public class GameService {
     @Transactional(readOnly = true)
     public List<Game> gameList() {
         return gameRepository.findAll();
+    }
+
+    /* Paging and Sort */
+    @Transactional(readOnly = true)
+    public Page<Item> getItemList(Long gameid, Pageable pageable) {
+        log.info("gameid[{}]", gameid);
+        return itemRepository.findByGameid(gameid, pageable);
     }
 
     // /* search */

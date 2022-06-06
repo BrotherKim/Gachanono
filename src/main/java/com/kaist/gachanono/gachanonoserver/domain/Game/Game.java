@@ -18,4 +18,7 @@ public class Game {
     @Column(nullable = false)
     private String gamename;
 
+    @Column
+    private String probfilename;
+
 }

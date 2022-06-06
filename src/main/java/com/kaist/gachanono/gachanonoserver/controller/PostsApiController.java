@@ -6,8 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
 import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
+import com.kaist.gachanono.gachanonoserver.service.GachaService;
+import com.kaist.gachanono.gachanonoserver.service.GameService;
 import com.kaist.gachanono.gachanonoserver.service.PostsService;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 public class PostsApiController {
 
     private final PostsService postsService;
+    private final GameService gameService;
+    private final GachaService gachaService;
 
     /* CREATE */
     @PostMapping("/posts")
@@ -47,5 +54,20 @@ public class PostsApiController {
     public ResponseEntity delete(@PathVariable Long id) {
         postsService.delete(id);
         return ResponseEntity.ok(id);
+    }
+
+    /* Get itemlist with game_id */
+    @GetMapping("/prob/itemlist/{gameid}")
+    public ResponseEntity getItemList(
+        @PathVariable Long gameid, 
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable
+    ) {
+        return ResponseEntity.ok(gameService.getItemList(gameid, pageable));
+    }
+
+    /* Get itemlist with game_id */
+    @GetMapping("/prob/probtable/{gameid}")
+    public ResponseEntity getItemList() {
+        return ResponseEntity.ok(gachaService.getGachaInfo());
     }
 }
