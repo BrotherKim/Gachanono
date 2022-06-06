@@ -133,7 +133,7 @@ public class PostsApiController {
         log.info("d[{}]", d);
         int startCnt = d.getInt("startCnt");
         int tryCnt = d.getInt("tryCnt");
-        Double itemProb = d.getDouble("itemProb");
+        Double itemProb = d.getDouble("itemProb") * 0.01;
 
         log.info(
             "startCnt[{}] tryCnt[{}] itemProb[{}]",
@@ -198,7 +198,7 @@ public class PostsApiController {
         // Parse JSON
         JSONObject d = new JSONObject(dto);
         log.info("d[{}]", d);
-        Double itemProb = d.getDouble("itemProb");
+        Double itemProb = d.getDouble("itemProb") * 0.01;
         int tryCnt = d.getInt("tryCnt");
         int maxTryCnt = d.getInt("maxTryCnt");
         log.info(
@@ -222,7 +222,7 @@ public class PostsApiController {
         // Parse JSON
         JSONObject d = new JSONObject(dto);
         log.info("d[{}]", d);
-        Double itemProb = d.getDouble("itemProb");
+        Double itemProb = d.getDouble("itemProb") * 0.01;
         int tryCnt = d.getInt("tryCnt");
 
         log.info(

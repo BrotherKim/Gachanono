@@ -144,6 +144,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
+        retval = retval.replace("(", "[").replace(")", "]");
         return retval;
     }
 
@@ -153,10 +154,10 @@ public class CalcService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_2(%d, %d, %f);\""
+                "python -c \"from src.main.python.compute import *; FUNC_2(%d, %f, %d);\""
                 , startCnt
-                , tryCnt
                 , itemProb
+                , tryCnt
             );
             log.info(cmd);
             ExecUtil.getInstance().exec(cmd);
@@ -166,6 +167,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
+        retval = retval.replace("(", "").replace(")", "").replace("},", "}},");
         return retval;
     }
 
@@ -188,6 +190,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
+        retval = retval.replace("(", "[").replace(")", "]");
         return retval;
     }
 
@@ -210,6 +213,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
+        retval = retval.replace("(", "[").replace(")", "]");
         return retval;
     }
 
@@ -231,6 +235,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
+        retval = retval.replace("(", "[").replace(")", "]");
         return retval;
     }
 
