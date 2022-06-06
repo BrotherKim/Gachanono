@@ -260,7 +260,7 @@ const gacha = {
                                         url: '/api/calc/completegacha',
                                         dataType: 'JSON',
                                         contentType: 'application/json; charset=utf-8',
-                                        data: JSON.stringify(JSON.stringify(data)),
+                                        data: JSON.stringify(data),
                                         success: function (retval) {
                                             console.log(retval);
                                         }

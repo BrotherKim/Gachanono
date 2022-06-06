@@ -7,8 +7,12 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.kaist.gachanono.gachanonoserver.util.ExecUtil;
+
+import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CalcService {
@@ -123,8 +127,24 @@ public class CalcService {
     }
 
     @Transactional
-    public String completeGacha(int itemCnt, List<Long> itemNames, List<Long> itemProbs) {
-        return null;
+    public String completeGacha(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+        String retval = "";
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.compute import *; FUNC_1(%d, %s);\""
+                , itemCnt
+                , itemProbs.toString()
+            );
+            log.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            log.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retval;
     }
 
 }

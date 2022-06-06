@@ -88,22 +88,26 @@ public class PostsApiController {
 
     /* CREATE */
     @PostMapping("/calc/completegacha")
-    public ResponseEntity completegacha(
+    public String completegacha(
         @RequestBody String dto,
         @LoginUser UserDto.Response user
     )throws JSONException {
+        log.info("dto[{}]", dto);
         // Parse JSON
         JSONObject d = new JSONObject(dto);
+        log.info("d[{}]", d);
         int itemCnt = d.getInt("itemCnt");
         JSONArray itemNamesRaw = d.getJSONArray("itemNames");
-        List<Long> itemNames = new ArrayList<Long>();
+        List<String> itemNames = new ArrayList<String>();
         for (int i = 0; i < itemNamesRaw.length(); i++) {
-            itemNames.add(itemNamesRaw.getLong(i) / 100);
+            itemNames.add(itemNamesRaw.getString(i));
         }
         JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
-        List<Long> itemProbs = new ArrayList<Long>();
+        List<Double> itemProbs = new ArrayList<Double>();
         for (int i = 0; i < itemProbsRaw.length(); i++) {
-            itemProbs.add(itemProbsRaw.getLong(i) / 100);
+            Double itemProb = itemProbsRaw.getDouble(i);
+            itemProb = itemProb * 0.01;
+            itemProbs.add(itemProb);
         }
 
         log.info(
@@ -114,6 +118,6 @@ public class PostsApiController {
         );
 
         // Compute
-        return ResponseEntity.ok(calcService.completeGacha(itemCnt, itemNames, itemProbs));
+        return calcService.completeGacha(itemCnt, itemNames, itemProbs);
     }
 }
