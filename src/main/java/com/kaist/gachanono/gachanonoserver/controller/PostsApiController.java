@@ -86,7 +86,7 @@ public class PostsApiController {
         return ResponseEntity.ok(gameService.getProbtableName(gameid));
     }
 
-    /* CREATE */
+    /* completegacha */
     @PostMapping("/calc/completegacha")
     public String completegacha(
         @RequestBody String dto,
@@ -119,5 +119,145 @@ public class PostsApiController {
 
         // Compute
         return calcService.completeGacha(itemCnt, itemNames, itemProbs);
+    }
+
+    /* completegacha */
+    @PostMapping("/calc/segDiff")
+    public String segDiff(
+        @RequestBody String dto,
+        @LoginUser UserDto.Response user
+    )throws JSONException {
+        log.info("dto[{}]", dto);
+        // Parse JSON
+        JSONObject d = new JSONObject(dto);
+        log.info("d[{}]", d);
+        int itemCnt = d.getInt("itemCnt");
+        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
+        List<String> itemNames = new ArrayList<String>();
+        for (int i = 0; i < itemNamesRaw.length(); i++) {
+            itemNames.add(itemNamesRaw.getString(i));
+        }
+        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
+        List<Double> itemProbs = new ArrayList<Double>();
+        for (int i = 0; i < itemProbsRaw.length(); i++) {
+            Double itemProb = itemProbsRaw.getDouble(i);
+            itemProb = itemProb * 0.01;
+            itemProbs.add(itemProb);
+        }
+
+        log.info(
+            "itemCnt[{}] itemList[{}] itemProbs[{}]",
+            itemCnt,
+            itemNames,
+            itemProbs
+        );
+
+        // Compute
+        return calcService.segDiff(itemCnt, itemNames, itemProbs);
+    }
+
+    /* completegacha */
+    @PostMapping("/calc/segSame")
+    public String segSame(
+        @RequestBody String dto,
+        @LoginUser UserDto.Response user
+    )throws JSONException {
+        log.info("dto[{}]", dto);
+        // Parse JSON
+        JSONObject d = new JSONObject(dto);
+        log.info("d[{}]", d);
+        int itemCnt = d.getInt("itemCnt");
+        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
+        List<String> itemNames = new ArrayList<String>();
+        for (int i = 0; i < itemNamesRaw.length(); i++) {
+            itemNames.add(itemNamesRaw.getString(i));
+        }
+        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
+        List<Double> itemProbs = new ArrayList<Double>();
+        for (int i = 0; i < itemProbsRaw.length(); i++) {
+            Double itemProb = itemProbsRaw.getDouble(i);
+            itemProb = itemProb * 0.01;
+            itemProbs.add(itemProb);
+        }
+
+        log.info(
+            "itemCnt[{}] itemList[{}] itemProbs[{}]",
+            itemCnt,
+            itemNames,
+            itemProbs
+        );
+
+        // Compute
+        return calcService.segSame(itemCnt, itemNames, itemProbs);
+    }
+
+    /* completegacha */
+    @PostMapping("/calc/swrceiling")
+    public String swrceiling(
+        @RequestBody String dto,
+        @LoginUser UserDto.Response user
+    )throws JSONException {
+        log.info("dto[{}]", dto);
+        // Parse JSON
+        JSONObject d = new JSONObject(dto);
+        log.info("d[{}]", d);
+        int itemCnt = d.getInt("itemCnt");
+        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
+        List<String> itemNames = new ArrayList<String>();
+        for (int i = 0; i < itemNamesRaw.length(); i++) {
+            itemNames.add(itemNamesRaw.getString(i));
+        }
+        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
+        List<Double> itemProbs = new ArrayList<Double>();
+        for (int i = 0; i < itemProbsRaw.length(); i++) {
+            Double itemProb = itemProbsRaw.getDouble(i);
+            itemProb = itemProb * 0.01;
+            itemProbs.add(itemProb);
+        }
+
+        log.info(
+            "itemCnt[{}] itemList[{}] itemProbs[{}]",
+            itemCnt,
+            itemNames,
+            itemProbs
+        );
+
+        // Compute
+        return calcService.swrCeiling(itemCnt, itemNames, itemProbs);
+    }
+
+    /* completegacha */
+    @PostMapping("/calc/swr")
+    public String swr(
+        @RequestBody String dto,
+        @LoginUser UserDto.Response user
+    )throws JSONException {
+        log.info("dto[{}]", dto);
+        // Parse JSON
+        JSONObject d = new JSONObject(dto);
+        log.info("d[{}]", d);
+        int itemCnt = d.getInt("itemCnt");
+        JSONArray itemNamesRaw = d.getJSONArray("itemNames");
+        List<String> itemNames = new ArrayList<String>();
+        for (int i = 0; i < itemNamesRaw.length(); i++) {
+            itemNames.add(itemNamesRaw.getString(i));
+        }
+        JSONArray itemProbsRaw = d.getJSONArray("itemProbs");
+        List<Double> itemProbs = new ArrayList<Double>();
+        for (int i = 0; i < itemProbsRaw.length(); i++) {
+            Double itemProb = itemProbsRaw.getDouble(i);
+            itemProb = itemProb * 0.01;
+            itemProbs.add(itemProb);
+        }
+
+        log.info(
+            "itemCnt[{}] itemList[{}] itemProbs[{}]",
+            itemCnt,
+            itemNames,
+            itemProbs
+        );
+
+        // Compute
+        return calcService.swr(itemCnt, itemNames, itemProbs);
     }
 }

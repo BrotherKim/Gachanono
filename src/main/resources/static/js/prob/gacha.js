@@ -258,7 +258,7 @@ const gacha = {
                                     .ajax({
                                         type: 'POST',
                                         url: '/api/calc/completegacha',
-                                        dataType: 'JSON',
+                                        //dataType: 'JSON',
                                         contentType: 'application/json; charset=utf-8',
                                         data: JSON.stringify(data),
                                         success: function (retval) {

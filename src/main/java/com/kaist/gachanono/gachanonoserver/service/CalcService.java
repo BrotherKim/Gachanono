@@ -147,4 +147,88 @@ public class CalcService {
         return retval;
     }
 
+    @Transactional
+    public String segDiff(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+        String retval = "";
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.compute import *; FUNC_2(%d, %s);\""
+                , itemCnt
+                , itemProbs.toString()
+            );
+            log.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            log.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    @Transactional
+    public String segSame(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+        String retval = "";
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.compute import *; FUNC_3(%d, %s);\""
+                , itemCnt
+                , itemProbs.toString()
+            );
+            log.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            log.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    @Transactional
+    public String swrCeiling(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+        String retval = "";
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.compute import *; FUNC_4(%d, %s);\""
+                , itemCnt
+                , itemProbs.toString()
+            );
+            log.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            log.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
+    @Transactional
+    public String swr(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
+        String retval = "";
+        try {
+            String cmd = 
+            String.format(
+                "python -c \"from src.main.python.compute import *; FUNC_5(%d, %s);\""
+                , itemCnt
+                , itemProbs.toString()
+            );
+            log.info(cmd);
+            ExecUtil.getInstance().exec(cmd);
+            retval = ExecUtil.getInstance().getStdOutString();
+            log.info("retval: {}", retval);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retval;
+    }
+
 }
