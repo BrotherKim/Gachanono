@@ -155,7 +155,6 @@ function clt() {
 
   function draw_probability() {
     var data = probability(data_prep);
-    //console.log(data);
     var ymax = d3.max(
       data.map(function (d) {
         return d.y;
@@ -229,7 +228,6 @@ function clt() {
   function draw_histogram() {
     // get histrogram of counts
     data_histo = histogram(counts);
-    console.log(data_histo);
 
     total_try.innerText = total_cnt;
     left_money.innerText = left_money.innerText - item_cost.value;
