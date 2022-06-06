@@ -183,6 +183,9 @@ h6,
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 400;
 }
 
 abbr[title],
@@ -265,8 +268,8 @@ sup {
 }
 
 a {
-  color: #0d6efd;
-  text-decoration: underline;
+  color: #4a4a4a;
+  text-decoration: none;
 }
 a:hover {
   color: #0a58ca;
@@ -7835,6 +7838,9 @@ fieldset:disabled .btn {
 
 .mt-4 {
   margin-top: 1.5rem !important;
+  font-size: 30px;
+  font-weight: 600;
+  color: black;
 }
 
 .mt-5 {

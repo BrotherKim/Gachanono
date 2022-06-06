@@ -264,9 +264,7 @@ function chance() {
     var padCoin = 100;
 
     //Update SVG
-    svgCoin
-      .call(tipCoinObs)
-      .call(tipCoinTheo);
+    svgCoin.call(tipCoinObs).call(tipCoinTheo);
 
     //Update Scales
     yScaleCoin.range([height - 2 * padCoin, 0]);
@@ -274,11 +272,14 @@ function chance() {
     x1ScaleCoin.rangeRoundBands([0, x0ScaleCoin.rangeBand()], 0.4);
 
     //Update Container
-    containerCoin.attr("transform", "translate(" + 0 + "," + padCoin + ")");
+    containerCoin.attr("transform", "translate(" + -50 + "," + padCoin + ")");
 
     //Update Axis
     axisCoin
-      .attr("transform", "translate(" + 0 + "," + (height - padCoin + 1) + ")")
+      .attr(
+        "transform",
+        "translate(" + -50 + "," + (height - padCoin + 1) + ")"
+      )
       .call(xAxisCoin);
 
     //Update Rectangles
