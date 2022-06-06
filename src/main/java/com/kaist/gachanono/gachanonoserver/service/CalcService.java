@@ -144,7 +144,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
-        retval = retval.replace("(", "[").replace(")", "]");
+        retval = retval.replace("(", "").replace(")", "").replace("},", "}},");
         return retval;
     }
 
@@ -172,15 +172,32 @@ public class CalcService {
     }
 
     @Transactional
-    public String segSame(List<Integer> startCnts, List<Integer> endCnts, List<Double> itemProbs) {
+    public String segSame(List<Integer> startCnts, List<Integer> endCnts, List<Double> itemProbs, int tryCnt) {
         String retval = "";
+
+        String ranges = "[";
+        int rangeCnt = startCnts.size();
+        for(int i = 0; i < rangeCnt; i++) {
+            ranges += String.format("[%d, %d]", startCnts.get(i), endCnts.get(i));
+            if(i < rangeCnt - 1) {
+                ranges += ", ";
+            }
+        }
+        ranges += "]";
+        // startCnts = [1, 11, 21]
+        // endsCnts = [10, 20, 30]
+
+        // ranges = [[1, 10], [11, 20], [21, 30]]
+
+        log.info("ranges: {}", ranges);
+
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %s);\""
-                , startCnts.toString()
-                , endCnts.toString()
+                "python -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %d);\""
+                , ranges
                 , itemProbs.toString()
+                , tryCnt
             );
             log.info(cmd);
             ExecUtil.getInstance().exec(cmd);
@@ -190,7 +207,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
-        retval = retval.replace("(", "[").replace(")", "]");
+        retval = retval.replace("(", "").replace(")", "").replace("},", "}},");
         return retval;
     }
 
@@ -213,7 +230,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
-        retval = retval.replace("(", "[").replace(")", "]");
+        retval = retval.replace("(", "").replace(")", "").replace("},", "}},");
         return retval;
     }
 
@@ -235,7 +252,7 @@ public class CalcService {
             e.printStackTrace();
         }
 
-        retval = retval.replace("(", "[").replace(")", "]");
+        retval = retval.replace("(", "").replace(")", "").replace("},", "}},");
         return retval;
     }
 

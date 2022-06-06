@@ -8,18 +8,6 @@
   <th:block layout:fragment="/css"></th:block>
   <!-- add custom script -->
   <th:block layout:fragment="script">
-    <script th:inline="javascript">
-      /*<![CDATA[*/
-
-      /**
-       * 게시글 조회
-       */
-      function goView(id) {
-        location.href = `/board/view/${id}`;
-      }
-
-      /*]]>*/
-    </script>
   </th:block>
 
   <div layout:fragment="content">
@@ -45,6 +33,12 @@
       <!-- General Chapter -->
       <link rel="stylesheet" type="text/css" href="/css/chapter-style.css" />
       <!-- Specific Chapter -->
+      <link rel="stylesheet" type="text/css" href="/css/distributions.css" />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="/css/basic-probability.css"
+      />
       <link rel="stylesheet" type="text/css" href="/css/distributions.css" />
       <!-- JavaScript Imports -->
       <!-- D3 -->

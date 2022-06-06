@@ -161,7 +161,7 @@ def prob_by_interval_same_item(range_list, prob_list, try_pick):
 # prob_list =[0.05, 0.1, 0.2]
 
 def FUNC_3(range_list, prob_list, try_pick):
-    print(sampling_with_replacement(range_list, prob_list, try_pick))
+    print(prob_by_interval_same_item(range_list, prob_list, try_pick))
 
 # table1, table2 = prob_by_interval_same_item(range_list,prob_list, 13)
 

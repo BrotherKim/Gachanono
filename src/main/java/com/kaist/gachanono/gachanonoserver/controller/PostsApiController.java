@@ -177,15 +177,18 @@ public class PostsApiController {
             itemProbs.add(itemProb);
         }
 
+        int tryCnt = d.getInt("tryCnt");
+
         log.info(
-            "startCnts[{}] endCnts[{}] itemProbs[{}]",
+            "startCnts[{}] endCnts[{}] itemProbs[{}] tryCnt[{}]",
             startCnts,
             endCnts,
-            itemProbs
+            itemProbs,
+            tryCnt
         );
 
         // Compute
-        return calcService.segSame(startCnts, endCnts, itemProbs);
+        return calcService.segSame(startCnts, endCnts, itemProbs, tryCnt);
     }
 
     /* completegacha */
