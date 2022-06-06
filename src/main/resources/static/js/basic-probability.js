@@ -3,31 +3,6 @@ $(window).load(function () {
   chance();
 });
 
-//Handles CSS animation for coin and die
-//Adapted from http://jsfiddle.net/byrichardpowell/38MGS/1/
-$.fn.animatecss = function (anim, time, cb) {
-  if (time) this.css("-webkit-transition", time / 1000 + "s");
-  this.addClass(anim);
-  if ($.isFunction(cb)) {
-    setTimeout(
-      function () {
-        $(this).each(cb);
-      },
-      time ? time : 250
-    );
-  }
-  return this;
-};
-
-//Cumulative Sum function for array
-function cumsum(array) {
-  var resultArray = [];
-  array.reduce(function (a, b, i) {
-    return (resultArray[i] = a + b.p);
-  }, 0);
-  return resultArray;
-}
-
 function chance() {
   //Constants
   var probTheo = [0.5, 0.5]; // json
@@ -222,7 +197,7 @@ function chance() {
         .on("mouseout", tipCoinTheo.hide)
         .call(dragCoin);
     });
-    $("#barCoin").parent().on("mouseup", tipCoinTheo.show);
+    $("#barCoin").parent().on("mouseup", tipCoinTheo.hide);
   }
 
   function update() {
@@ -289,11 +264,7 @@ function chance() {
     var padCoin = 100;
 
     //Update SVG
-    svgCoin
-      //.attr("width", width)
-      //.attr("height", height)
-      .call(tipCoinObs)
-      .call(tipCoinTheo);
+    svgCoin.call(tipCoinObs).call(tipCoinTheo);
 
     //Update Scales
     yScaleCoin.range([height - 2 * padCoin, 0]);
@@ -301,11 +272,14 @@ function chance() {
     x1ScaleCoin.rangeRoundBands([0, x0ScaleCoin.rangeBand()], 0.4);
 
     //Update Container
-    containerCoin.attr("transform", "translate(" + 0 + "," + padCoin + ")");
+    containerCoin.attr("transform", "translate(" + -50 + "," + padCoin + ")");
 
     //Update Axis
     axisCoin
-      .attr("transform", "translate(" + 0 + "," + (height - padCoin + 1) + ")")
+      .attr(
+        "transform",
+        "translate(" + -50 + "," + (height - padCoin + 1) + ")"
+      )
       .call(xAxisCoin);
 
     //Update Rectangles

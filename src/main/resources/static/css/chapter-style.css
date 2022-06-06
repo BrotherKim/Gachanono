@@ -152,9 +152,6 @@ select {
   -webkit-transition: background-color 0.5s ease-out;
   -webkit-transition: border 0.2s ease-out;
   border-radius: 6px;
-
-  /*  font-size: 0.8em;*/
-  /*white-space:nowrap;*/
 }
 
 .button-1-s {
@@ -237,12 +234,6 @@ form {
   padding-left: 1em;
 }
 
-/*select{
-    -moz-appearance: none; 
-    -webkit-appearance: none; 
-    appearance: none;
-}*/
-
 select:focus {
   outline: none;
 }
@@ -260,12 +251,9 @@ input[type="range"] {
   height: 24px;
   -webkit-appearance: none;
   margin: 10px 0;
-  /* width: 50%;*/
   background: transparent;
   display: inline-block;
   vertical-align: middle;
-
-  /* overflow: hidden;*/
 }
 input[type="range"]:focus {
   outline: none;
@@ -282,7 +270,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .giant-slider input[type="range"]::-webkit-slider-thumb {
-  /*box-shadow: 0px 0px 5px #D0D0D0;*/
   border: 1px solid white;
   height: 18px;
   width: 18px;
@@ -298,15 +285,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"].blueSlider::-webkit-slider-thumb {
-  /*  border: 0px solid #64BDFF;
-  background: #F5D800;
-  box-shadow: 0px 0px 5px #F5D800;*/
-
   height: 18px;
   width: 18px;
   border-radius: 25px;
-
-  /* box-shadow: -80px 0 0 80px #43e5f7;*/
 
   cursor: pointer;
   -webkit-appearance: none;
@@ -314,10 +295,6 @@ input[type="range"].blueSlider::-webkit-slider-thumb {
 }
 
 input[type="range"].greenSlider::-webkit-slider-thumb {
-  /* box-shadow: 0px 0px 5px #D0D0D0;
-    border: 0px solid #46C8B2;
-  background: #46C8B2;*/
-
   height: 18px;
   width: 18px;
   border-radius: 25px;
@@ -364,7 +341,6 @@ input[type="range"]:focus::-ms-fill-upper {
   position: relative;
   padding-left: 2em;
   padding-right: 2em;
-  /* padding: 2em;*/
   margin-bottom: 12px;
   margin-top: 12px;
 
@@ -393,11 +369,6 @@ input[type="range"]:focus::-ms-fill-upper {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   border: 1px solid #d0d0d0;
-}
-
-/* On mouse-over, add a grey background color */
-.radio-inline:hover input ~ .checkmark {
-  /* border: 1px solid #ccc;*/
 }
 
 /* When the radio button is checked, add a blue background */
@@ -434,8 +405,6 @@ input[type="range"]:focus::-ms-fill-upper {
   position: relative;
   padding-left: 2em;
   padding-right: 0.5em;
-  /* margin-bottom: 20px;
-    margin-top:20px;*/
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -461,16 +430,6 @@ input[type="range"]:focus::-ms-fill-upper {
   border: 1px solid #d0d0d0;
   border-radius: 10%;
 }
-
-/* On mouse-over, add a grey background color */
-/*.form-check:hover input ~ .checkbox-mark{
-    background-color: #ccc;
-}
-*/
-/* When the checkbox is checked, add a blue background */
-/*.form-check input:checked ~ .checkbox-mark{
-    background-color: white;
-}*/
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkbox-mark:after {
@@ -735,9 +694,6 @@ td {
 #section-1,
 #section-2,
 #section-3 {
-  /*visibility: hidden;*/
-  /*opacity: 0;*/
-  /*position: fixed;*/
   top: 0;
 }
 
@@ -1204,16 +1160,8 @@ body {
 
   background-color: rgba(0, 0, 0, 0.9);
   /* overflow-x: hidden;*/
-  transition: 0.5s;
+  /*transition: 0.5s;*/
 }
-
-/*.overlay-content {
-
-    position: relative;
-
-    margin-left: auto;
-    margin-right: auto;
-}*/
 
 .closebtn {
   font-size: 50px;
@@ -1319,7 +1267,7 @@ body {
   background-color: white;
 
   box-shadow: 0px 0px 20px rgba(135, 152, 160, 0.3);
-  -webkit-transition: box-shadow 0.5s ease-out;
+  /*-webkit-transition: box-shadow 0.5s ease-out;*/
   cursor: pointer;
 }
 
