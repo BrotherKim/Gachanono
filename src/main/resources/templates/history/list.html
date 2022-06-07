@@ -6,8 +6,7 @@
     <!-- add custom css -->
     <th:block layout:fragment="/css"></th:block>
     <!-- add custom script -->
-    <th:block layout:fragment="script">
-    </th:block>
+    <th:block layout:fragment="script"></th:block>
 
     <div layout:fragment="content">
         <div class="container-fluid px-4">
@@ -37,7 +36,9 @@
                                     <th>번호</th>
                                     <th>게임명</th>
                                     <th>아이템명</th>
-                                    <th class="col-md-6 text-center">제목</th>
+                                    <th>가챠명</th>
+                                    <th>금액</th>
+                                    <!--th class="col-md-6 text-center">제목</th-->
                                     <th>작성자</th>
                                     <th>작성일</th>
                                     <th>조회수</th>
@@ -50,8 +51,9 @@
                                     <td>[[${history.gamename}]]</td>
                                     <td>[[${history.itemname}]]</td>
                                     <td>
-                                        <a th:href="@{'/history/read/' + ${history.id}}">[[${history.title}]]</a>
+                                        <a th:href="@{'/history/read/' + ${history.id}}">[[${history.gachaname}]]</a>
                                     </td>
+                                    <td>[[${history.price}]]</td>
                                     <td>[[${history.writer}]]</td>
                                     <td>[[${history.createdDate}]]</td>
                                     <td>[[${history.view}]]</td>
@@ -59,10 +61,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!--div class="text-right">
-                            <a href="/history/write" role="button" class="btn btn-primary bi bi-pencil-fill">
-                                글쓰기</a>
-                        </div-->
+                        <!--div class="text-right"> <a href="/history/write" role="button" class="btn
+                        btn-primary bi bi-pencil-fill"> 글쓰기</a> </div-->
                         <div th:replace="history/history-page :: pagenation"></div>
                     </div>
                 </div>
