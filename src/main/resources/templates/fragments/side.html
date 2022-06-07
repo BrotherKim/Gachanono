@@ -1,76 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="sideFragment" id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-            <div class="sb-sidenav-menu">
-                <div class="nav">
-                    <div class="sb-sidenav-menu-heading">서비스</div>
-                    <a class="nav-link" href="/prob/gacha">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-calculator"></i>
-                        </div>
-                        아이템 확률 계산
-                    </a>
-                    <a class="nav-link" href="/prob/simulation">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        시뮬레이션
-                    </a>
-                    <a class="nav-link" href="/prob/simulation1">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        시뮬레이션(컴플리트 가챠)
-                    </a>
-                    <a class="nav-link" href="/prob/simulation2">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        시뮬레이션(다른 아이템 구간별 확률)
-                    </a>
-                    <a class="nav-link" href="/prob/simulation3">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        시뮬레이션(동일 아이템 구간별 확률)
-                    </a>
-                    <a class="nav-link" href="/prob/simulation4">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        시뮬레이션(천장이 있는 복원추출)
-                    </a>
-                    <a class="nav-link" href="/prob/simulation5">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                        </div>
-                        시뮬레이션(복원추출)
-                    </a>
-                    <a class="nav-link" href="/history/list">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </div>
-                        확률 계산 히스토리
-                    </a>
-                    <a class="nav-link" href="/posts/free">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-comment-dots"></i>
-                        </div>
-                        자유게시판
-                    </a>
-                    <a class="nav-link" href="/prob/sheetjsce">
-                        <div class="sb-nav-link-icon">
-                            <i class="fa-solid fa-comment-dots"></i>
-                        </div>
-                        sheetjsce
-                    </a>
-                </div>
+  <div th:fragment="sideFragment" id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <div class="sb-sidenav-menu-heading">서비스</div>
+          <a class="nav-link" href="/prob/gacha">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-calculator"></i>
             </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Powered by</div>
-                Gachanono
+            아이템 확률 계산
+          </a>
+          <a class="nav-link" href="/prob/simulation">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-bolt-lightning"></i>
             </div>
-        </nav>
-    </div>
+            시뮬레이션 (복원 추출)
+          </a>
+          <a class="nav-link" href="/prob/simulation2">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-bolt-lightning"></i>
+            </div>
+            시뮬레이션(컴플리트 가챠)
+          </a>
+          <a class="nav-link" href="/prob/simulation3">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-bolt-lightning"></i>
+            </div>
+            시뮬레이션(천장이 있는 복원추출)
+          </a>
+          <a class="nav-link" href="/prob/simulation4">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-bolt-lightning"></i>
+            </div>
+            시뮬레이션(동일 아이템 구간별 확률)
+          </a>
+          <a class="nav-link" href="/prob/simulation5">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-bolt-lightning"></i>
+            </div>
+            시뮬레이션(다른 아이템 구간별 확률)
+          </a>
+          <a class="nav-link" href="/history/list">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            확률 계산 히스토리
+          </a>
+          <a class="nav-link" href="/posts/free">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            자유게시판
+          </a>
+          <a class="nav-link" href="/prob/sheetjsce">
+            <div class="sb-nav-link-icon">
+              <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            sheetjsce
+          </a>
+        </div>
+      </div>
+      <div class="sb-sidenav-footer">
+        <div class="small">Powered by</div>
+        Gachanono
+      </div>
+    </nav>
+  </div>
 </html>

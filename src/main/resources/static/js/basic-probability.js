@@ -13,7 +13,7 @@ function chance() {
     // 천장 복원추출
     max_try = 3; // 전달
   }
-  var prob = 0.5; // 전달
+  var prob = 0.1; // 전달
   var probTheo = [prob, 1 - prob];
 
   var countCoin = [0, 0];
@@ -70,7 +70,9 @@ function chance() {
 
   //Create Scales
   var yScaleCoin = d3.scale.linear().domain([0, 1]);
-  var x0ScaleCoin = d3.scale.ordinal().domain(["Observed outcomes"]);
+  var x0ScaleCoin = d3.scale
+    .ordinal()
+    .domain(["Observed outcomes", "True probabilities"]);
   var x1ScaleCoin = d3.scale.ordinal().domain(["head", "tail"]);
 
   //Drag function for coin bar chart
@@ -219,18 +221,10 @@ function chance() {
     total_try.innerText = total_cnt;
     left_money.innerText = left_money.innerText - item_cost.value;
 
-    if (flag && check_pop()) {
-      flag = false;
+    if (flag && item_type == 3 && total_cnt == max_try)
+      pop("천장이 있는 복원추출로 시도횟수 ");
 
-      var total_cost = total_cnt * item_cost.value;
-
-      document.getElementById("success_test").innerText =
-        " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
-        String(total_cnt) +
-        "회, 총 금액 " +
-        String(total_cost) +
-        "원 소비되었습니다.";
-    }
+    if (flag && check_pop()) pop("아이템이 뽑힐 때 까지 시도횟수 ");
 
     updateCoin(100);
   }
@@ -238,6 +232,19 @@ function chance() {
   function check_pop() {
     if (countCoin[0] > 0) return true;
     else return false;
+  }
+
+  function pop(string) {
+    flag = false;
+
+    var total_cost = total_cnt * item_cost.value;
+
+    document.getElementById("success_test").innerText =
+      string +
+      String(total_cnt) +
+      "회, 총 금액 " +
+      String(total_cost) +
+      "원 소비되었습니다.";
   }
 
   function start_sampling() {
