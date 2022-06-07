@@ -1,4 +1,4 @@
-//simulation.html(복원추출), simulation3.html(천장 복원추출)
+// 동일 아이템 구간별 확률, 다른 아이템 구간별 확률
 
 //Handles functionality of Probability
 $(window).load(function () {
@@ -8,13 +8,24 @@ $(window).load(function () {
 function chance() {
   //Constants
   var item_type = $("#item_type").attr("value");
-  var max_try;
-  if (item_type == 3) {
-    // 천장 복원추출
-    max_try = 3; // 전달
+  var probTheo = [];
+  var range = [];
+  var range_prob = [];
+  var start_num;
+  if (item_type == 4) {
+    // 동일 아이템 구간별 확률
+    range = [
+      [1, 10],
+      [11, 20],
+      [21, 30],
+    ]; // 전달
+    prob = [0.3, 0.2, 0.1]; // 전달
   }
-  var prob = 0.5; // 전달
-  var probTheo = [prob, 1 - prob];
+  if (item_type == 5) {
+    // 다른 아이템 구간별 확률
+    start_num = 100; // 전달
+    probTheo = [0.5, 0.5]; // 전달
+  }
 
   var countCoin = [0, 0];
   var coinData = [
@@ -25,13 +36,13 @@ function chance() {
       ],
       state: "Observed outcomes",
     },
-    {
+    /*{
       data: [
         { value: probTheo[0], side: "head" },
         { value: probTheo[1], side: "tail" },
       ],
       state: "True probabilities",
-    },
+    },*/
   ];
   var total_cnt = 0,
     interval,
@@ -70,25 +81,10 @@ function chance() {
 
   //Create Scales
   var yScaleCoin = d3.scale.linear().domain([0, 1]);
-  var x0ScaleCoin = d3.scale.ordinal().domain(["Observed outcomes"]);
+  var x0ScaleCoin = d3.scale
+    .ordinal()
+    .domain(["Observed outcomes", "True probabilities"]);
   var x1ScaleCoin = d3.scale.ordinal().domain(["head", "tail"]);
-
-  //Drag function for coin bar chart
-  var dragCoin = d3.behavior
-    .drag()
-    .origin(function () {
-      var rect = d3.select(this);
-      return { x: rect.attr("x"), y: rect.attr("y") };
-    })
-    .on("drag", function (d) {
-      var y = Math.min(1, Math.max(0, yScaleCoin.invert(d3.event.y)));
-      if (d3.select(this).attr("class") == "head") probTheo = [y, 1 - y];
-      else probTheo = [1 - y, y];
-      d.value = y;
-      tipCoinTheo.show(d, this);
-      countCoin = [0, 0];
-      updateCoin(0);
-    });
 
   //Create SVG Elements
   var states = containerCoin
@@ -125,11 +121,6 @@ function chance() {
     .attr("id", "tipCoinObs")
     .attr("class", "d3-tip")
     .offset([-10, 0]);
-  var tipCoinTheo = d3
-    .tip()
-    .attr("id", "tipCoinTheo")
-    .attr("class", "d3-tip")
-    .offset([-10, 0]);
 
   //Update rectangles and text
   function updateCoin(t) {
@@ -137,17 +128,13 @@ function chance() {
     var probObs = [countCoin[0] / total, countCoin[1] / total];
     coinData[0].data[0].value = probObs[0];
     coinData[0].data[1].value = probObs[1];
-    coinData[1].data[0].value = probTheo[0];
-    coinData[1].data[1].value = probTheo[1];
+    /*coinData[1].data[0].value = probTheo[0];
+    coinData[1].data[1].value = probTheo[1];*/
 
     tipCoinObs.html(function (d) {
       return (
         round(d.value, 2) + " = " + round(d.value * total, 0) + "/" + total
       );
-    });
-
-    tipCoinTheo.html(function (d, i) {
-      return round(d.value, 2);
     });
 
     states
@@ -193,28 +180,10 @@ function chance() {
         .on("mouseover", tipCoinObs.show)
         .on("mouseout", tipCoinObs.hide);
     });
-
-    containerCoin.selectAll("g.True rect").each(function () {
-      d3.select(this)
-        .on("mousedown", function (d) {
-          tipCoinTheo.show(d, this);
-        })
-        .on("mouseover", function (d) {
-          tipCoinTheo.show(d, this);
-        })
-        .on("mouseout", tipCoinTheo.hide)
-        .call(dragCoin);
-    });
-    $("#barCoin").parent().on("mouseup", tipCoinTheo.hide);
   }
 
   function update() {
     var num = Math.random();
-    if (num < probTheo[0]) {
-      countCoin[0] = countCoin[0] + 1;
-    } else {
-      countCoin[1] = countCoin[1] + 1;
-    }
 
     total_try.innerText = total_cnt;
     left_money.innerText = left_money.innerText - item_cost.value;
@@ -242,10 +211,18 @@ function chance() {
 
   function start_sampling() {
     var cnt = 0;
-
+    var i = 0;
     interval = setInterval(function () {
       cnt++;
       total_cnt++;
+
+      for (i; i <= range_prob.length; i++) {
+        if (total_cnt <= range[i][1]) {
+          probTheo[0] = range_prob[i];
+          probTheo[1] = 1 - probTheo[0];
+          break;
+        }
+      }
 
       update();
 
@@ -272,7 +249,7 @@ function chance() {
     var padCoin = 100;
 
     //Update SVG
-    svgCoin.call(tipCoinObs).call(tipCoinTheo);
+    svgCoin.call(tipCoinObs);
 
     //Update Scales
     yScaleCoin.range([height - 2 * padCoin, 0]);

@@ -77,7 +77,7 @@ public class ProbController {
         return "/prob/report"; 
     } 
 
-    @GetMapping("/simulation")
+    @GetMapping("/simulation")  // 복원추출
     public String simulation(Model model) {
         // Vue 예제 페이지로 이동
         // SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -87,7 +87,7 @@ public class ProbController {
         return "/prob/simulation";
     } 
 
-    @GetMapping("/simulation2")
+    @GetMapping("/simulation2") // 컴플리트가챠
     public String simulation2(Model model) {
         // Vue 예제 페이지로 이동
         // SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -97,7 +97,7 @@ public class ProbController {
         return "/prob/simulation2";
     } 
 
-    @GetMapping("/simulation3")
+    @GetMapping("/simulation3") // 천장있는 복원추출
     public String simulation3(Model model) {
         // Vue 예제 페이지로 이동
         // SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -107,7 +107,7 @@ public class ProbController {
         return "/prob/simulation3";
     } 
 
-    @GetMapping("/simulation4")
+    @GetMapping("/simulation4") // 동일 아이템 구간별 확률
     public String simulation4(Model model) {
         // Vue 예제 페이지로 이동
         // SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -117,7 +117,7 @@ public class ProbController {
         return "/prob/simulation4";
     } 
 
-    @GetMapping("/simulation5")
+    @GetMapping("/simulation5") // 다른 아이템 구간별 확률
     public String simulation5(Model model) {
         // Vue 예제 페이지로 이동
         // SessionUser user = (SessionUser) httpSession.getAttribute("user");
