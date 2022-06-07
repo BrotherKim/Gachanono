@@ -226,7 +226,7 @@ function chance() {
     if (flag && item_type == 3 && total_cnt == max_try)
       pop("천장이 있는 복원추출로 시도횟수 ");
 
-    if (flag && check_pop()) pop("아이템이 뽑힐 때 까지 시도횟수 ");
+    if (flag && check_pop()) pop(name + " 아이템이 뽑힐 때 까지 시도횟수 ");
 
     updateCoin(100);
   }
