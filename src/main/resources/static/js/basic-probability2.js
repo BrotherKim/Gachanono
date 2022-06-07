@@ -229,7 +229,7 @@ function chance() {
           }
         }
       }
-      console.log(probTheo[0]);
+
       if (item_type == 5 && total_cnt == start_num) {
         probTheo[0] = new_prob;
         probTheo[1] = 1 - probTheo[0];
