@@ -5,8 +5,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.kaist.gachanono.gachanonoserver.domain.Board.Comment;
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Comment;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 
 /**

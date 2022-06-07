@@ -5,11 +5,14 @@
     layout:decorator="layouts/layout">
     <!-- add custom css -->
     <th:block layout:fragment="/css"></th:block>
+    <!-- add custom script -->
+    <th:block layout:fragment="script">
+    </th:block>
 
     <div layout:fragment="content">
         <div class="container-fluid px-4">
             <!-- content -->
-            <h1 class="mt-4">자유게시판</h1>
+            <h1 class="mt-4">확률 계산 히스토리</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item">
                     <a href="/">Dashboard</a>
@@ -18,21 +21,22 @@
             </ol>
             <div class="card mb-4">
                 <div class="card-body">
-                    자유게시판 페이지의 매뉴얼 위치입니다.
+                    확률 계산 히스토리 페이지의 매뉴얼 위치입니다.
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-header">
-                    <i class="fa-solid fa-comment-dots"></i>
-                    자유게시판
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    확률 계산 히스토리
                 </div>
                 <div class="card-body">
-                    <div id="posts_list">
+                    <div id="history_list">
                         <table id="table" class="table table-horizontal">
                             <thead id="thead">
                                 <tr>
                                     <th>번호</th>
                                     <th>게임명</th>
+                                    <th>아이템명</th>
                                     <th class="col-md-6 text-center">제목</th>
                                     <th>작성자</th>
                                     <th>작성일</th>
@@ -41,33 +45,33 @@
                                 </tr>
                             </thead>
                             <tbody id="tbody">
-                                <tr th:each="post : ${posts}">
-                                    <td>[[${post.id}]]</td>
-                                    <td>[[${post.gamename}]]</td>
+                                <tr th:each="history : ${histories}">
+                                    <td>[[${history.id}]]</td>
+                                    <td>[[${history.gamename}]]</td>
+                                    <td>[[${history.itemname}]]</td>
                                     <td>
-                                        <a th:href="@{'/posts/read/' + ${post.id}}">[[${post.title}]]</a>
+                                        <a th:href="@{'/history/read/' + ${history.id}}">[[${history.title}]]</a>
                                     </td>
-                                    <td>[[${post.writer}]]</td>
-                                    <td>[[${post.createdDate}]]</td>
-                                    <td>[[${post.view}]]</td>
-                                    <td>[[${post.good}]]</td>
+                                    <td>[[${history.writer}]]</td>
+                                    <td>[[${history.createdDate}]]</td>
+                                    <td>[[${history.view}]]</td>
+                                    <td>[[${history.good}]]</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="text-right">
-                            <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill">
+                        <!--div class="text-right">
+                            <a href="/history/write" role="button" class="btn btn-primary bi bi-pencil-fill">
                                 글쓰기</a>
-                        </div>
-                        <div th:replace="posts/posts-page :: pagenation"></div>
+                        </div-->
+                        <div th:replace="history/history-page :: pagenation"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 </html>
 
 <!-- add custom script -->
 <th:block layout:fragment="script">
-    <script src="/js/posts.js"></script>
+    <script src="/js/history.js"></script>
 </th:block>

@@ -1,22 +1,11 @@
 package com.kaist.gachanono.gachanonoserver.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import com.kaist.gachanono.gachanonoserver.config.AppConfig;
-import com.kaist.gachanono.gachanonoserver.domain.Board.Board;
-import com.kaist.gachanono.gachanonoserver.domain.Board.BoardRepository;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = { AppConfig.class })
 public class BoardTests {
-
-    @Autowired
-    BoardRepository boardRepository;
 
     @Test
     void save() {

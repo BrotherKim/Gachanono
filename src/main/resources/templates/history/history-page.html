@@ -1,0 +1,26 @@
+<div th:fragment="pagenation" class="pagination justify-content-center">
+    
+    <a
+        th:if="${hasPrev}"
+        th:href="@{'?page=' + ${previous}}"
+        role="button"
+        class="btn btn-lg bi bi-caret-left-square-fill"></a>
+
+    <a
+        th:if="!${hasPrev}"
+        th:href="@{'?page=' + ${previous}}"
+        role="button"
+        class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
+
+    <a
+        th:if="${hasPrev}"
+        th:href="@{'?page=' + ${next}}"
+        role="button"
+        class="btn btn-lg bi bi-caret-right-square-fill"></a>
+    <a
+        th:if="!${hasPrev}"
+        th:href="@{'?page=' + ${next}}"
+        role="button"
+        class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
+
+</div>

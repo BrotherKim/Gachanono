@@ -11,12 +11,13 @@
     <div layout:fragment="content">
         <div class="container-fluid px-4">
             <!-- content -->
-            <div id="posts_list">
+            <div id="history_list">
                 <table id="table" class="table table-horizontal">
                     <thead id="thead">
                         <tr>
                             <th>번호</th>
                             <th>게임명</th>
+                            <th>아이템명</th>
                             <th class="col-md-6 text-center">제목</th>
                             <th>작성자</th>
                             <th>작성일</th>
@@ -25,21 +26,25 @@
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <tr th:each="post : ${searchList}">
-                            <td>[[${post.id}]]</td>
-                            <td>[[${post.gamename}]]</td>
+                        <tr th:each="history : ${searchList}">
+                            <td>[[${history.id}]]</td>
+                            <td>[[${history.gamename}]]</td>
+                            <td>[[${history.itemname}]]</td>
                             <td>
-                                <a th:href="@{'/posts/read/' + ${post.id}}">[[${post.title}]]</a>
+                                <a th:href="@{'/history/read/' + ${history.id}}">[[${history.title}]]</a>
                             </td>
-                            <td>[[${post.writer}]]</td>
-                            <td>[[${post.modifiedDate}]]</td>
-                            <td>[[${post.view}]]</td>
-                            <td>[[${post.good}]]</td>
+                            <td>[[${history.writer}]]</td>
+                            <td>[[${history.modifiedDate}]]</td>
+                            <td>[[${history.view}]]</td>
+                            <td>[[${history.good}]]</td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="text-right">
-                    <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill">
+                    <a
+                        href="/history/write"
+                        role="button"
+                        class="btn btn-primary bi bi-pencil-fill">
                         글쓰기</a>
                 </div>
 
@@ -47,37 +52,35 @@
 
                     <a
                         th:if="${hasPrev}"
-                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${previous}}"
+                        th:href="@{'/history/search?keyword=' + ${keyword} + '&page=' + ${previous}}"
                         role="button"
                         class="btn btn-lg bi bi-caret-left-square-fill"></a>
 
                     <a
                         th:if="!${hasPrev}"
-                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${previous}}"
+                        th:href="@{'/history/search?keyword=' + ${keyword} + '&page=' + ${previous}}"
                         role="button"
                         class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
 
                     <a
                         th:if="${hasPrev}"
-                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${next}}"
+                        th:href="@{'/history/search?keyword=' + ${keyword} + '&page=' + ${next}}"
                         role="button"
                         class="btn btn-lg bi bi-caret-right-square-fill"></a>
 
                     <a
                         th:if="!${hasPrev}"
-                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${next}}"
+                        th:href="@{'/history/search?keyword=' + ${keyword} + '&page=' + ${next}}"
                         role="button"
                         class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
 
                 </div>
-
             </div>
         </div>
     </div>
-
 </html>
 
 <!-- add custom script -->
 <th:block layout:fragment="script">
-    <script src="/js/posts.js"></script>
+    <script src="/js/history.js"></script>
 </th:block>

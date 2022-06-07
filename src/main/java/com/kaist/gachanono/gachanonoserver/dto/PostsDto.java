@@ -5,8 +5,7 @@ import lombok.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
-import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 
 /**

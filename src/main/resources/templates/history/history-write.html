@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+history<!DOCTYPE html>
 <html
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -12,7 +12,7 @@
     <div layout:fragment="content">
         <div class="container-fluid px-4">
             <!-- content -->
-            <div id="posts_list">
+            <div id="history_list">
                 <div class="col-md-12">
                     <form class="card">
                         <div class="card-header d-flex justify-content-between">
@@ -42,7 +42,7 @@
                     <button type="button" id="btn-save" class="btn btn-primary bi bi-pencil-fill">
                         작성</button>
                     <a
-                        href="/posts/free"
+                        href="/history/list"
                         role="button"
                         class="btn btn-info bi bi-arrow-return-left">
                         목록</a>
@@ -50,10 +50,9 @@
             </div>
         </div>
     </div>
-    
 </html>
 
 <!-- add custom script -->
 <th:block layout:fragment="script">
-    <script src="/js/posts.js"></script>
+    <script src="/js/history.js"></script>
 </th:block>
