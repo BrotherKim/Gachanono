@@ -42,7 +42,7 @@
         <div id="posts_list">
             <div class="container col-md-6">
                 <form action="/auth/loginProc" method="post">
-                    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                     <div class="form-group">
                         <label>아이디</label>
                         <input
@@ -62,9 +62,7 @@
                     </div>
 
                     <span>
-                        {{#error}}
-                            <p id="valid" class="alert alert-danger">{{exception}}</p>
-                        {{/error}}
+                        <p th:if="${error}" id="valid" class="alert alert-danger">[[${exception}]]</p>
                     </span>
 
                     <button class="form-control btn btn-primary bi bi-lock-fill">

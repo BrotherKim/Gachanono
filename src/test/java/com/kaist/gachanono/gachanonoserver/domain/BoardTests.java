@@ -1,9 +1,5 @@
 package com.kaist.gachanono.gachanonoserver.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import com.kaist.gachanono.gachanonoserver.config.AppConfig;
 import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
@@ -17,7 +13,6 @@ import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;

@@ -3,7 +3,7 @@ package com.kaist.gachanono.gachanonoserver.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 import com.kaist.gachanono.gachanonoserver.domain.persistence.PostsRepository;
 import com.kaist.gachanono.gachanonoserver.domain.persistence.UserRepository;

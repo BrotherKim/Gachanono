@@ -1,47 +1,83 @@
-{{>layout/header}}
-<div id="posts_list">
-    <table id="table" class="table table-horizontal">
-        <thead id="thead">
-        <tr>
-            <th>번호</th>
-            <th class="col-md-6 text-center">제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        {{#searchList}}
-            <tr>
-                <td>{{id}}</td>
-                <td><a href="/posts/read/{{id}}">{{title}}</a></td>
-                <td>{{writer}}</td>
-                <td>{{modifiedDate}}</td>
-                <td>{{view}}</td>
-            </tr>
-        {{/searchList}}
-        </tbody>
-    </table>
-    <div class="text-right">
-        <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layouts/layout">
+    <!-- add custom css -->
+    <th:block layout:fragment="/css"></th:block>
+    <!-- add custom script -->
+    <th:block layout:fragment="script"></th:block>
+
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <!-- content -->
+            <div id="posts_list">
+                <table id="table" class="table table-horizontal">
+                    <thead id="thead">
+                        <tr>
+                            <th>번호</th>
+                            <th>게임명</th>
+                            <th class="col-md-6 text-center">제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>조회수</th>
+                            <th>좋아요</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr th:each="post : ${searchList}">
+                            <td>[[${post.id}]]</td>
+                            <td>[[${post.gamename}]]</td>
+                            <td>
+                                <a th:href="@{'/posts/read/' + ${post.id}}">[[${post.title}]]</a>
+                            </td>
+                            <td>[[${post.writer}]]</td>
+                            <td>[[${post.modifiedDate}]]</td>
+                            <td>[[${post.view}]]</td>
+                            <td>[[${post.good}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill">
+                        글쓰기</a>
+                </div>
+
+                <div class="pagination justify-content-center">
+
+                    <a
+                        th:if="${hasPrev}"
+                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${previous}}"
+                        role="button"
+                        class="btn btn-lg bi bi-caret-left-square-fill"></a>
+
+                    <a
+                        th:if="!${hasPrev}"
+                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${previous}}"
+                        role="button"
+                        class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
+
+                    <a
+                        th:if="${hasPrev}"
+                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${next}}"
+                        role="button"
+                        class="btn btn-lg bi bi-caret-right-square-fill"></a>
+
+                    <a
+                        th:if="!${hasPrev}"
+                        th:href="@{'/posts/search?keyword=' + ${keyword} + '&page=' + ${next}}"
+                        role="button"
+                        class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    {{! Search Paging }}
-    <div class="pagination justify-content-center">
-        {{#hasPrev}}
-            <a href="/posts/search?keyword={{keyword}}&page={{previous}}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>
-        {{/hasPrev}}
-        {{^hasPrev}}
-            <a href="/posts/search?keyword={{keyword}}&page={{previous}}" role="button" class="btn btn-lg bi bi-caret-left-square-fill disabled"></a>
-        {{/hasPrev}}
+</html>
 
-        {{#hasNext}}
-            <a href="/posts/search?keyword={{keyword}}&page={{next}}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>
-        {{/hasNext}}
-        {{^hasNext}}
-            <a href="/posts/search?keyword={{keyword}}&page={{next}}" role="button" class="btn btn-lg bi bi-caret-right-square-fill disabled"></a>
-        {{/hasNext}}
-    </div>
-
-</div>
-{{>layout/footer}}
+<!-- add custom script -->
+<th:block layout:fragment="script">
+    <script src="/js/posts.js"></script>
+</th:block>

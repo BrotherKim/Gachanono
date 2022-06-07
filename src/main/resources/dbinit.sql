@@ -145,6 +145,42 @@ CREATE TABLE `comments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `history` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `writer` varchar(255) NOT NULL,
+  `inputprobcsv` text NOT NULL,
+  `outputcalcjson` text NOT NULL,
+  `view` bigint NOT NULL,
+  `created_date` varchar(255) NOT NULL,
+  `modified_date` varchar(255) NOT NULL,
+  `user_id` bigint NOT NULL,
+  `good` bigint NOT NULL,
+  `game_id` bigint NOT NULL,
+  `gamename` varchar(255) NOT NULL,
+  `item_id` bigint NOT NULL,
+  `itemname` varchar(255) NOT NULL,
+  `gacha_id` bigint NOT NULL,
+  `gachaname` varchar(255) NOT NULL,
+  `price` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `game_id` (`game_id`),
+  CONSTRAINT `history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `history_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
+  CONSTRAINT `history_ibfk_3` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
+  CONSTRAINT `history_ibfk_4` FOREIGN KEY (`gacha_id`) REFERENCES `gacha` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
 -- Dumping data for table `comments`
 --
 
