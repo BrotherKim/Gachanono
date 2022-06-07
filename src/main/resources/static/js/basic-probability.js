@@ -9,11 +9,13 @@ function chance() {
   //Constants
   var item_type = $("#item_type").attr("value");
   var max_try;
+  var name = "A"; // 전달 (아이템 이름)
+
   if (item_type == 3) {
     // 천장 복원추출
-    max_try = 3; // 전달
+    max_try = 3; // 전달 (천장이 있는 복원추출 - 최대 시도 횟수 (천장))
   }
-  var prob = 0.1; // 전달
+  var prob = 0.1; // 전달 (확률)
   var probTheo = [prob, 1 - prob];
 
   var countCoin = [0, 0];
