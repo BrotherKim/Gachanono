@@ -117,7 +117,7 @@
                         <p>
                             게임 이름
                         </p>
-                        <select class="form-control" v-model="game.selected" @change="GameSelected()">
+                        <select id="game" class="form-control" v-model="game.selected" @change="GameSelected()">
                             <option disabled="disabled" value="">Please select one</option>
                             <option
                                 th:each="game : ${games}"
@@ -129,7 +129,7 @@
                         <p>
                             아이템 이름
                         </p>
-                        <select class="form-control" v-model="item.selected">
+                        <select id="item" class="form-control" v-model="item.selected">
                             <option disabled="disabled" value="">Please select one</option>
                             <option
                                 v-for="item in item.list"
@@ -149,7 +149,7 @@
                         <p>
                             가챠 종류
                         </p>
-                        <select class="form-control" v-model="gacha.selected" @change="GachaSelected()">
+                        <select id="gacha" class="form-control" v-model="gacha.selected" @change="GachaSelected()">
                             <option disabled="disabled" value="">Please select one</option>
                             <option
                                 th:each="gacha : ${gachas}"
@@ -157,7 +157,7 @@
                                 th:text="${gacha.gachaname}"/>
                         </select>
                     </div>
-
+                    <input type="hidden" class="form-control" id="writer" th:value="${user.nickname}"/>
                 </div>
                 <div class="card-body">
                     <input type="button" class="btn btn-primary" value="계산" v-on:click="Calc()"/>
@@ -199,7 +199,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid px-4">
+        <!--div class="container-fluid px-4">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fa-solid fa-bolt-lightning"></i>
@@ -212,7 +212,6 @@
                     </div>
                     <div style="float: left">
                         <p>1회 뽑기 가격</p>
-                        <!-- 전 세션 에서 받아오기 -->
                         <input type="text" class="form-control" id="item_cost" v-model="price.selected"/>
                     </div>
                     <div style="float: left">
@@ -231,7 +230,6 @@
                     시뮬레이션 결과
                 </div>
                 <div class="card-body">
-                    <!--distributions-->
                     <div class="visualization-wrapper" id="barCoin"></div>
                     <div class="interactive-wrapper">
                         <label for="try">
@@ -252,31 +250,17 @@
                         <span id="success_test"></span><br><br></div>
 
                     <div id="share"></div>
-                    <!-- Share CSS and JavaScript -->
                     <link rel="stylesheet" type="text/css" href="/css/jssocials.css"/>
                     <link rel="stylesheet" type="text/css" href="/css/jssocials-theme-flat.css"/>
                     <script src="/js/jssocials.min.js"></script>
-                    <script>
-                        $("#share").jsSocials({
-                            // url: "_url_", _createShareLink: function(share) {     var $result =
-                            // jsSocials.Socials.prototype._createShareLink.apply(this, arguments);
-                            // $result.on("click", function() {            replace the your placeholder with
-                            // actual url           var href = $result.attr("href"); $result.attr("href",
-                            // href.replace("_url_", shareUrl));     });     return $result; },
-                            showLabel: false,
-                            showCount: false,
-                            shareIn: "popup",
-                            shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
-                        });
-
-                        $(".languageSetting").change(function () {
-                            var option = $(this).find("option:selected");
-                            window.location.href = option.data("url");
-                        });
-                    </script>
                 </div>
             </div>
-        </div>
+        </div-->
         <script src="/js/prob/gacha.js"></script>
     </div>
 </html>
+
+<!-- add custom script -->
+<th:block layout:fragment="script">
+    <script src="/js/history.js"></script>
+</th:block>
