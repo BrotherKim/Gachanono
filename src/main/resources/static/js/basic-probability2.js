@@ -8,23 +8,26 @@ $(window).load(function () {
 function chance() {
   //Constants
   var item_type = $("#item_type").attr("value");
-  var probTheo = [];
+  var probTheo = [0, 0];
   var range = [];
   var range_prob = [];
   var start_num;
+  var new_prob;
+  var name = "A"; // 전달 (아이템 이름)
+
   if (item_type == 4) {
     // 동일 아이템 구간별 확률
     range = [
       [1, 10],
       [11, 20],
       [21, 30],
-    ]; // 전달
-    prob = [0.3, 0.2, 0.1]; // 전달
+    ]; // 전달 ([구간 시작(이상), 구간 끝(이하)]를 리스트 형태로)
+    range_prob = [0.1, 0.2, 0.3]; // 전달 (각 범위 별 확률)
   }
   if (item_type == 5) {
     // 다른 아이템 구간별 확률
-    start_num = 100; // 전달
-    probTheo = [0.5, 0.5]; // 전달
+    start_num = 100; // 전달 (아이템이 뽑히기 시작하는 구간(이상))
+    new_prob = 0.3; // 전달 (확률)
   }
 
   var countCoin = [0, 0];
@@ -36,18 +39,12 @@ function chance() {
       ],
       state: "Observed outcomes",
     },
-    /*{
-      data: [
-        { value: probTheo[0], side: "head" },
-        { value: probTheo[1], side: "tail" },
-      ],
-      state: "True probabilities",
-    },*/
   ];
   var total_cnt = 0,
     interval,
     draws = 1,
-    flag = true;
+    flag = true,
+    i = 0;
 
   var avail_money = document.getElementById("avail_money");
   var item_cost = document.getElementById("item_cost");
@@ -81,9 +78,7 @@ function chance() {
 
   //Create Scales
   var yScaleCoin = d3.scale.linear().domain([0, 1]);
-  var x0ScaleCoin = d3.scale
-    .ordinal()
-    .domain(["Observed outcomes", "True probabilities"]);
+  var x0ScaleCoin = d3.scale.ordinal().domain(["Observed outcomes"]);
   var x1ScaleCoin = d3.scale.ordinal().domain(["head", "tail"]);
 
   //Create SVG Elements
@@ -128,8 +123,6 @@ function chance() {
     var probObs = [countCoin[0] / total, countCoin[1] / total];
     coinData[0].data[0].value = probObs[0];
     coinData[0].data[1].value = probObs[1];
-    /*coinData[1].data[0].value = probTheo[0];
-    coinData[1].data[1].value = probTheo[1];*/
 
     tipCoinObs.html(function (d) {
       return (
@@ -167,13 +160,17 @@ function chance() {
         return "/assets/img/" + d.side + ".png";
       })
       .attr("x", function (d) {
-        return x1ScaleCoin(d.side) + x1ScaleCoin.rangeBand() / 6;
+        return (
+          x1ScaleCoin(d.side) +
+          x1ScaleCoin.rangeBand() / 2 -
+          (x1ScaleCoin.rangeBand() * 2) / 10
+        );
       })
       .attr("y", function (d) {
         return yScaleCoin(0) + 20;
       })
-      .attr("width", (x1ScaleCoin.rangeBand() * 2) / 3)
-      .attr("height", (x1ScaleCoin.rangeBand() * 2) / 3);
+      .attr("width", (x1ScaleCoin.rangeBand() * 2) / 5)
+      .attr("height", (x1ScaleCoin.rangeBand() * 2) / 5);
 
     containerCoin.selectAll("g.Observed rect").each(function () {
       d3.select(this)
@@ -184,6 +181,11 @@ function chance() {
 
   function update() {
     var num = Math.random();
+    if (num < probTheo[0]) {
+      countCoin[0] = countCoin[0] + 1;
+    } else {
+      countCoin[1] = countCoin[1] + 1;
+    }
 
     total_try.innerText = total_cnt;
     left_money.innerText = left_money.innerText - item_cost.value;
@@ -194,7 +196,8 @@ function chance() {
       var total_cost = total_cnt * item_cost.value;
 
       document.getElementById("success_test").innerText =
-        " 모든 아이템이 뽑힐 때 까지 시도횟수 " +
+        name +
+        " 아이템이 뽑힐 때 까지 시도횟수 " +
         String(total_cnt) +
         "회, 총 금액 " +
         String(total_cost) +
@@ -211,17 +214,25 @@ function chance() {
 
   function start_sampling() {
     var cnt = 0;
-    var i = 0;
     interval = setInterval(function () {
       cnt++;
       total_cnt++;
 
-      for (i; i <= range_prob.length; i++) {
-        if (total_cnt <= range[i][1]) {
-          probTheo[0] = range_prob[i];
-          probTheo[1] = 1 - probTheo[0];
-          break;
+      if (item_type == 4) {
+        probTheo[0] = range_prob[range_prob.length - 1];
+        probTheo[1] = 1 - probTheo[0];
+        for (; i < range_prob.length; i++) {
+          if (total_cnt <= range[i][1]) {
+            probTheo[0] = range_prob[i];
+            probTheo[1] = 1 - probTheo[0];
+            break;
+          }
         }
+      }
+
+      if (item_type == 5 && total_cnt == start_num) {
+        probTheo[0] = new_prob;
+        probTheo[1] = 1 - probTheo[0];
       }
 
       update();
@@ -254,7 +265,7 @@ function chance() {
     //Update Scales
     yScaleCoin.range([height - 2 * padCoin, 0]);
     x0ScaleCoin.rangeRoundBands([0, width], 0.1);
-    x1ScaleCoin.rangeRoundBands([0, x0ScaleCoin.rangeBand()], 0.4);
+    x1ScaleCoin.rangeRoundBands([0, x0ScaleCoin.rangeBand()], 0.5);
 
     //Update Container
     containerCoin.attr("transform", "translate(" + -50 + "," + padCoin + ")");
