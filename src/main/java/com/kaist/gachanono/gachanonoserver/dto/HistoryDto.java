@@ -28,6 +28,9 @@ public class HistoryDto {
         private Long game_id;
         private String itemname;
         private Long item_id;
+        private String gachaname;
+        private Long gacha_id;
+        private int price;
 
         /* Dto -> Entity */
         public History toEntity() {
@@ -43,6 +46,9 @@ public class HistoryDto {
                     .game_id(game_id)
                     .itemname(itemname)
                     .item_id(item_id)
+                    .gachaname(gachaname)
+                    .gacha_id(gacha_id)
+                    .price(price)
                     .build();
 
             return history;
@@ -68,6 +74,9 @@ public class HistoryDto {
         private Long game_id;
         private String itemname;
         private Long item_id;
+        private String gachaname;
+        private Long gacha_id;
+        private int price;
 
         /* Entity -> Dto*/
         public Response(History history) {
@@ -84,6 +93,9 @@ public class HistoryDto {
             this.game_id = history.getGame_id();
             this.itemname = history.getItemname();
             this.item_id = history.getItem_id();
+            this.gachaname = history.getGachaname();
+            this.gacha_id = history.getGacha_id();
+            this.price = history.getPrice();
         }
     }
 }

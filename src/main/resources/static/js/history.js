@@ -15,17 +15,6 @@ const history = {
             _this.delete();
         });
 
-        // 댓글 저장
-        $('#btn-comment-save').on('click', function () {
-            _this.commentSave();
-        });
-        // 댓글 수정
-        document.querySelectorAll('#btn-comment-update').forEach(function (item) {
-            item.addEventListener('click', function () { // 버튼 클릭 이벤트 발생시
-                const form = this.closest('form'); // btn의 가장 가까운 조상의 Element(form)를 반환 (closest)
-                _this.commentUpdate(form); // 해당 폼으로 업데이트 수행
-            });
-        });
     },
 
     /** 글 작성 */
@@ -45,7 +34,7 @@ const history = {
         } else {
             $.ajax({
                 type: 'POST',
-                url: '/api/history',
+                url: '/api/history/save',
                 dataType: 'JSON',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)

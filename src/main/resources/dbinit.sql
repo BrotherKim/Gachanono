@@ -166,12 +166,16 @@ CREATE TABLE `history` (
   `gamename` varchar(255) NOT NULL,
   `item_id` bigint NOT NULL,
   `itemname` varchar(255) NOT NULL,
+  `gacha_id` bigint NOT NULL,
+  `gachaname` varchar(255) NOT NULL,
+  `price` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `game_id` (`game_id`),
   CONSTRAINT `history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `history_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
-  CONSTRAINT `history_ibfk_3` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`)
+  CONSTRAINT `history_ibfk_3` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
+  CONSTRAINT `history_ibfk_4` FOREIGN KEY (`gacha_id`) REFERENCES `gacha` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

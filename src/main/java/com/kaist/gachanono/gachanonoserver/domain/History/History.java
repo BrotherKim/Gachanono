@@ -53,6 +53,15 @@ public class History extends BaseTimeEntity {
     @Column(nullable = false)
     private String itemname;
     
+    @Column(nullable = false)
+    private String gachaname;
+    
+    @JoinColumn(name = "item_id")
+    private Long gacha_id;
+
+    @Column(nullable = false)
+    private int price;
+
     // /* 게시글 수정 */
     // public void update(String title, String content) {
     //     this.title = title;

@@ -54,7 +54,7 @@ public class HistoryController {
         return "history/list";
     }
 
-    /* 글 작성 */
+    /* 히스토리 작성 */
     @GetMapping("/history/write")
     public String write(@LoginUser UserDto.Response user, Model model) {
         List<Game> games = gameService.gameList();
@@ -66,7 +66,7 @@ public class HistoryController {
         return "history/history-write";
     }
 
-    /* 글 상세보기 */
+    /* 히스토리 상세보기 */
     @GetMapping("/history/read/{id}")
     public String read(
         @PathVariable Long id,
@@ -80,7 +80,7 @@ public class HistoryController {
         if (user != null) {
             model.addAttribute("user", user);
 
-            /* 게시글 작성자 본인인지 확인 */
+            /* 게시히스토리 작성자 본인인지 확인 */
             if (dto.getUserId().equals(user.getId())) {
                 model.addAttribute("writer", true);
             }
@@ -122,7 +122,7 @@ public class HistoryController {
         if (user != null) {
             model.addAttribute("user", user);
 
-            /* 게시글 작성자 본인인지 확인 */
+            /* 게시히스토리 작성자 본인인지 확인 */
             if (dto.getUserId().equals(user.getId())) {
                 model.addAttribute("writer", true);
             }
