@@ -3,10 +3,10 @@ package com.kaist.gachanono.gachanonoserver.domain.persistence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Comment;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Posts;
 
-import com.kaist.gachanono.gachanonoserver.domain.Board.Comment;
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     /* 게시글 댓글 목록 가져오기 */

@@ -7,37 +7,25 @@
     <th:block layout:fragment="/css"></th:block>
     <!-- add custom script -->
     <th:block layout:fragment="script">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-
-            /**
-    		 * 게시글 조회
-	        */
-            function goView(id) {
-                location.href = `/board/view/${id}`;
-            }
-
-            /*]]>*/
-        </script>
     </th:block>
 
     <div layout:fragment="content">
         <div class="container-fluid px-4">
             <!-- content -->
             <br/>
-            <div id="posts_list">
+            <div id="history_list">
                 <div class="col-md-12">
                     <form class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <label for="id">번호 : [[${posts.id}]]</label>
-                            <input type="hidden" id="id" th:value="${posts.id}">
-                            <label for="createdDate">[[${posts.createdDate}]]</label>
+                            <label for="id">번호 : [[${history.id}]]</label>
+                            <input type="hidden" id="id" th:value="${history.id}">
+                            <label for="createdDate">[[${history.createdDate}]]</label>
                         </div>
                         <div class="card-header d-flex justify-content-between">
-                            <label for="writer">작성자 : [[${posts.writer}]]</label>
+                            <label for="writer">작성자 : [[${history.writer}]]</label>
                             <label for="view">
                                 <i class=" bi bi-eye-fill">
-                                    [[${posts.view}]]</i>
+                                    [[${history.view}]]</i>
                             </label>
                         </div>
                         <div class="card-body">
@@ -46,7 +34,7 @@
                                 type="text"
                                 class="form-control"
                                 id="title"
-                                th:value="${posts.gamename}"
+                                th:value="${history.gamename}"
                                 readonly="readonly">
                         </div>
                         <div class="card-body">
@@ -55,26 +43,26 @@
                                 type="text"
                                 class="form-control"
                                 id="title"
-                                th:value="${posts.title}"
+                                th:value="${history.title}"
                                 readonly="readonly">
                             <br/>
                             <label for="content">내용</label>
-                            <textarea rows="5" class="form-control" id="content" readonly="readonly">[[${posts.content}]]</textarea>
+                            <textarea rows="5" class="form-control" id="content" readonly="readonly">[[${history.content}]]</textarea>
                         </div>
                     </form>
 
                     <a
                         th:if="${user}"
-                        href="/posts/free"
+                        href="/history/list"
                         role="button"
                         class="btn btn-info bi bi-arrow-return-left">
                         목록</a>
-                    <a
+                    <!--a
                         th:if="${user} and ${writer}"
-                        th:href="@{'/posts/update/' + ${posts.id}}"
+                        th:href="@{'/history/update/' + ${history.id}}"
                         role="button"
                         class="btn btn-primary bi bi-pencil-square">
-                        수정</a>
+                        수정</a-->
                     <button
                         th:if="${user} and ${writer}"
                         type="button"
@@ -84,7 +72,7 @@
                         삭제</button>
                     <a
                         th:if="${user}"
-                        th:href="@{'/posts/good/' + ${posts.id}}"
+                        th:href="@{'/history/good/' + ${history.id}}"
                         role="button"
                         class="btn btn-success bi bi-hand-thumbs-up">
                         좋아요</a>
@@ -96,3 +84,8 @@
         </div>
     </div>
 </html>
+
+<!-- add custom script -->
+<th:block layout:fragment="script">
+    <script src="/js/history.js"></script>
+</th:block>

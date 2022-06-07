@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.controller;
+package com.kaist.gachanono.gachanonoserver.controller.page;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Gacha;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Posts;
 import com.kaist.gachanono.gachanonoserver.dto.CommentDto;
-import com.kaist.gachanono.gachanonoserver.dto.GameDto;
 import com.kaist.gachanono.gachanonoserver.dto.PostsDto;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
 import com.kaist.gachanono.gachanonoserver.service.GachaService;

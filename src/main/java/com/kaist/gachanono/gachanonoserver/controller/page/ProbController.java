@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.controller;
+package com.kaist.gachanono.gachanonoserver.controller.page;
 
 import java.util.List;
 

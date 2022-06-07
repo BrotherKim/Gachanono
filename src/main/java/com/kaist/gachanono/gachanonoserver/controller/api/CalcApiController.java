@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.controller;
+package com.kaist.gachanono.gachanonoserver.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,65 +27,15 @@ import org.springframework.web.bind.annotation.*;
  * REST API Controller
  */
 @Slf4j
-@RequestMapping("/api")
+@RequestMapping("/api/calc")
 @RequiredArgsConstructor
 @RestController
-public class PostsApiController {
+public class CalcApiController {
 
-    private final PostsService postsService;
-    private final GameService gameService;
     private final CalcService calcService;
 
-    /* CREATE */
-    @PostMapping("/posts")
-    public ResponseEntity save(
-        @RequestBody PostsDto.Request dto,
-        @LoginUser UserDto.Response user
-    ) {
-        return ResponseEntity.ok(postsService.save(dto, user.getNickname()));
-    }
-
-    /* READ */
-    @GetMapping("/posts/{id}")
-    public ResponseEntity read(@PathVariable Long id) {
-        return ResponseEntity.ok(postsService.findById(id));
-    }
-
-    /* UPDATE */
-    @PutMapping("/posts/{id}")
-    public ResponseEntity update(
-        @PathVariable Long id,
-        @RequestBody PostsDto.Request dto
-    ) {
-        log.info(dto.toString());
-        postsService.update(id, dto);
-        return ResponseEntity.ok(id);
-    }
-
-    /* DELETE */
-    @DeleteMapping("/posts/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
-        postsService.delete(id);
-        return ResponseEntity.ok(id);
-    }
-
-    /* Get itemlist with game_id */
-    @GetMapping("/prob/itemlist/{gameid}")
-    public ResponseEntity getItemList(
-        @PathVariable Long gameid,
-        @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable
-    ) {
-        return ResponseEntity.ok(gameService.getItemList(gameid, pageable));
-    }
-
-    /* Get probtable name with game_id */
-    @GetMapping("/prob/probtable/{gameid}")
-    public ResponseEntity getProbtableName(@PathVariable Long gameid) {
-        return ResponseEntity.ok(gameService.getProbtableName(gameid));
-    }
-
     /* completegacha */
-    @PostMapping("/calc/completegacha")
+    @PostMapping("/completegacha")
     public String completegacha(
         @RequestBody String dto,
         @LoginUser UserDto.Response user
@@ -120,7 +70,7 @@ public class PostsApiController {
     }
 
     /* completegacha */
-    @PostMapping("/calc/segDiff")
+    @PostMapping("/segDiff")
     public String segDiff(
         @RequestBody String dto,
         @LoginUser UserDto.Response user
@@ -145,7 +95,7 @@ public class PostsApiController {
     }
 
     /* completegacha */
-    @PostMapping("/calc/segSame")
+    @PostMapping("/segSame")
     public String segSame(
         @RequestBody String dto,
         @LoginUser UserDto.Response user
@@ -190,7 +140,7 @@ public class PostsApiController {
     }
 
     /* completegacha */
-    @PostMapping("/calc/swrceiling")
+    @PostMapping("/swrceiling")
     public String swrceiling(
         @RequestBody String dto,
         @LoginUser UserDto.Response user
@@ -214,7 +164,7 @@ public class PostsApiController {
     }
 
     /* completegacha */
-    @PostMapping("/calc/swr")
+    @PostMapping("/swr")
     public String swr(
         @RequestBody String dto,
         @LoginUser UserDto.Response user

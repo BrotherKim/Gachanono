@@ -7,58 +7,46 @@
     <th:block layout:fragment="/css"></th:block>
     <!-- add custom script -->
     <th:block layout:fragment="script">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-
-            /**
-    		 * 게시글 조회
-	        */
-            function goView(id) {
-                location.href = `/board/view/${id}`;
-            }
-
-            /*]]>*/
-        </script>
     </th:block>
 
     <div layout:fragment="content">
         <div class="container-fluid px-4">
             <!-- content -->
-            <div id="posts_list">
+            <div id="history_list">
                 <div class="col-md-12">
                     <form class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <label for="id">번호 : [[${posts.id}]]</label>
-                            <input type="hidden" id="id" th:value="${posts.id}">
-                            <label for="createdDate">[[${posts.createdDate}]]</label>
+                            <label for="id">번호 : [[${history.id}]]</label>
+                            <input type="hidden" id="id" th:value="${history.id}">
+                            <label for="createdDate">[[${history.createdDate}]]</label>
                         </div>
                         <div class="card-header d-flex justify-content-between">
-                            <label for="writer">작성자 : [[${posts.writer}]]</label>
+                            <label for="writer">작성자 : [[${history.writer}]]</label>
                             <label for="view">
                                 <i class=" bi bi-eye-fill">
-                                    [[${posts.view}]]</i>
+                                    [[${history.view}]]</i>
                             </label>
                         </div>
                         <div class="card-body">
                             <label for="game">게임명</label>
                             <select id="game" class="form-control" readonly="readonly">
-                                <option th:value="${posts.game_id}" th:text="${posts.gamename}"/>
+                                <option th:value="${history.game_id}" th:text="${history.gamename}"/>
                             </select>
                         </div>
                         <div class="card-body">
                             <label for="title">제목</label>
-                            <input type="text" class="form-control" id="title" th:value="${posts.title}">
+                            <input type="text" class="form-control" id="title" th:value="${history.title}">
                         </div>
 
                         <div class="card-body">
                             <label for="content">내용</label>
-                            <textarea rows="10" class="form-control" id="content">[[${posts.content}]]</textarea>
+                            <textarea rows="10" class="form-control" id="content">[[${history.content}]]</textarea>
                         </div>
                     </form>
 
                     <!--버튼-->
                     <a
-                        th:href="@{'/posts/read/' + ${id}}"
+                        th:href="@{'/history/read/' + ${id}}"
                         role="button"
                         class="btn btn-info bi bi-arrow-return-left">
                         취소</a>
@@ -72,3 +60,8 @@
         </div>
     </div>
 </html>
+
+<!-- add custom script -->
+<th:block layout:fragment="script">
+    <script src="/js/history.js"></script>
+</th:block>

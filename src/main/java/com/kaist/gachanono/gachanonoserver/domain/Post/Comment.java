@@ -1,4 +1,4 @@
-package com.kaist.gachanono.gachanonoserver.domain.Board;
+package com.kaist.gachanono.gachanonoserver.domain.Post;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

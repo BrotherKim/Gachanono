@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.kaist.gachanono.gachanonoserver.domain.Board.Comment;
-import com.kaist.gachanono.gachanonoserver.domain.Board.Posts;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Comment;
+import com.kaist.gachanono.gachanonoserver.domain.Post.Posts;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 import com.kaist.gachanono.gachanonoserver.domain.persistence.CommentRepository;
 import com.kaist.gachanono.gachanonoserver.domain.persistence.PostsRepository;

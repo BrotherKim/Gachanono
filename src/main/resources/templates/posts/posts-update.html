@@ -7,18 +7,6 @@
     <th:block layout:fragment="/css"></th:block>
     <!-- add custom script -->
     <th:block layout:fragment="script">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-
-            /**
-    		 * 게시글 조회
-	        */
-            function goView(id) {
-                location.href = `/board/view/${id}`;
-            }
-
-            /*]]>*/
-        </script>
     </th:block>
 
     <div layout:fragment="content">
@@ -71,4 +59,10 @@
             </div>
         </div>
     </div>
+    
 </html>
+
+<!-- add custom script -->
+<th:block layout:fragment="script">
+    <script src="/js/posts.js"></script>
+</th:block>

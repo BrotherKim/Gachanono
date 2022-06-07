@@ -1,10 +1,9 @@
-package com.kaist.gachanono.gachanonoserver.domain.Board;
+package com.kaist.gachanono.gachanonoserver.domain.Post;
 
 import lombok.*;
 
 import javax.persistence.*;
 
-import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.User.BaseTimeEntity;
 import com.kaist.gachanono.gachanonoserver.domain.User.User;
 
