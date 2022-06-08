@@ -43,7 +43,8 @@ const gacha = {
                                 itemname: '게임을 먼저 선택해주세요'
                             }
                         ],
-                        selected: -1
+                        selected: -1,
+                        clicked: '표에서 선택해주세요',
                     },
                     gacha: {
                         selected: ''
@@ -95,12 +96,16 @@ const gacha = {
                     self.CreateUserProbTable(self.gacha.selected);
                 },
                 CreateCrawledProbTable: function (gameid) {
+                    var self = this;
                     const crawledTableName = '#crawledProbTable';
                     $(crawledTableName).empty();
                     this.table.crawledProbTable = new Vue({
                         el: crawledTableName,
+                        data: function () {
+                            return {spreadsheet: {}}
+                        },
                         mounted: function () {
-                            let spreadsheet = jspreadsheet(this.$el, {
+                            this.spreadsheet = jspreadsheet(this.$el, {
                                 minDimensions: [
                                     6, 30
                                 ],
@@ -109,10 +114,19 @@ const gacha = {
                                 tableWidth: "100%",
                                 csv: '/assets/crawled/' + gameid + '.csv',
                                 csvHeaders: false,
-                                editable: false
+                                editable: false,
+                                onselection: this.Select
                             });
-                            Object.assign(this, spreadsheet);
-                        }
+                            //Object.assign(this, spreadsheet);
+                        },
+                        methods: {
+                            Select: function (instance, x1, y1, x2, y2, origin) {
+                                var begin = jexcel.getColumnNameFromId([x1, y1]);
+                                self.item.clicked = this.spreadsheet.getValue(begin);
+                                self.item.id = 0;
+                                console.log(self.item);
+                            },
+                        },
                     });
                 },
                 CreateUserProbTable: function (gachaid) {

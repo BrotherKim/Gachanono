@@ -104,12 +104,16 @@ const calc = {
                     self.CreateUserProbTable(self.gacha.selected);
                 },
                 CreateCrawledProbTable: function (gameid) {
+                    var self = this;
                     const crawledTableName = '#crawledProbTable';
                     $(crawledTableName).empty();
                     this.table.crawledProbTable = new Vue({
                         el: crawledTableName,
+                        data: function () {
+                            return {spreadsheet: {}}
+                        },
                         mounted: function () {
-                            let spreadsheet = jspreadsheet(this.$el, {
+                            this.spreadsheet = jspreadsheet(this.$el, {
                                 minDimensions: [
                                     6, 30
                                 ],
@@ -118,10 +122,23 @@ const calc = {
                                 tableWidth: "100%",
                                 csv: '/assets/crawled/' + gameid + '.csv',
                                 csvHeaders: false,
-                                editable: false
+                                editable: false,
+                                //onselection: this.Select
                             });
-                            Object.assign(this, spreadsheet);
-                        }
+                            //Object.assign(this, spreadsheet);
+                        },
+                        // methods: {
+                        //     Select: function (instance, x1, y1, x2, y2, origin) {
+                        //         var begin = jexcel.getColumnNameFromId([x1, y1]);
+                        //         self.item.selected = this.spreadsheet.getValue(begin);
+                        //         console.log(self.item.selected);
+                        //         // var end = jexcel.getColumnNameFromId([x1, y1]);
+                        //         // console.log(this.spreadsheet.getValue(begin));
+                        //         // console.log(this.spreadsheet.getValue(end));
+                        //         // console.log(begin);
+                        //         // console.log(end);
+                        //     },
+                        // },
                     });
                 },
                 CreateUserProbTable: function (gachaid) {
