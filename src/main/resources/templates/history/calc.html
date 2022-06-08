@@ -76,7 +76,8 @@
                         <p>
                             1회 뽑기 가격
                         </p>
-                        <input type="text" class="form-control" id="price" th:value="${history.price}"/>
+                        <input type="text" class="form-control" id="price" v-model="price.selected"/>
+                        <input type="hidden" id="price_id" th:value="${history.price}">
                     </div>
                     <div style="float: left;">
                         <p>

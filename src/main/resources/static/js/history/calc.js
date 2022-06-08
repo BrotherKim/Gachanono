@@ -54,7 +54,10 @@ const calc = {
                 };
             },
             mounted: function () {
+                this.game.selected = $('#game_id').val()
+                this.item.selected = $('#item_id').val()
                 this.gacha.selected = $('#gacha_id').val()
+                this.price.selected = $('#price_id').val()
                 this.CreateUserProbTable($('#gacha_id').val());
                 this.CreateCrawledProbTable($('#game_id').val());
             },
@@ -222,21 +225,21 @@ const calc = {
                     // 입력 가져오기
                     let itemCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemNames = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemProbs = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -303,21 +306,21 @@ const calc = {
                     // 입력 가져오기
                     let startCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemProb = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -382,28 +385,28 @@ const calc = {
                     // 입력 가져오기
                     let startCnts = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let endCnts = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemProbs = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(4)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -413,6 +416,7 @@ const calc = {
                     console.log(endCnts);
                     console.log(itemProbs);
                     console.log(tryCnt);
+                    
 
                     // 입력 유효성 검사 if (itemCnt.length != 2) {     alert('아이템 개수를 한개만 입력해주세요'); return;
                     // } else {
@@ -468,21 +472,21 @@ const calc = {
                     // 입력 가져오기
                     let itemProb = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let maxTryCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -547,14 +551,14 @@ const calc = {
                     // 입력 가져오기
                     let itemProb = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable
+                        .userProbTable.spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -612,8 +616,7 @@ const calc = {
 
                     // 게임 이름과 아이템 유효성검사 switch 조건문
                     let selectedGacha = this.gacha.selected;
-                    console.log(this.gacha.selected);
-                    return;
+                    
                     switch (selectedGacha) {
                             // 컴플리트가챠
                         case '1':
@@ -770,8 +773,8 @@ const calc = {
                     // console.log(inputprobcsvraw);
                     // console.log(outputcalcjsonraw);
 
-                    let itemname = $('#item option:selected').text().trim(); 
-                    let gamename = $('#game option:selected').text().trim(); 
+                    let itemname = $('#item').val(); 
+                    let gamename = $('#game').val(); 
                     let gachaname = $('#gacha option:selected').text().trim(); 
                     let writer =  $('#writer').val();
                     let price = this.price.selected;
@@ -787,10 +790,8 @@ const calc = {
                         itemname: itemname,
                         gacha_id: this.gacha.selected,
                         gachaname: gachaname,
-                        price: this.price.selected,
+                        price: price,
                     };
-
-                    // console.log(data);
 
                     // 공백 및 빈 문자열 체크
                     if (data.item_id == -1
