@@ -44,7 +44,7 @@ const gacha = {
                             }
                         ],
                         selected: -1,
-                        clicked: '표에서 선택해주세요',
+                        clicked: '표에서 선택해주세요'
                     },
                     gacha: {
                         selected: ''
@@ -122,11 +122,13 @@ const gacha = {
                         methods: {
                             Select: function (instance, x1, y1, x2, y2, origin) {
                                 var begin = jexcel.getColumnNameFromId([x1, y1]);
-                                self.item.clicked = this.spreadsheet.getValue(begin);
+                                self.item.clicked = this
+                                    .spreadsheet
+                                    .getValue(begin);
                                 self.item.id = 0;
                                 console.log(self.item);
-                            },
-                        },
+                            }
+                        }
                     });
                 },
                 CreateUserProbTable: function (gachaid) {
@@ -768,54 +770,69 @@ const gacha = {
 
                 },
                 SaveHistory: function (inputprobcsvraw, outputcalcjsonraw) {
-                    // console.log(typeof(inputprobcsvraw));
-                    // console.log(typeof(outputcalcjsonraw));
-                    // console.log(inputprobcsvraw);
-                    // console.log(outputcalcjsonraw);
+                    // console.log(typeof(inputprobcsvraw)); console.log(typeof(outputcalcjsonraw));
+                    // console.log(inputprobcsvraw); console.log(outputcalcjsonraw);
 
-                    let itemname = $('#item option:selected').text().trim(); 
-                    let gamename = $('#game option:selected').text().trim(); 
-                    let gachaname = $('#gacha option:selected').text().trim(); 
-                    let writer =  $('#writer').val();
+                    let itemname = $('#item option:selected')
+                        .text()
+                        .trim();
+                    let gamename = $('#game option:selected')
+                        .text()
+                        .trim();
+                    let gachaname = $('#gacha option:selected')
+                        .text()
+                        .trim();
+                    let writer = $('#writer').val();
+                    let item_id = this.item.selected;
+                    let game_id = this.game.selected;
+                    let gacha_id = this.gacha.selected;
                     let price = this.price.selected;
+
+                    // 공백 및 빈 문자열 체크
+                    if (item_id == -1 || game_id.trim() === "" || gacha_id.trim() === "" || price.trim() === "") {
+                        alert("공백 또는 입력하지 않은 부분이 있습니다.");
+                        return false;
+                    }
+
+                    // item_id가 0이면
+                    if (item_id == 0) {
+                        // itemname이 item.list에 존재하면 item_id를 가져온다.
+                        this.item.list.find(function (item) {
+                            if (item.itemname == itemname) {
+                                item_id = item.id;
+                            }
+                        });
+                    }
 
                     const data = {
                         title: '[' + gachaname + ']_[' + price + '원]_[' + writer + ']',
                         writer: writer,
                         inputprobcsv: JSON.stringify(inputprobcsvraw),
                         outputcalcjson: outputcalcjsonraw,
-                        game_id: this.game.selected,
+                        game_id: game_id,
                         gamename: gamename,
-                        item_id: this.item.selected,
+                        item_id: item_id,
                         itemname: itemname,
-                        gacha_id: this.gacha.selected,
+                        gacha_id: gacha_id,
                         gachaname: gachaname,
-                        price: this.price.selected,
+                        price: price
                     };
 
                     // console.log(data);
+                    // return;
 
-                    // 공백 및 빈 문자열 체크
-                    if (data.item_id == -1
-                    || data.game_id.trim() === "" 
-                    || data.gacha_id.trim() === ""
-                    || data.price.trim() === ""
-                    ) {
-                        alert("공백 또는 입력하지 않은 부분이 있습니다.");
-                        return false;
-                    } else {
-                        $
-                            .ajax(
-                                {type: 'POST', url: '/api/history/save', dataType: 'JSON', contentType: 'application/json; charset=utf-8', data: JSON.stringify(data)}
-                            )
-                            .done(function () {
-                                alert('등록되었습니다.');
-                                window.location.href = '/history/list';
-                            })
-                            .fail(function (error) {
-                                alert(JSON.stringify(error));
-                            });
-                    }
+                    $
+                        .ajax(
+                            {type: 'POST', url: '/api/history/save', dataType: 'JSON', contentType: 'application/json; charset=utf-8', data: JSON.stringify(data)}
+                        )
+                        .done(function () {
+                            alert('등록되었습니다.');
+                            window.location.href = '/history/list';
+                        })
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+
                 }
             }
         });
