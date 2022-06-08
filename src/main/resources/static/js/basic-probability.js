@@ -11,9 +11,9 @@ function chance() {
   var max_try;
   var name = "A"; // 전달 (아이템 이름)
 
-  if (item_type == 3) {
+  if (item_type == 2) {
     // 천장 복원추출
-    max_try = 3; // 전달 (천장이 있는 복원추출 - 최대 시도 횟수 (천장))
+    max_try = 100; // 전달 (천장이 있는 복원추출 - 최대 시도 횟수 (천장))
   }
   var prob = 0.1; // 전달 (확률)
   var probTheo = [prob, 1 - prob];
@@ -223,8 +223,11 @@ function chance() {
     total_try.innerText = total_cnt;
     left_money.innerText = left_money.innerText - item_cost.value;
 
-    if (flag && item_type == 3 && total_cnt == max_try)
+    if (flag && item_type == 2 && total_cnt == max_try) {
       pop("천장이 있는 복원추출로 시도횟수 ");
+      $("#form_chance").css({ color: "gray", "pointer-events": "none" });
+      clearInterval(interval);
+    }
 
     if (flag && check_pop()) pop(name + " 아이템이 뽑힐 때 까지 시도횟수 ");
 

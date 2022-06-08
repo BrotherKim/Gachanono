@@ -15,16 +15,16 @@ function chance() {
   var new_prob;
   var name = "A"; // 전달 (아이템 이름)
 
-  if (item_type == 4) {
+  if (item_type == 3) {
     // 동일 아이템 구간별 확률
     range = [
-      [1, 10],
-      [11, 20],
-      [21, 30],
+      [1, 2],
+      [3, 4],
+      [5, 6],
     ]; // 전달 ([구간 시작(이상), 구간 끝(이하)]를 리스트 형태로)
-    range_prob = [0.1, 0.2, 0.3]; // 전달 (각 범위 별 확률)
+    range_prob = [0.01, 0.02, 0.03]; // 전달 (각 범위 별 확률)
   }
-  if (item_type == 5) {
+  if (item_type == 4) {
     // 다른 아이템 구간별 확률
     start_num = 100; // 전달 (아이템이 뽑히기 시작하는 구간(이상))
     new_prob = 0.3; // 전달 (확률)
@@ -190,19 +190,7 @@ function chance() {
     total_try.innerText = total_cnt;
     left_money.innerText = left_money.innerText - item_cost.value;
 
-    if (flag && check_pop()) {
-      flag = false;
-
-      var total_cost = total_cnt * item_cost.value;
-
-      document.getElementById("success_test").innerText =
-        name +
-        " 아이템이 뽑힐 때 까지 시도횟수 " +
-        String(total_cnt) +
-        "회, 총 금액 " +
-        String(total_cost) +
-        "원 소비되었습니다.";
-    }
+    if (flag && check_pop()) pop(name + " 아이템이 뽑힐 때 까지 시도횟수 ");
 
     updateCoin(100);
   }
@@ -212,15 +200,26 @@ function chance() {
     else return false;
   }
 
+  function pop(string) {
+    flag = false;
+
+    var total_cost = total_cnt * item_cost.value;
+
+    document.getElementById("success_test").innerText =
+      string +
+      String(total_cnt) +
+      "회, 총 금액 " +
+      String(total_cost) +
+      "원 소비되었습니다.";
+  }
+
   function start_sampling() {
     var cnt = 0;
     interval = setInterval(function () {
       cnt++;
       total_cnt++;
 
-      if (item_type == 4) {
-        probTheo[0] = range_prob[range_prob.length - 1];
-        probTheo[1] = 1 - probTheo[0];
+      if (item_type == 3) {
         for (; i < range_prob.length; i++) {
           if (total_cnt <= range[i][1]) {
             probTheo[0] = range_prob[i];
@@ -230,12 +229,18 @@ function chance() {
         }
       }
 
-      if (item_type == 5 && total_cnt == start_num) {
+      if (item_type == 4 && total_cnt == start_num) {
         probTheo[0] = new_prob;
         probTheo[1] = 1 - probTheo[0];
       }
 
       update();
+
+      if (item_type == 3 && total_cnt == range[range_prob.length - 1][1]) {
+        if (flag) pop("천장 시스템으로 시도횟수 ");
+        $("#form_chance").css({ color: "gray", "pointer-events": "none" });
+        clearInterval(interval);
+      }
 
       if (cnt == draws) {
         clearInterval(interval);
