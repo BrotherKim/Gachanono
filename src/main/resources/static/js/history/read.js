@@ -1,4 +1,4 @@
-var DEBUG = '';
+let mainTable = '';
 const read = {
     init: function () {
         const self = this;
@@ -8,7 +8,7 @@ const read = {
         const self = this;
         const mainTableName = '#history_list';
         //const mainTable = new Vue({
-        DEBUG = new Vue({
+        mainTable = new Vue({
             el: mainTableName,
             data: function () {
                 return {
@@ -37,11 +37,14 @@ const read = {
                     gacha: {
                         selected: ''
                     },
-                    ddd: {},
+                    ddd: {}
                 };
             },
             mounted: function () {
                 this.CreateUserProbTable($('#gacha_id').val());
+                // console.log(this.table.userProbTable);
+                // this.userProbTable.spreadsheet.setValueFromCoords(3, 3, '3');
+                // DEBUG.table.userProbTable.spreadsheet.setValueFromCoords(3, 3, '3');
             },
             methods: {
                 UpdateCharts: function (chartData) {
@@ -65,12 +68,11 @@ const read = {
                 CreateUserProbTable: function (gachaid) {
                     const userTableName = '#userProbTable';
                     $(userTableName).empty();
+                    var format = '';
                     this.table.userProbTable = new Vue({
                         el: userTableName,
                         data: function () {
-                            return {
-                                spreadsheet: {},
-                            }
+                            return {spreadsheet: {}}
                         },
                         mounted: function () {
                             this.spreadsheet = jspreadsheet(this.$el, {
@@ -82,11 +84,91 @@ const read = {
                                 tableWidth: "100%",
                                 csv: '/assets/selection/' + gachaid + '.csv',
                                 csvHeaders: false,
-                                editable: false
+                                defaultColAlign: 'left'
                             });
-                            Object.assign(this, this.spreadsheet);
                         }
                     });
+                },
+                CalcProb: function () {
+                    // History.Request
+                    const data = {
+                        title: '',
+                        writer: $('#inputprobcsv').val(),
+                        inputprobcsv: $('#inputprobcsv').val(),
+                        outputcalcjson: $('#outputcalcjson').val(),
+                        item_id: $('#item_id').val(),
+                        itemname: $('#itemname').val(),
+                        game_id: $('#game_id').val(),
+                        gachaname: $('#gachaname').val(),
+                        gacha_id: $('#gacha_id').val(),
+                        gachaname: $('#gachaname').val(),
+                        price: $('#price').val()
+                    };
+
+                    console.log(data);
+
+                    $
+                        .ajax(
+                            {
+                                type: 'GET', 
+                                url: '/history/calc',
+                                contentType: 'application/json; charset=utf-8', 
+                                data: JSON.stringify(data), 
+                                success: function (retval) {
+                                    alert(retval);
+                                },
+                            }
+                        )
+                        .done(function () {
+                            alert('등록되었습니다.');
+                        })
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+
+                    return;
+                },
+                SimProb: function () {
+                    // History.Request
+                    const data = {
+                        title: '',
+                        writer: $('#inputprobcsv').val(),
+                        inputprobcsv: $('#inputprobcsv').val(),
+                        outputcalcjson: $('#outputcalcjson').val(),
+                        item_id: $('#item_id').val(),
+                        itemname: $('#itemname').val(),
+                        game_id: $('#game_id').val(),
+                        gachaname: $('#gachaname').val(),
+                        gacha_id: $('#gacha_id').val(),
+                        gachaname: $('#gachaname').val(),
+                        price: $('#price').val()
+                    };
+
+                    console.log(data);
+
+                    $
+                        .ajax(
+                            {
+                                type: 'POST',
+                                url: '/history/sim', 
+                                dataType: 'JSON', 
+                                contentType: 'application/json; charset=utf-8', 
+                                data: JSON.stringify(data), 
+                                success: function (data) {
+                                    // window.location.href = '/history/list';
+
+                                },
+                            }
+                        )
+                        .done(function (retval) {
+                            alert(retval);
+                            // window.location.href = '/history/list';
+                        })
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+
+                    return;
                 },
                 BarChart: function (barChartData) {
                     // Set new default font family and font color to mimic Bootstrap's default
@@ -213,12 +295,48 @@ const read = {
                         }
                     });
 
-                },
+                }
             }
         });
     }
 }
 
 read.init();
-console.log(DEBUG);
-DEBUG.table.userProbTable.spreadsheet.setValueFromCoords(3, 3, '3');
+
+$(document).ready(function () {
+
+    //db로부터 가져온 값
+    let inputProb = JSON.parse($('#inputprobcsv').val());
+
+    // 템플릿값
+    let temp = mainTable
+        .table
+        .userProbTable
+        .spreadsheet
+        .getData()
+    let header = temp[1];
+
+    // db로부터 가져온 값 foreach 돌면서 테이블에 넣기
+    Object
+        .entries(inputProb)
+        .forEach(([key, value]) => {
+            let row = header.indexOf(key);
+
+            if (Array.isArray(value)) {
+                value.forEach((v, i) => {
+                    mainTable
+                        .table
+                        .userProbTable
+                        .spreadsheet
+                        .setValueFromCoords(row, i + 2, v);
+                })
+            } else {
+                mainTable
+                    .table
+                    .userProbTable
+                    .spreadsheet
+                    .setValueFromCoords(row, 2, value);
+            }
+        });
+
+});

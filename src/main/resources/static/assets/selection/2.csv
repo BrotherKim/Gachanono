@@ -1,3 +1,6 @@
 다른 아이템 구간별 확률(Segmented in Different items),
-Manual,아이템이 뽑히기 시작하는 구간(이상), 시도 횟수, 확률,
-시도 횟수 값은 아이템이 뽑히기 시작하는 구간의 값 이상의 값이어야 한다.
+Manual,startCnt,tryCnt,itemProb,
+1. 아이템이 뽑히기 시작하는 구간 시작(startCnt),
+ 시도 횟수 값은 아이템이 뽑히기 시작하는 구간의 값 이상의 값이어야 한다.,
+2. 시도횟수(tryCnt),
+3. 확률(itemProb),

@@ -1,3 +1,11 @@
 동일 아이템 구간별 확률(Segmented in Same item),
-Manual,구간 시작(이상), 구간 끝(이하), 확률, 시도횟수
-시작은 1부터 해야함. 구간 시작 값은 이전 칼럼의 구간 끝 값보다 +1 커야한다.
+Manual,startCnts,endCnts,itemProbs,tryCnt,
+1. 구간 시작(startCnts),
+ - 시작은 1부터 해야한다.,
+ - 구간 시작 값은 이전 칼럼의 구간 끝 값보다 +1 커야한다.,
+ - 1 11 21...,
+2. 구간 끝(endCnts)
+ - 10 단위,
+ - 10 20 30 ...,
+3. 확률(itemProbs),
+4. 시도횟수(tryCnt),

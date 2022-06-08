@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
@@ -40,6 +41,25 @@ public class ProbController {
 
     @GetMapping("/gacha") 
     public String gacha(Model model,
+    @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable,
+    @LoginUser UserDto.Response user
+    )  {
+        
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
+        List<Game> games = gameService.gameList();
+        model.addAttribute("games", games);
+
+        List<Gacha> gachas = gachaService.gachaList();
+        model.addAttribute("gachas", gachas);
+
+        return "prob/gacha";
+    } 
+
+    @PostMapping("/gacha") 
+    public String gachafork(Model model,
     @PageableDefault(sort = "id", direction = Sort.Direction.DESC)Pageable pageable,
     @LoginUser UserDto.Response user
     )  {

@@ -1,3 +1,4 @@
 복원추출(Sampling with replacement),
-Manual,확률,시도횟수,
-매뉴얼 내용
+Manual,itemProb,tryCnt,
+1. 확률(itemProb),
+2. 시도 횟수(tryCnt),

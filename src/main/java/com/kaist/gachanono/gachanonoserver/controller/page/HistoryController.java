@@ -10,14 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 import com.kaist.gachanono.gachanonoserver.config.auth.LoginUser;
+import com.kaist.gachanono.gachanonoserver.domain.Game.Gacha;
 import com.kaist.gachanono.gachanonoserver.domain.Game.Game;
 import com.kaist.gachanono.gachanonoserver.domain.History.History;
 import com.kaist.gachanono.gachanonoserver.dto.HistoryDto;
 import com.kaist.gachanono.gachanonoserver.dto.UserDto;
+import com.kaist.gachanono.gachanonoserver.service.GachaService;
 import com.kaist.gachanono.gachanonoserver.service.GameService;
 import com.kaist.gachanono.gachanonoserver.service.HistoryService;
 
@@ -31,6 +35,7 @@ public class HistoryController {
 
     private final HistoryService historyService;
     private final GameService gameService;
+    private final GachaService gachaService;
 
     /* default page = 0, size = 10  */
     @GetMapping("/history/list")
@@ -153,5 +158,33 @@ public class HistoryController {
         model.addAttribute("hasPrev", searchList.hasPrevious());
 
         return "history/history-search";
+    }
+    
+    /* Calc */
+    @GetMapping("/history/calc/{id}")
+    public String calc(
+        @PathVariable Long id,
+        @LoginUser UserDto.Response user,
+        Model model
+    ) {
+        HistoryDto.Response dto = historyService.findById(id);
+        
+        /* 사용자 관련 */
+        if (user != null) {
+            model.addAttribute("user", user);
+
+            /* 게시히스토리 작성자 본인인지 확인 */
+            if (dto.getUserId().equals(user.getId())) {
+                model.addAttribute("writer", true);
+            }
+        }
+
+        model.addAttribute("history", dto);
+
+        
+        List<Gacha> gachas = gachaService.gachaList();
+        model.addAttribute("gachas", gachas);
+
+        return "history/calc";
     }
 }

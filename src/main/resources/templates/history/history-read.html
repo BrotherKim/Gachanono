@@ -24,7 +24,6 @@
             type="text/css"
             href="https://fonts.googleapis.com/css?family=Material+Icons"/>
 
-        <script th:inline="javascript"></script>
     </th:block>
     <div layout:fragment="content">
         <div class="container-fluid px-4">
@@ -54,7 +53,8 @@
                                     <p>
                                         게임 이름
                                     </p>
-                                    <input readonly 
+                                    <input
+                                        readonly="readonly"
                                         type="text"
                                         class="form-control"
                                         id="game"
@@ -65,29 +65,36 @@
                                     <p>
                                         아이템 이름
                                     </p>
-                                    <input readonly 
+                                    <input
+                                        readonly="readonly"
                                         type="text"
                                         class="form-control"
                                         id="item"
                                         th:value="${history.itemname}"/>
-                                        <input type="hidden" id="item_id" th:value="${history.item_id}">
+                                    <input type="hidden" id="item_id" th:value="${history.item_id}">
                                 </div>
                                 <div style="float: left;">
                                     <p>
                                         1회 뽑기 가격
                                     </p>
-                                    <input readonly type="text" class="form-control" id="price" th:value="${history.price}"/>
+                                    <input
+                                        readonly="readonly"
+                                        type="text"
+                                        class="form-control"
+                                        id="price"
+                                        th:value="${history.price}"/>
                                 </div>
                                 <div style="float: left;">
                                     <p>
                                         가챠 종류
                                     </p>
-                                    <input readonly 
+                                    <input
+                                        readonly="readonly"
                                         type="text"
                                         class="form-control"
                                         id="gacha"
                                         th:value="${history.gachaname}"/>
-                                        <input type="hidden" id="gacha_id" th:value="${history.gacha_id}">
+                                    <input type="hidden" id="gacha_id" th:value="${history.gacha_id}">
                                 </div>
                                 <input
                                     type="hidden"
@@ -96,19 +103,21 @@
                                     th:value="${user.nickname}"/>
                             </div>
                             <div class="card-body">
-                                <input readonly 
-                                        type="text"
-                                        class="form-control"
-                                        id="inputprobcsv"
-                                        th:value="${history.inputprobcsv}"/>
+                                <input
+                                    type="hidden"
+                                    readonly="readonly"
+                                    class="form-control"
+                                    id="inputprobcsv"
+                                    th:value="${history.inputprobcsv}"/>
                                 <div id="userProbTable" style="width: 100%;"></div>
                             </div>
                             <div class="card-body">
-                                <input readonly 
-                                        type="text"
-                                        class="form-control"
-                                        id="outputcalcjson"
-                                        th:value="${history.outputcalcjson}"/>
+                                <input
+                                    type="hidden"
+                                    readonly="readonly"
+                                    class="form-control"
+                                    id="outputcalcjson"
+                                    th:value="${history.outputcalcjson}"/>
                                 <div id="crawledProbTable" style="width: 100%;"></div>
                             </div>
                         </div>
@@ -156,15 +165,30 @@
                         role="button"
                         class="btn btn-success bi bi-hand-thumbs-up">
                         좋아요</a>
-
+                    <a
+                        th:if="${user}"
+                        th:href="@{'/history/calc/' + ${history.id}}"
+                        role="button"
+                        class="btn btn-success bi bi-hand-thumbs-up">
+                        해당 확률 정보로 계산</a>
+                    <!--button th:if="${user}" type="button" v-on:click="CalcProb()" role="button"
+                    class="btn btn-info bi bi-arrow-return-left"> 해당 확률 정보로 확률 계산</button-->
+                    <button
+                        th:if="${user}"
+                        type="button"
+                        v-on:click="SimProb()"
+                        role="button"
+                        class="btn btn-info bi bi-arrow-return-left">
+                        해당 확률 정보로 시뮬레이션</button>
                 </div>
             </div>
         </div>
-        <script src="/js/history/read.js"></script>
+
     </div>
 </html>
 
 <!-- add custom script -->
 <th:block layout:fragment="script">
+    <script src="/js/history/read.js"></script>
     <script src="/js/history.js"></script>
 </th:block>
