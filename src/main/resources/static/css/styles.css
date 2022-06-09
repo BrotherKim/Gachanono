@@ -2246,7 +2246,6 @@ progress {
 .form-control,
 .dataTable-input {
   display: block;
-  width: 185px;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;

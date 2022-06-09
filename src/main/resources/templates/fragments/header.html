@@ -13,16 +13,14 @@
             <i class="fas fa-bars"></i>
         </button>
         <!-- Navbar Search-->
-        <!--form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2
-        my-md-0"> <div class="input-group"> <input class="form-control" type="text"
-        placeholder="Search for..." aria-label="Search for..."
-        aria-describedby="btnNavbarSearch" /> <button class="btn btn-primary"
-        id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> </div>
-        </form-->
+        <div
+            class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2
+        my-md-0">
+        </div>
         <!-- Navbar-->
-        <ul th:if="${user}"  class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <ul th:if="${user}" class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
-            <span class="navbar-dark">[[${user.nickname}]]님 안녕하세요!</span>
+            <a class="nav-link">[[${user.nickname}]]님 안녕하세요!</a>
             <a href="/logout" class="btn btn-outline-light">로그아웃</a>
             <a href="/modify" class="btn btn-outline-light bi bi-gear"></a>
 
