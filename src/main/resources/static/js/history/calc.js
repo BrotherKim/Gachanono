@@ -806,7 +806,7 @@ const calc = {
                     let price = this.price.selected;
 
                     const data = {
-                        title: '[' + gachaname + ']_[' + price + '원]_[' + writer + ']',
+                        title: '[' + itemname + ']_[' + gamename + ']_[' + gachaname + ']_[' + price + ']_[' + writer + ']',
                         writer: writer,
                         inputprobcsv: JSON.stringify(inputprobcsvraw),
                         outputcalcjson: outputcalcjsonraw,

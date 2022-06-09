@@ -49,9 +49,13 @@ const gacha = {
                     gacha: {
                         selected: ''
                     },
+                    recommend: {
+                        list: []
+                    },
                     message: 'Hello Vue!'
                 };
             },
+            watch: {},
             mounted: function () {},
             methods: {
                 GameSelected: function () {
@@ -73,9 +77,36 @@ const gacha = {
                             alert(JSON.stringify(error));
                         });
                 },
+                ItemSelected: function () {
+                    var self = this;
+                    $
+                        .ajax({
+                            type: 'GET',
+                            url: '/api/prob/recommend/' + self.item.selected,
+                            dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (retval) {
+                                self.recommend.list = retval.content;
+                                self.recommend.len = self.recommend.list.length;
+                                // self.item.list = retval.content;
+                            }
+                        })
+                        .done(function () {
+                            //self.CreateCrawledProbTable(self.game.selected);
+                        })
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
                 GachaSelected: function () {
                     var self = this;
                     self.CreateUserProbTable(self.gacha.selected);
+                },
+                SelectRecommendGacha: function (event) {
+                    console.log(event.target);
+                    console.log(event.target.value);
+                    this.gacha.selected = event.target.value;
+                    this.GachaSelected();
                 },
                 CreateCrawledProbTable: function (gameid) {
                     var self = this;
@@ -89,7 +120,7 @@ const gacha = {
                         mounted: function () {
                             this.spreadsheet = jspreadsheet(this.$el, {
                                 minDimensions: [
-                                    6, 30
+                                    12, 30
                                 ],
                                 defaultColWidth: 100,
                                 tableOverflow: true,
@@ -107,8 +138,24 @@ const gacha = {
                                 self.item.clicked = this
                                     .spreadsheet
                                     .getValue(begin);
-                                self.item.id = 0;
+                                self.item.selected = 0;
+
+                                // item_id가 0이면
+                                if (self.item.selected == 0) {
+                                    // itemname이 item.list에 존재하면 item_id를 가져온다.
+                                    self
+                                        .item
+                                        .list
+                                        .find(function (item) {
+                                            console.log(item.itemname, self.item.clicked);
+                                            if (item.itemname == self.item.clicked) {
+                                                self.item.selected = item.id;
+                                            }
+                                        });
+                                }
+
                                 console.log(self.item);
+                                self.ItemSelected();
                             }
                         }
                     });
@@ -121,7 +168,7 @@ const gacha = {
                         mounted: function () {
                             let spreadsheet = jspreadsheet(this.$el, {
                                 minDimensions: [
-                                    6, 30
+                                    30, 30
                                 ],
                                 defaultColWidth: 100,
                                 tableOverflow: true,
@@ -648,11 +695,14 @@ const gacha = {
                     // item_id가 0이면
                     if (item_id == 0) {
                         // itemname이 item.list에 존재하면 item_id를 가져온다.
-                        this.item.list.find(function (item) {
-                            if (item.itemname == itemname) {
-                                item_id = item.id;
-                            }
-                        });
+                        this
+                            .item
+                            .list
+                            .find(function (item) {
+                                if (item.itemname == itemname) {
+                                    item_id = item.id;
+                                }
+                            });
                     }
 
                     const data = {
@@ -669,8 +719,7 @@ const gacha = {
                         price: price
                     };
 
-                    // console.log(data);
-                    // return;
+                    // console.log(data); return;
 
                     $
                         .ajax(

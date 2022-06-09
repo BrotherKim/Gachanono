@@ -12,6 +12,7 @@ import com.kaist.gachanono.gachanonoserver.domain.persistence.UserRepository;
 import com.kaist.gachanono.gachanonoserver.dto.HistoryDto;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,8 +104,13 @@ public class HistoryService {
     /* search */
     @Transactional(readOnly = true)
     public Page<History> search(String keyword, Pageable pageable) {
-        Page<History> HistoryList = historyRepository.findByTitleContaining(keyword, pageable);
-        return HistoryList;
+        return historyRepository.findByTitleContaining(keyword, pageable);
+    }
+
+    /* search */
+    @Transactional(readOnly = true)
+    public Page<History> recommendGacha(Long item_id, Pageable pageable) {
+        return historyRepository.recommendGacha(item_id, pageable);
     }
 }
 
