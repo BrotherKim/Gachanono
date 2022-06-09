@@ -131,7 +131,7 @@
                                 <p>{{chart.area.hoverProb}}% 확률에 따른 가격 : {{chart.area.hoverCnt * chart.area.price}}원({{chart.area.hoverCnt}}번)</p>
                                 <canvas id="myAreaChart" width="100%" height="40"></canvas>
                             </div>
-                            <div id="barChartDiv" class="card-body">
+                            <div th:if="${history.gacha_id} != 1" id="barChartDiv" class="card-body">
                                 <p>한번도 뽑히지 않을 확률은 {{ chart.bar.zero }}%입니다.</p>
                                 <p>1회 이상 뽑힐 확률은 {{ chart.bar.one }}%입니다.</p>
                                 <canvas id="myBarChart" width="100%" height="40"></canvas>
