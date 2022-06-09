@@ -100,7 +100,8 @@ const read = {
                                 tableWidth: "100%",
                                 csv: '/assets/selection/' + gachaid + '.csv',
                                 csvHeaders: false,
-                                defaultColAlign: 'left'
+                                defaultColAlign: 'left',
+                                editable: false,
                             });
                         }
                     });

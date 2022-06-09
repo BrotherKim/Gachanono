@@ -120,20 +120,10 @@ const calc = {
                 UpdateCharts: function (chartData) {
                     chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
                     var arr = chartData.split('},');
-                    console.log(arr);
-                    var barChartData = JSON.parse(arr[0].trim());
-                    var areaChartData = JSON.parse(arr[1].trim());
-
-                    this.BarChart(barChartData);
-                    this.AreaChart(areaChartData);
                 },
                 UpdateCompleteGachaCharts: function (chartData) {
                     chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
                     var arr = chartData.split('},');
-                    //console.log(arr);
-                    var areaChartData = JSON.parse(arr[0].trim());
-
-                    this.AreaChart(areaChartData);
                 },
                 GachaSelected: function () {
                     var self = this;
