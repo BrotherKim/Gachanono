@@ -29,15 +29,6 @@ function clt() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // constants
-    var dt = 100,
-        draws = 1,
-        y1 = height / 3,
-        y2 = height / 4,
-        bins = 10, // # of items
-        counts = [],
-        interval_clt,
-        total_cnt = 0, // 누적횟수
-        flag = true;
 
     var avail_money = document.getElementById("avail_money");
     var item_cost = document.getElementById("item_cost");
@@ -52,7 +43,18 @@ function clt() {
     var gacha_id = $("#gacha_id").attr("value");
     var itemname = $("#itemname").attr("value");
 
-    // console.log(inputProb);
+    
+    var dt = 100,
+        draws = 1,
+        y1 = height / 3,
+        y2 = height / 4,
+        bins = inputProb.itemCnt, // # of items
+        counts = [],
+        interval_clt,
+        total_cnt = 0, // 누적횟수
+        flag = true;
+
+     console.log(inputProb);
     // console.log(gacha_id);
     // console.log(itemname);
 
@@ -228,7 +230,7 @@ function clt() {
                 })
                 .text(function (d) {
                     return d.y > 0
-                        ? d3.format("%")(d.y)
+                        ? d3.format(".2%")(d.y)
                         : "";
                 });
         } else {
