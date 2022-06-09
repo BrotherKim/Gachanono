@@ -185,4 +185,31 @@ public class HistoryController {
 
         return "history/calc";
     }
+
+    /* Simlation */
+    @GetMapping("/history/sim/{id}/{gacha_id}")
+    public String sim(
+        @PathVariable Long id,
+        @PathVariable Long gacha_id,
+        @LoginUser UserDto.Response user,
+        Model model
+    ) {
+        HistoryDto.Response dto = historyService.findById(id);
+        
+        /* 사용자 관련 */
+        if (user != null) {
+            model.addAttribute("user", user);
+
+            /* 게시히스토리 작성자 본인인지 확인 */
+            if (dto.getUserId().equals(user.getId())) {
+                model.addAttribute("writer", true);
+            }
+        }
+
+        model.addAttribute("history", dto);
+
+        // gacha_id를 가지고 simulation page를 띄워준다.
+
+        return "history/calc";
+    }
 }

@@ -84,7 +84,7 @@ const calc = {
                 UpdateCharts: function (chartData) {
                     chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
                     var arr = chartData.split('},');
-                    //console.log(arr);
+                    console.log(arr);
                     var barChartData = JSON.parse(arr[0].trim());
                     var areaChartData = JSON.parse(arr[1].trim());
 

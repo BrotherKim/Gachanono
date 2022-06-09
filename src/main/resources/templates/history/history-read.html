@@ -173,13 +173,12 @@
                         해당 확률 정보로 계산</a>
                     <!--button th:if="${user}" type="button" v-on:click="CalcProb()" role="button"
                     class="btn btn-info bi bi-arrow-return-left"> 해당 확률 정보로 확률 계산</button-->
-                    <button
+                    <a
                         th:if="${user}"
-                        type="button"
-                        v-on:click="SimProb()"
+                        th:href="@{'/history/sim/' + ${history.id}} + '/' + ${history.gacha_id}"
                         role="button"
-                        class="btn btn-info bi bi-arrow-return-left">
-                        해당 확률 정보로 시뮬레이션</button>
+                        class="btn btn-success bi bi-hand-thumbs-up">
+                        해당 확률 정보로 시뮬레이션</a>
                 </div>
             </div>
         </div>

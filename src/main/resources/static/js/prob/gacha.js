@@ -377,7 +377,7 @@ const gacha = {
                             }
                         })
                         .done(function () {
-                            self.UpdateCharts(chartData);
+                            //self.UpdateCharts(chartData);
                             self.SaveHistory(data, chartData);
                         })
                         .fail(function (error) {
