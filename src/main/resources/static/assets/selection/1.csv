@@ -1,5 +1,12 @@
-컴플리트가챠(CompleteGacha),
-Manual,itemCnt,itemNames,itemProbs,
-1. 모아야하는 아이템 갯수(itemCnt),
-2. 아이템 이름(itemNames),
-3. 아이템별 확률(itemProbs),
+컴플리트가챠(CompleteGacha),,,,itemCnt,itemNames,itemProbs
+Manual,itemCnt,itemNames,itemProbs,모아야하는 아이템 갯수,아이템 이름,아이템별 확률
+,,,,10,아이템1,10
+,,,,,아이템2,20
+,,,,,아이템3,5
+,,,,,아이템4,5
+,,,,,아이템5,15
+,,,,,아이템6,10
+,,,,,아이템7,10
+,,,,,아이템8,15
+,,,,,아이템9,5
+,,,,,아이템10,5
