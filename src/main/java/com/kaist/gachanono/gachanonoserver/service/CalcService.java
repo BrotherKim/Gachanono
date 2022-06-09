@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.kaist.gachanono.gachanonoserver.util.ExecUtil;
+import com.kaist.gachanono.gachanonoserver.util.OSValidator;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -130,9 +131,11 @@ public class CalcService {
     public String completeGacha(int itemCnt, List<String> itemNames, List<Double> itemProbs) {
         String retval = "";
         try {
+            String pyCmd = OSValidator.isWindows() ? "python" : "python3";
             String cmd = 
             String.format(
-                "python3 -c \"from src.main.python.compute import *; FUNC_1(%d, %s);\""
+                "%s -c \"from src.main.python.compute import *; FUNC_1(%d, %s);\""
+                , pyCmd
                 , itemCnt
                 , itemProbs.toString()
             );
@@ -152,9 +155,11 @@ public class CalcService {
     public String segDiff(int startCnt, int tryCnt, Double itemProb) {
         String retval = "";
         try {
+            String pyCmd = OSValidator.isWindows() ? "python" : "python3";
             String cmd = 
             String.format(
-                "python3 -c \"from src.main.python.compute import *; FUNC_2(%d, %f, %d);\""
+                "%s -c \"from src.main.python.compute import *; FUNC_2(%d, %f, %d);\""
+                , pyCmd
                 , startCnt
                 , itemProb
                 , tryCnt
@@ -192,9 +197,11 @@ public class CalcService {
         log.info("ranges: {}", ranges);
 
         try {
+            String pyCmd = OSValidator.isWindows() ? "python" : "python3";
             String cmd = 
             String.format(
-                "python3 -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %d);\""
+                "%s -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %d);\""
+                , pyCmd
                 , ranges
                 , itemProbs.toString()
                 , tryCnt
@@ -215,9 +222,11 @@ public class CalcService {
     public String swrCeiling(Double itemProb, int tryCnt, int maxTryCnt) {
         String retval = "";
         try {
+            String pyCmd = OSValidator.isWindows() ? "python" : "python3";
             String cmd = 
             String.format(
-                "python3 -c \"from src.main.python.compute import *; FUNC_4(%f, %d, %d);\""
+                "%s -c \"from src.main.python.compute import *; FUNC_4(%f, %d, %d);\""
+                , pyCmd
                 , itemProb
                 , tryCnt
                 , maxTryCnt
@@ -238,9 +247,11 @@ public class CalcService {
     public String swr(Double itemProb, int tryCnt) {
         String retval = "";
         try {
+            String pyCmd = OSValidator.isWindows() ? "python" : "python3";
             String cmd = 
             String.format(
-                "python3 -c \"from src.main.python.compute import *; FUNC_5(%f, %d);\""
+                "%s -c \"from src.main.python.compute import *; FUNC_5(%f, %d);\""
+                , pyCmd
                 , itemProb
                 , tryCnt
             );

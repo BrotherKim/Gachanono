@@ -3,6 +3,7 @@ package com.kaist.gachanono.gachanonoserver.service;
 import java.util.List;
 
 import com.kaist.gachanono.gachanonoserver.util.ExecUtil;
+import com.kaist.gachanono.gachanonoserver.util.OSValidator;
 
 import org.python.util.PythonInterpreter;
 import org.slf4j.Logger;
@@ -22,9 +23,11 @@ public class PeriodicCrawlingService {
         String retval = "";
 
         try {
+            String pyCmd = OSValidator.isWindows() ? "python" : "python3";
             String cmd = 
             String.format(
-                "python3 -c \"from src.main.python.template import *; Craw(%s, '%s', '%s', '%s');\""
+                "%s -c \"from src.main.python.template import *; Craw(%s, '%s', '%s', '%s');\""
+                , pyCmd
                 , URLs.toString()
                 , tableSpecStr
                 , lineSpecStr

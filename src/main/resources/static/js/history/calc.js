@@ -153,8 +153,8 @@ const calc = {
                             });
                             //Object.assign(this, spreadsheet);
                         },
-                        // methods: {     Select: function (instance, x1, y1, x2, y2, origin) {
-                        // var begin = jexcel.getColumnNameFromId([x1, y1]);         self.item.selected
+                        // methods: {     Select: function (instance, x1, y1, x2, y2, origin) { var
+                        // begin = jexcel.getColumnNameFromId([x1, y1]);         self.item.selected
                         // = this.spreadsheet.getValue(begin);         console.log(self.item.selected);
                         // var end = jexcel.getColumnNameFromId([x1, y1]);
                         // console.log(this.spreadsheet.getValue(begin));
@@ -814,7 +814,7 @@ const calc = {
                             },
                             legend: {
                                 display: false
-                            },
+                            }
                         }
                     });
 
@@ -832,7 +832,8 @@ const calc = {
                     let price = this.price.selected;
 
                     const data = {
-                        title: '[' + itemname + ']_[' + gamename + ']_[' + gachaname + ']_[' + price + ']_[' + writer + ']',
+                        title: '[' + itemname + ']_[' + gamename + ']_[' + gachaname + ']_[' + price + ']_[' +
+                                writer + ']',
                         writer: writer,
                         inputprobcsv: JSON.stringify(inputprobcsvraw),
                         outputcalcjson: outputcalcjsonraw,
@@ -851,12 +852,20 @@ const calc = {
                         return false;
                     } else {
                         $
-                            .ajax(
-                                {type: 'POST', url: '/api/history/save', dataType: 'JSON', contentType: 'application/json; charset=utf-8', data: JSON.stringify(data)}
-                            )
+                            .ajax({
+                                type: 'POST',
+                                url: '/api/history/save',
+                                dataType: 'JSON',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(data),
+                                success: function (retval) {
+                                    //console.log(retval);
+                                    resultId = retval;
+                                }
+                            })
                             .done(function () {
                                 alert('등록되었습니다.');
-                                window.location.href = '/history/list';
+                                window.location.href = '/history/read/' + resultId;
                             })
                             .fail(function (error) {
                                 alert(JSON.stringify(error));

@@ -58,7 +58,7 @@ const read = {
                 this.CreateUserProbTable(gacha_id);
                 let chartData = $('#outputcalcjson').val();
                 // console.log(gacha_id);
-                // console.log(chartData);
+                 console.log(chartData);
 
                 if (gacha_id == 1) {
                     this.UpdateCompleteGachaCharts(chartData);
@@ -73,7 +73,8 @@ const read = {
                 UpdateCharts: function (chartData) {
                     chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
                     var arr = chartData.split('},');
-                    //console.log(arr);
+                    console.log(chartData);
+                    console.log(arr);
                     var barChartData = JSON.parse(arr[0].trim());
                     var areaChartData = JSON.parse(arr[1].trim());
 
