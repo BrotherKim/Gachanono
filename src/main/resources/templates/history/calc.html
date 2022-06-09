@@ -96,6 +96,10 @@
                                 th:selected="${gacha.id} == ${history.gacha_id}">
                                 />
                             </select>
+
+
+
+                            
                             <input type="hidden" id="gacha_id" th:value="${history.gacha_id}">
                             <div class="card-body">
                                 <input
@@ -113,6 +117,10 @@
                             id="writer"
                             th:value="${user.nickname}"/>
                     </div>
+
+
+
+
                     <div class="card-body">
                         <input type="button" class="btn btn-primary" value="계산" v-on:click="Calc()"/>
                     </div>

@@ -56,6 +56,7 @@ const read = {
             mounted: function () {
                 this.CreateUserProbTable($('#gacha_id').val());
                 let chartData = $('#outputcalcjson').val();
+                console.log(chartData);
                 this.UpdateCharts(chartData);
                 // console.log(this.table.userProbTable);
                 // this.userProbTable.spreadsheet.setValueFromCoords(3, 3, '3');
