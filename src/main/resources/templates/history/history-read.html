@@ -127,17 +127,13 @@
                                 확률 결과
                             </div>
                             <div id="areaChartDiv" class="card-body">
-                                <p>1번 이상 50% 확률로 성공하기 위해서는 7회 이상 시도하셔야 합니다.</p>
-                                <p>1번 이상 80% 확률로 성공하기 위해서는 16회 이상 시도하셔야 합니다.</p>
-                                <p>1번 이상 90% 확률로 성공하기 위해서는 22회 이상 시도하셔야 합니다.</p>
-                                <p>1번 이상 99% 확률로 성공하기 위해서는 44회 이상 시도하셔야 합니다.</p>
+                                <p>85% 이상 확률로 뽑기 위해서는 {{chart.area.eightyfive}}회({{chart.area.eightyfive * chart.area.price}}원) 이상 시도하셔야 합니다.</p>
+                                <p>{{chart.area.hoverProb}}% 확률로 뽑기 위해서는 {{chart.area.hoverCnt}}회({{chart.area.hoverCnt * chart.area.price}}원) 이상 시도하셔야 합니다.</p>
                                 <canvas id="myAreaChart" width="100%" height="40"></canvas>
                             </div>
                             <div id="barChartDiv" class="card-body">
-                                <p>0회 뽑힐 확률은 81%입니다.</p>
-                                <p>1회 뽑힐 확률은 10%입니다.</p>
-                                <p>2회 뽑힐 확률은 1%입니다.</p>
-                                <p>한번도 뽑히지 않을 확률은 81%입니다.</p>
+                                <p>한번도 뽑히지 않을 확률은 {{ chart.bar.zero }}%입니다.</p>
+                                <p>1회 이상 뽑힐 확률은 {{ chart.bar.one }}%입니다.</p>
                                 <canvas id="myBarChart" width="100%" height="40"></canvas>
                             </div>
                         </div>

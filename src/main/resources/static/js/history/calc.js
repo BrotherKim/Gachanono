@@ -127,18 +127,13 @@ const calc = {
                             });
                             //Object.assign(this, spreadsheet);
                         },
-                        // methods: {
-                        //     Select: function (instance, x1, y1, x2, y2, origin) {
-                        //         var begin = jexcel.getColumnNameFromId([x1, y1]);
-                        //         self.item.selected = this.spreadsheet.getValue(begin);
-                        //         console.log(self.item.selected);
-                        //         // var end = jexcel.getColumnNameFromId([x1, y1]);
-                        //         // console.log(this.spreadsheet.getValue(begin));
-                        //         // console.log(this.spreadsheet.getValue(end));
-                        //         // console.log(begin);
-                        //         // console.log(end);
-                        //     },
-                        // },
+                        // methods: {     Select: function (instance, x1, y1, x2, y2, origin) {
+                        // var begin = jexcel.getColumnNameFromId([x1, y1]);         self.item.selected
+                        // = this.spreadsheet.getValue(begin);         console.log(self.item.selected);
+                        // var end = jexcel.getColumnNameFromId([x1, y1]);
+                        // console.log(this.spreadsheet.getValue(begin));
+                        // console.log(this.spreadsheet.getValue(end));          console.log(begin);
+                        // console.log(end);     }, },
                     });
                 },
                 CreateUserProbTable: function (gachaid) {
@@ -242,21 +237,24 @@ const calc = {
                     // 입력 가져오기
                     let itemCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemNames = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemProbs = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -323,21 +321,24 @@ const calc = {
                     // 입력 가져오기
                     let startCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemProb = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -402,28 +403,32 @@ const calc = {
                     // 입력 가져오기
                     let startCnts = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let endCnts = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let itemProbs = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(4)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -433,7 +438,6 @@ const calc = {
                     console.log(endCnts);
                     console.log(itemProbs);
                     console.log(tryCnt);
-                    
 
                     // 입력 유효성 검사 if (itemCnt.length != 2) {     alert('아이템 개수를 한개만 입력해주세요'); return;
                     // } else {
@@ -489,21 +493,24 @@ const calc = {
                     // 입력 가져오기
                     let itemProb = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let maxTryCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(3)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -568,14 +575,16 @@ const calc = {
                     // 입력 가져오기
                     let itemProb = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(1)
                         .filter(function (el) {
                             return 0 < el.length;
                         });
                     let tryCnt = this
                         .table
-                        .userProbTable.spreadsheet
+                        .userProbTable
+                        .spreadsheet
                         .getColumnData(2)
                         .filter(function (el) {
                             return 0 < el.length;
@@ -633,7 +642,7 @@ const calc = {
 
                     // 게임 이름과 아이템 유효성검사 switch 조건문
                     let selectedGacha = this.gacha.selected;
-                    
+
                     switch (selectedGacha) {
                             // 컴플리트가챠
                         case '1':
@@ -779,21 +788,21 @@ const calc = {
                             },
                             legend: {
                                 display: false
-                            }
+                            },
                         }
                     });
 
                 },
                 SaveHistory: function (inputprobcsvraw, outputcalcjsonraw) {
-                    // console.log(typeof(inputprobcsvraw));
-                    // console.log(typeof(outputcalcjsonraw));
-                    // console.log(inputprobcsvraw);
-                    // console.log(outputcalcjsonraw);
+                    // console.log(typeof(inputprobcsvraw)); console.log(typeof(outputcalcjsonraw));
+                    // console.log(inputprobcsvraw); console.log(outputcalcjsonraw);
 
-                    let itemname = $('#item').val(); 
-                    let gamename = $('#game').val(); 
-                    let gachaname = $('#gacha option:selected').text().trim(); 
-                    let writer =  $('#writer').val();
+                    let itemname = $('#item').val();
+                    let gamename = $('#game').val();
+                    let gachaname = $('#gacha option:selected')
+                        .text()
+                        .trim();
+                    let writer = $('#writer').val();
                     let price = this.price.selected;
 
                     const data = {
@@ -807,15 +816,11 @@ const calc = {
                         itemname: itemname,
                         gacha_id: this.gacha.selected,
                         gachaname: gachaname,
-                        price: price,
+                        price: price
                     };
 
                     // 공백 및 빈 문자열 체크
-                    if (data.item_id == -1
-                    || data.game_id.trim() === "" 
-                    || data.gacha_id.trim() === ""
-                    || data.price.trim() === ""
-                    ) {
+                    if (data.item_id == -1 || data.game_id.trim() === "" || data.gacha_id.trim() === "" || data.price.trim() === "") {
                         alert("공백 또는 입력하지 않은 부분이 있습니다.");
                         return false;
                     } else {
@@ -838,7 +843,6 @@ const calc = {
 }
 
 calc.init();
-
 
 $(document).ready(function () {
 

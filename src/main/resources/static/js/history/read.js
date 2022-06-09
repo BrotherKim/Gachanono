@@ -37,7 +37,20 @@ const read = {
                     gacha: {
                         selected: ''
                     },
-                    ddd: {}
+                    chart: {
+                        bar: {
+                            graph: {},
+                            zero: 0,
+                            one: 0
+                        },
+                        area: {
+                            graph: {},
+                            eightyfive: 0,
+                            price: 0,
+                            hoverCnt: 0,
+                            hoverProb: 0
+                        }
+                    }
                 };
             },
             mounted: function () {
@@ -110,17 +123,15 @@ const read = {
                     console.log(data);
 
                     $
-                        .ajax(
-                            {
-                                type: 'GET', 
-                                url: '/history/calc',
-                                contentType: 'application/json; charset=utf-8', 
-                                data: JSON.stringify(data), 
-                                success: function (retval) {
-                                    alert(retval);
-                                },
+                        .ajax({
+                            type: 'GET',
+                            url: '/history/calc',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                alert(retval);
                             }
-                        )
+                        })
                         .done(function () {
                             alert('등록되었습니다.');
                         })
@@ -149,19 +160,17 @@ const read = {
                     console.log(data);
 
                     $
-                        .ajax(
-                            {
-                                type: 'POST',
-                                url: '/history/sim', 
-                                dataType: 'JSON', 
-                                contentType: 'application/json; charset=utf-8', 
-                                data: JSON.stringify(data), 
-                                success: function (data) {
-                                    // window.location.href = '/history/list';
+                        .ajax({
+                            type: 'POST',
+                            url: '/history/sim',
+                            dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (data) {
+                                // window.location.href = '/history/list';
 
-                                },
                             }
-                        )
+                        })
                         .done(function (retval) {
                             alert(retval);
                             // window.location.href = '/history/list';
@@ -173,6 +182,9 @@ const read = {
                     return;
                 },
                 BarChart: function (barChartData) {
+                    var self = this;
+                    self.chart.bar.zero = Math.round(barChartData[0] * 10000) / 100;
+                    self.chart.bar.one = 100 - self.chart.bar.zero;
                     // Set new default font family and font color to mimic Bootstrap's default
                     // styling
                     $('#myBarChart').remove();
@@ -186,7 +198,7 @@ const read = {
 
                     // Bar Chart Example
                     var ctx = document.getElementById("myBarChart");
-                    var myLineChart = new Chart(ctx, {
+                    self.chart.bar.graph = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: Object.keys(barChartData),
@@ -231,9 +243,26 @@ const read = {
                     });
                 },
                 AreaChart: function (areaChartData) {
-                    // console.log(Object.keys(areaChartData));
-                    // console.log(Object.values(areaChartData)); Set new default font family and
-                    // font color to mimic Bootstrap's default styling
+                    
+                    var self = this;
+
+                    // set price
+                    self.chart.area.price = $('#price').val();
+
+                    // console.log(areaChartData);
+                    for (const [key, value] of Object.entries(areaChartData)) {
+
+                        console.log(`${key}: ${value}`);
+                        if (0.85 <= value) {
+                            self.chart.area.eightyfive = key;
+                            self.chart.area.hoverCnt = key;
+                            self.chart.area.hoverProb = Math.round(value * 10000) / 100;
+                            break;
+                        }
+                    }
+                    
+                    
+
                     $('#myAreaChart').remove();
                     $('#areaChartDiv').append(
                         '<canvas id="myAreaChart" width="100" height="40"></canvas>'
@@ -245,7 +274,7 @@ const read = {
 
                     // Area Chart Example
                     var ctx = document.getElementById("myAreaChart");
-                    var myLineChart = new Chart(ctx, {
+                    self.chart.area.graph = new Chart(ctx, {
                         type: 'line',
                         data: {
                             labels: Object.keys(areaChartData),
@@ -293,6 +322,25 @@ const read = {
                             },
                             legend: {
                                 display: false
+                            },
+                            onHover: function (evt) {
+                                var item = self
+                                    .chart
+                                    .area
+                                    .graph
+                                    .getElementAtEvent(evt);
+                                if (item.length) {
+                                    let tryCnt = item[0]._index;
+                                    let prob = self
+                                        .chart
+                                        .area
+                                        .graph
+                                        .data
+                                        .datasets[0]
+                                        .data[item[0]._index];
+                                    self.chart.area.hoverCnt = tryCnt;
+                                    self.chart.area.hoverProb = Math.round(prob * 10000) / 100;
+                                }
                             }
                         }
                     });
