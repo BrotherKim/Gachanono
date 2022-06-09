@@ -54,14 +54,14 @@ function clt() {
         total_cnt = 0, // 누적횟수
         flag = true;
 
-     console.log(inputProb);
+    // console.log(inputProb);
     // console.log(gacha_id);
     // console.log(itemname);
 
     var data_json = [];
     for(var i = 0; i < inputProb.itemCnt; i++){
-      var o = {name: inputProb.itemNames[i], prob: inputProb.itemProbs[i]};
-      console.log(o)
+      var o = {name: inputProb.itemNames[i], prob: inputProb.itemProbs[i]/100};
+      //console.log(o)
         data_json.push(o);
     }
 
@@ -370,6 +370,7 @@ function clt() {
                 break;
             }
         data.push(idx / bins + 1 / (bins * 2));
+
         // add balls
         var group = svg_clt
             .append("g")
