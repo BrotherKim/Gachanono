@@ -1,5 +1,5 @@
 컴플리트가챠(CompleteGacha),
-Manual,startCnts,endCnts,itemProbs,tryCnt,
+Manual,itemCnt,itemNames,itemProbs,
 1. 모아야하는 아이템 갯수(itemCnt),
 2. 아이템 이름(itemNames),
 3. 아이템별 확률(itemProbs),

@@ -1,310 +1,412 @@
-//simulation.html(복원추출), simulation3.html(천장 복원추출)
-
-//Handles functionality of Probability
+// simulation5.html(복원추출), simulation4.html(천장 복원추출) Handles functionality of
+// Probability
 $(window).load(function () {
-  chance();
+    chance();
 });
 
+function SwrCeiling(inputProb) {}
+function Swr(inputProb) {}
+
 function chance() {
-  //Constants
-  var item_type = $("#item_type").attr("value");
-  var max_try;
-  var name = "A"; // 전달 (아이템 이름)
+    // Input probs
+    var inputProb = JSON.parse($("#inputprobcsv").val());
+    var gacha_id = $("#gacha_id").attr("value");
+    var itemname = $("#itemname").attr("value");
 
-  if (item_type == 2) {
-    // 천장 복원추출
-    max_try = 100; // 전달 (천장이 있는 복원추출 - 최대 시도 횟수 (천장))
-  }
-  var prob = 0.1; // 전달 (확률)
-  var probTheo = [prob, 1 - prob];
+    //Constants
+    // let selectedGacha = this.gacha.selected;
+    // switch (selectedGacha) {
+    //         // 컴플리트가챠
+    //     case '1':
+    //         CompleteGacha(inputProb);
+    //         break;
+    //         // 다른 아이템 구간별 확률
+    //     case '2':
+    //         SegDiff(inputProb);
+    //         break;
+    //         // 동일 아이템 구간별 확률
+    //     case '3':
+    //         SegSame(inputProb);
+    //         break;
+    //         // 천장이 있는 복원추출
+    //     case '4':
+    //         SwrCeiling(inputProb);
+    //         break;
+    //         // 복원추출
+    //     case '5':
+    //         Swr(inputProb);
+    //         break;
+    // }
 
-  var countCoin = [0, 0];
-  var coinData = [
-    {
-      data: [
-        { value: countCoin[0], side: "head" },
-        { value: countCoin[1], side: "tail" },
-      ],
-      state: "Observed outcomes",
-    },
-    {
-      data: [
-        { value: probTheo[0], side: "head" },
-        { value: probTheo[1], side: "tail" },
-      ],
-      state: "True probabilities",
-    },
-  ];
-  var total_cnt = 0,
-    interval,
-    draws = 1,
-    flag = true;
+  console.log(inputProb);
 
-  var avail_money = document.getElementById("avail_money");
-  var item_cost = document.getElementById("item_cost");
-  var left_money = document.getElementById("left_money");
-  var total_try = document.getElementById("total_try");
-  avail_money.onchange = function () {
-    left_money.innerText = avail_money.value;
-  };
+    var max_try;
+    var name = itemname; // 전달[DONE] (아이템 이름)
 
-  var margin = { top: 15, right: 5, bottom: 15, left: 5 };
-  var width = 800;
-  height = 500;
+    if (gacha_id == 4) {
+        // 천장 복원추출
+        max_try = inputProb.maxTryCnt; // 전달[DONE] (천장이 있는 복원추출 - 최대 시도 횟수 (천장))
+    }
+    var prob = inputProb.itemProb * 0.01; // 전달[DONE] (확률)
+    var probTheo = [
+        prob, 1 - prob
+    ];
 
-  //Create SVG
-  var svgCoin = d3
-    .select("#barCoin")
-    .append("svg")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .attr(
-      "viewBox",
-      "0 0 " +
-        (width + margin.left + margin.right) +
-        " " +
-        (height + margin.top + margin.bottom)
-    )
-    .attr("preserveAspectRatio", "xMidYMid meet");
+    var countCoin = [0, 0];
+    var coinData = [
+        {
+            data: [
+                {
+                    value: countCoin[0],
+                    side: "head"
+                }, {
+                    value: countCoin[1],
+                    side: "tail"
+                }
+            ],
+            state: "Observed outcomes"
+        }, {
+            data: [
+                {
+                    value: probTheo[0],
+                    side: "head"
+                }, {
+                    value: probTheo[1],
+                    side: "tail"
+                }
+            ],
+            state: "True probabilities"
+        }
+    ];
+    var total_cnt = 0,
+        interval,
+        draws = 1,
+        flag = true;
 
-  //Create Container
-  var containerCoin = svgCoin.append("g");
+    var avail_money = document.getElementById("avail_money");
+    var item_cost = document.getElementById("item_cost");
+    var left_money = document.getElementById("left_money");
+    var total_try = document.getElementById("total_try");
+    avail_money.onchange = function () {
+        left_money.innerText = avail_money.value;
+    };
 
-  //Create Scales
-  var yScaleCoin = d3.scale.linear().domain([0, 1]);
-  var x0ScaleCoin = d3.scale
-    .ordinal()
-    .domain(["Observed outcomes", "True probabilities"]);
-  var x1ScaleCoin = d3.scale.ordinal().domain(["head", "tail"]);
+    var margin = {
+        top: 15,
+        right: 5,
+        bottom: 15,
+        left: 5
+    };
+    var width = 800;
+    height = 500;
 
-  //Drag function for coin bar chart
-  var dragCoin = d3.behavior
-    .drag()
-    .origin(function () {
-      var rect = d3.select(this);
-      return { x: rect.attr("x"), y: rect.attr("y") };
-    })
-    .on("drag", function (d) {
-      var y = Math.min(1, Math.max(0, yScaleCoin.invert(d3.event.y)));
-      if (d3.select(this).attr("class") == "head") probTheo = [y, 1 - y];
-      else probTheo = [1 - y, y];
-      d.value = y;
-      tipCoinTheo.show(d, this);
-      countCoin = [0, 0];
-      updateCoin(0);
-    });
+    //Create SVG
+    var svgCoin = d3
+        .select("#barCoin")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", "0 0 " + (
+            width + margin.left + margin.right
+        ) + " " + (
+            height + margin.top + margin.bottom
+        ))
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
-  //Create SVG Elements
-  var states = containerCoin
-    .selectAll("g.state")
-    .data(coinData)
-    .enter()
-    .append("g")
-    .attr("class", "state");
+    //Create Container
+    var containerCoin = svgCoin.append("g");
 
-  var rects = states
-    .selectAll("rect")
-    .data(function (d) {
-      return d.data;
-    })
-    .enter()
-    .append("rect");
+    //Create Scales
+    var yScaleCoin = d3
+        .scale
+        .linear()
+        .domain([0, 1]);
+    var x0ScaleCoin = d3
+        .scale
+        .ordinal()
+        .domain(["Observed outcomes", "True probabilities"]);
+    var x1ScaleCoin = d3
+        .scale
+        .ordinal()
+        .domain(["head", "tail"]);
 
-  var sides = states
-    .selectAll("image")
-    .data(function (d) {
-      return d.data;
-    })
-    .enter()
-    .append("image")
-    .attr("class", "coin");
-
-  var axisCoin = svgCoin.append("g").attr("class", "x axis");
-
-  var xAxisCoin = d3.svg.axis().scale(x0ScaleCoin).orient("bottom").ticks(0);
-
-  //Create tool tips for observed and expected
-  var tipCoinObs = d3
-    .tip()
-    .attr("id", "tipCoinObs")
-    .attr("class", "d3-tip")
-    .offset([-10, 0]);
-  var tipCoinTheo = d3
-    .tip()
-    .attr("id", "tipCoinTheo")
-    .attr("class", "d3-tip")
-    .offset([-10, 0]);
-
-  //Update rectangles and text
-  function updateCoin(t) {
-    var total = Math.max(1, countCoin[0] + countCoin[1]);
-    var probObs = [countCoin[0] / total, countCoin[1] / total];
-    coinData[0].data[0].value = probObs[0];
-    coinData[0].data[1].value = probObs[1];
-    coinData[1].data[0].value = probTheo[0];
-    coinData[1].data[1].value = probTheo[1];
-
-    tipCoinObs.html(function (d) {
-      return (
-        round(d.value, 2) + " = " + round(d.value * total, 0) + "/" + total
-      );
-    });
-
-    tipCoinTheo.html(function (d, i) {
-      return round(d.value, 2);
-    });
-
-    states
-      .attr("transform", function (d) {
-        return "translate(" + x0ScaleCoin(d.state) + "," + 0 + ")";
-      })
-      .attr("class", function (d) {
-        return d.state;
-      });
-
-    rects
-      .transition()
-      .duration(t)
-      .attr("width", x1ScaleCoin.rangeBand())
-      .attr("x", function (d) {
-        return x1ScaleCoin(d.side);
-      })
-      .attr("y", function (d) {
-        return yScaleCoin(d.value);
-      })
-      .attr("height", function (d) {
-        return yScaleCoin(1 - d.value);
-      })
-      .attr("class", function (d) {
-        return d.side;
-      });
-
-    sides
-      .attr("xlink:href", function (d) {
-        return "/assets/img/" + d.side + ".png";
-      })
-      .attr("x", function (d) {
-        return x1ScaleCoin(d.side) + x1ScaleCoin.rangeBand() / 6;
-      })
-      .attr("y", function (d) {
-        return yScaleCoin(0) + 20;
-      })
-      .attr("width", (x1ScaleCoin.rangeBand() * 2) / 3)
-      .attr("height", (x1ScaleCoin.rangeBand() * 2) / 3);
-
-    containerCoin.selectAll("g.Observed rect").each(function () {
-      d3.select(this)
-        .on("mouseover", tipCoinObs.show)
-        .on("mouseout", tipCoinObs.hide);
-    });
-
-    containerCoin.selectAll("g.True rect").each(function () {
-      d3.select(this)
-        .on("mousedown", function (d) {
-          tipCoinTheo.show(d, this);
+    //Drag function for coin bar chart
+    var dragCoin = d3
+        .behavior
+        .drag()
+        .origin(function () {
+            var rect = d3.select(this);
+            return {x: rect.attr("x"), y: rect.attr("y")};
         })
-        .on("mouseover", function (d) {
-          tipCoinTheo.show(d, this);
-        })
-        .on("mouseout", tipCoinTheo.hide)
-        .call(dragCoin);
-    });
-    $("#barCoin").parent().on("mouseup", tipCoinTheo.hide);
-  }
+        .on("drag", function (d) {
+            var y = Math.min(1, Math.max(0, yScaleCoin.invert(d3.event.y)));
+            if (d3.select(this).attr("class") == "head") 
+                probTheo = [
+                    y, 1 - y
+                ];
+            else 
+                probTheo = [
+                    1 - y,
+                    y
+                ];
+            d.value = y;
+            tipCoinTheo.show(d, this);
+            countCoin = [0, 0];
+            updateCoin(0);
+        });
 
-  function update() {
-    var num = Math.random();
-    if (num < probTheo[0]) {
-      countCoin[0] = countCoin[0] + 1;
-    } else {
-      countCoin[1] = countCoin[1] + 1;
+    //Create SVG Elements
+    var states = containerCoin
+        .selectAll("g.state")
+        .data(coinData)
+        .enter()
+        .append("g")
+        .attr("class", "state");
+
+    var rects = states
+        .selectAll("rect")
+        .data(function (d) {
+            return d.data;
+        })
+        .enter()
+        .append("rect");
+
+    var sides = states
+        .selectAll("image")
+        .data(function (d) {
+            return d.data;
+        })
+        .enter()
+        .append("image")
+        .attr("class", "coin");
+
+    var axisCoin = svgCoin
+        .append("g")
+        .attr("class", "x axis");
+
+    var xAxisCoin = d3
+        .svg
+        .axis()
+        .scale(x0ScaleCoin)
+        .orient("bottom")
+        .ticks(0);
+
+    //Create tool tips for observed and expected
+    var tipCoinObs = d3
+        .tip()
+        .attr("id", "tipCoinObs")
+        .attr("class", "d3-tip")
+        .offset([-10, 0]);
+    var tipCoinTheo = d3
+        .tip()
+        .attr("id", "tipCoinTheo")
+        .attr("class", "d3-tip")
+        .offset([-10, 0]);
+
+    //Update rectangles and text
+    function updateCoin(t) {
+        var total = Math.max(1, countCoin[0] + countCoin[1]);
+        var probObs = [
+            countCoin[0] / total,
+            countCoin[1] / total
+        ];
+        coinData[0]
+            .data[0]
+            .value = probObs[0];
+        coinData[0]
+            .data[1]
+            .value = probObs[1];
+        coinData[1]
+            .data[0]
+            .value = probTheo[0];
+        coinData[1]
+            .data[1]
+            .value = probTheo[1];
+
+        tipCoinObs.html(function (d) {
+            return (round(d.value, 2) + " = " + round(d.value * total, 0) + "/" + total);
+        });
+
+        tipCoinTheo.html(function (d, i) {
+            return round(d.value, 2);
+        });
+
+        states
+            .attr("transform", function (d) {
+                return "translate(" + x0ScaleCoin(d.state) + "," + 0 + ")";
+            })
+            .attr("class", function (d) {
+                return d.state;
+            });
+
+        rects
+            .transition()
+            .duration(t)
+            .attr("width", x1ScaleCoin.rangeBand())
+            .attr("x", function (d) {
+                return x1ScaleCoin(d.side);
+            })
+            .attr("y", function (d) {
+                return yScaleCoin(d.value);
+            })
+            .attr("height", function (d) {
+                return yScaleCoin(1 - d.value);
+            })
+            .attr("class", function (d) {
+                return d.side;
+            });
+
+        sides
+            .attr("xlink:href", function (d) {
+                return "/assets/img/" + d.side + ".png";
+            })
+            .attr("x", function (d) {
+                return x1ScaleCoin(d.side) + x1ScaleCoin.rangeBand() / 6;
+            })
+            .attr("y", function (d) {
+                return yScaleCoin(0) + 20;
+            })
+            .attr("width", (x1ScaleCoin.rangeBand() * 2) / 3)
+            .attr("height", (x1ScaleCoin.rangeBand() * 2) / 3);
+
+        containerCoin
+            .selectAll("g.Observed rect")
+            .each(function () {
+                d3
+                    .select(this)
+                    .on("mouseover", tipCoinObs.show)
+                    .on("mouseout", tipCoinObs.hide);
+            });
+
+        containerCoin
+            .selectAll("g.True rect")
+            .each(function () {
+                d3
+                    .select(this)
+                    .on("mousedown", function (d) {
+                        tipCoinTheo.show(d, this);
+                    })
+                    .on("mouseover", function (d) {
+                        tipCoinTheo.show(d, this);
+                    })
+                    .on("mouseout", tipCoinTheo.hide)
+                    .call(dragCoin);
+            });
+        $("#barCoin")
+            .parent()
+            .on("mouseup", tipCoinTheo.hide);
     }
 
-    total_try.innerText = total_cnt;
-    left_money.innerText = left_money.innerText - item_cost.value;
+    function update() {
+        var num = Math.random();
+        if (num < probTheo[0]) {
+            countCoin[0] = countCoin[0] + 1;
+        } else {
+            countCoin[1] = countCoin[1] + 1;
+        }
 
-    if (flag && item_type == 2 && total_cnt == max_try) {
-      pop("천장이 있는 복원추출로 시도횟수 ");
-      $("#form_chance").css({ color: "gray", "pointer-events": "none" });
-      clearInterval(interval);
+        total_try.innerText = total_cnt;
+        left_money.innerText = left_money.innerText - item_cost.value;
+
+        if (flag && gacha_id == 4 && total_cnt == max_try) {
+            pop("천장이 있는 복원추출로 시도횟수 ");
+            $("#form_chance").css({color: "gray", "pointer-events": "none"});
+            clearInterval(interval);
+        }
+
+        if (flag && check_pop()) 
+            pop(name + " 아이템이 뽑힐 때 까지 시도횟수 ");
+        
+        updateCoin(100);
     }
 
-    if (flag && check_pop()) pop(name + " 아이템이 뽑힐 때 까지 시도횟수 ");
+    function check_pop() {
+        if (countCoin[0] > 0) 
+            return true;
+        else 
+            return false;
+        }
+    
+    function pop(string) {
+        flag = false;
 
-    updateCoin(100);
-  }
+        var total_cost = total_cnt * item_cost.value;
 
-  function check_pop() {
-    if (countCoin[0] > 0) return true;
-    else return false;
-  }
+        document
+            .getElementById("success_test")
+            .innerText = string + String(total_cnt) + "회, 총 금액 " + String(total_cost) + "원 " +
+                    "소비되었습니다.";
+    }
 
-  function pop(string) {
-    flag = false;
+    function start_sampling() {
+        var cnt = 0;
 
-    var total_cost = total_cnt * item_cost.value;
+        interval = setInterval(function () {
+            cnt++;
+            total_cnt++;
 
-    document.getElementById("success_test").innerText =
-      string +
-      String(total_cnt) +
-      "회, 총 금액 " +
-      String(total_cost) +
-      "원 소비되었습니다.";
-  }
+            update();
 
-  function start_sampling() {
-    var cnt = 0;
+            if (cnt == draws) {
+                clearInterval(interval);
+            }
+        }, 40);
+    }
 
-    interval = setInterval(function () {
-      cnt++;
-      total_cnt++;
+    d3
+        .select("#try")
+        .on("input", function () {
+            draws = this.value;
+            d3
+                .select("#try-value")
+                .text(draws);
+        });
 
-      update();
-
-      if (cnt == draws) {
+    $("#form_chance").click(function () {
         clearInterval(interval);
-      }
-    }, 40);
-  }
+        start_sampling();
+    });
 
-  d3.select("#try").on("input", function () {
-    draws = this.value;
-    d3.select("#try-value").text(draws);
-  });
+    //Update SVG based on width of container
+    function drawCoin() {
+        var width = d3
+            .select("#barCoin")
+            .node()
+            .getBoundingClientRect()
+            .width;
+        var height = 550;
+        var padCoin = 100;
 
-  $("#form_chance").click(function () {
-    clearInterval(interval);
-    start_sampling();
-  });
+        //Update SVG
+        svgCoin
+            .call(tipCoinObs)
+            .call(tipCoinTheo);
 
-  //Update SVG based on width of container
-  function drawCoin() {
-    var width = d3.select("#barCoin").node().getBoundingClientRect().width;
-    var height = 550;
-    var padCoin = 100;
+        //Update Scales
+        yScaleCoin.range([
+            height - 2 * padCoin,
+            0
+        ]);
+        x0ScaleCoin.rangeRoundBands([
+            0, width
+        ], 0.1);
+        x1ScaleCoin.rangeRoundBands([
+            0, x0ScaleCoin.rangeBand()
+        ], 0.4);
 
-    //Update SVG
-    svgCoin.call(tipCoinObs).call(tipCoinTheo);
+        //Update Container
+        containerCoin.attr("transform", "translate(" + -50 + "," + padCoin + ")");
 
-    //Update Scales
-    yScaleCoin.range([height - 2 * padCoin, 0]);
-    x0ScaleCoin.rangeRoundBands([0, width], 0.1);
-    x1ScaleCoin.rangeRoundBands([0, x0ScaleCoin.rangeBand()], 0.4);
+        //Update Axis
+        axisCoin
+            .attr("transform", "translate(" + -50 + "," + (
+                height - padCoin + 1
+            ) + ")")
+            .call(xAxisCoin);
 
-    //Update Container
-    containerCoin.attr("transform", "translate(" + -50 + "," + padCoin + ")");
-
-    //Update Axis
-    axisCoin
-      .attr(
-        "transform",
-        "translate(" + -50 + "," + (height - padCoin + 1) + ")"
-      )
-      .call(xAxisCoin);
-
-    //Update Rectangles
-    updateCoin(0);
-  }
-  drawCoin();
-  $(window).on("resize", drawCoin);
+        //Update Rectangles
+        updateCoin(0);
+    }
+    drawCoin();
+    $(window).on("resize", drawCoin);
 }

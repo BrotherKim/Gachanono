@@ -73,24 +73,6 @@ const gacha = {
                             alert(JSON.stringify(error));
                         });
                 },
-                UpdateCharts: function (chartData) {
-                    chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
-                    var arr = chartData.split('},');
-                    //console.log(arr);
-                    var barChartData = JSON.parse(arr[0].trim());
-                    var areaChartData = JSON.parse(arr[1].trim());
-
-                    this.BarChart(barChartData);
-                    this.AreaChart(areaChartData);
-                },
-                UpdateCompleteGachaCharts: function (chartData) {
-                    chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
-                    var arr = chartData.split('},');
-                    //console.log(arr);
-                    var areaChartData = JSON.parse(arr[0].trim());
-
-                    this.AreaChart(areaChartData);
-                },
                 GachaSelected: function () {
                     var self = this;
                     self.CreateUserProbTable(self.gacha.selected);
@@ -298,7 +280,6 @@ const gacha = {
                             }
                         })
                         .done(function () {
-                            self.UpdateCompleteGachaCharts(chartData);
                             self.SaveHistory(data, chartData);
                         })
                         .fail(function (error) {
@@ -377,7 +358,6 @@ const gacha = {
                             }
                         })
                         .done(function () {
-                            //self.UpdateCharts(chartData);
                             self.SaveHistory(data, chartData);
                         })
                         .fail(function (error) {
@@ -463,7 +443,6 @@ const gacha = {
                             }
                         })
                         .done(function () {
-                            self.UpdateCharts(chartData);
                             self.SaveHistory(data, chartData);
                         })
                         .fail(function (error) {
@@ -542,7 +521,6 @@ const gacha = {
                             }
                         })
                         .done(function () {
-                            self.UpdateCharts(chartData);
                             self.SaveHistory(data, chartData);
                         })
                         .fail(function (error) {
@@ -606,7 +584,6 @@ const gacha = {
                             }
                         })
                         .done(function () {
-                            self.UpdateCharts(chartData);
                             self.SaveHistory(data, chartData);
                         })
                         .fail(function (error) {
@@ -642,132 +619,6 @@ const gacha = {
                             break;
                     }
                     // 시트에서 확률 정보 가져옴 ajax로 서버로 정보 전달 후, 계산 결과 받아옴 받아온 계산 결과 바탕으로 차트 그림
-                },
-                BarChart: function (barChartData) {
-                    // Set new default font family and font color to mimic Bootstrap's default
-                    // styling
-                    $('#myBarChart').remove();
-                    $('#barChartDiv').append(
-                        '<canvas id="myBarChart" width="100" height="40"></canvas>'
-                    );
-
-                    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",' +
-                            'Arial,sans-serif';
-                    Chart.defaults.global.defaultFontColor = '#292b2c';
-
-                    // Bar Chart Example
-                    var ctx = document.getElementById("myBarChart");
-                    var myLineChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: Object.keys(barChartData),
-                            datasets: [
-                                {
-                                    label: "Revenue",
-                                    backgroundColor: "rgba(2,117,216,1)",
-                                    borderColor: "rgba(2,117,216,1)",
-                                    data: Object.values(barChartData)
-                                }
-                            ]
-                        },
-                        options: {
-                            scales: {
-                                xAxes: [
-                                    {
-                                        gridLines: {
-                                            display: false
-                                        },
-                                        ticks: {
-                                            maxTicksLimit: 6
-                                        }
-                                    }
-                                ],
-                                yAxes: [
-                                    {
-                                        ticks: {
-                                            min: 0,
-                                            max: 1,
-                                            maxTicksLimit: 5
-                                        },
-                                        gridLines: {
-                                            display: true
-                                        }
-                                    }
-                                ]
-                            },
-                            legend: {
-                                display: false
-                            }
-                        }
-                    });
-                },
-                AreaChart: function (areaChartData) {
-                    // console.log(Object.keys(areaChartData));
-                    // console.log(Object.values(areaChartData)); Set new default font family and
-                    // font color to mimic Bootstrap's default styling
-                    $('#myAreaChart').remove();
-                    $('#areaChartDiv').append(
-                        '<canvas id="myAreaChart" width="100" height="40"></canvas>'
-                    );
-
-                    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",' +
-                            'Arial,sans-serif';
-                    Chart.defaults.global.defaultFontColor = '#292b2c';
-
-                    // Area Chart Example
-                    var ctx = document.getElementById("myAreaChart");
-                    var myLineChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: Object.keys(areaChartData),
-                            datasets: [
-                                {
-                                    label: "Sessions",
-                                    lineTension: 0.3,
-                                    backgroundColor: "rgba(2,117,216,0.2)",
-                                    borderColor: "rgba(2,117,216,1)",
-                                    pointRadius: 5,
-                                    pointBackgroundColor: "rgba(2,117,216,1)",
-                                    pointBorderColor: "rgba(255,255,255,0.8)",
-                                    pointHoverRadius: 5,
-                                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
-                                    pointHitRadius: 50,
-                                    pointBorderWidth: 2,
-                                    data: Object.values(areaChartData)
-                                }
-                            ]
-                        },
-                        options: {
-                            scales: {
-                                xAxes: [
-                                    {
-                                        gridLines: {
-                                            display: false
-                                        },
-                                        ticks: {
-                                            maxTicksLimit: 7
-                                        }
-                                    }
-                                ],
-                                yAxes: [
-                                    {
-                                        ticks: {
-                                            min: 0,
-                                            max: 1,
-                                            maxTicksLimit: 5
-                                        },
-                                        gridLines: {
-                                            color: "rgba(0, 0, 0, .125)"
-                                        }
-                                    }
-                                ]
-                            },
-                            legend: {
-                                display: false
-                            }
-                        }
-                    });
-
                 },
                 SaveHistory: function (inputprobcsvraw, outputcalcjsonraw) {
                     // console.log(typeof(inputprobcsvraw)); console.log(typeof(outputcalcjsonraw));

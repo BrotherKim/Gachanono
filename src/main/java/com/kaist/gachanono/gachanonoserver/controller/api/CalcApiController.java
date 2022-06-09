@@ -133,7 +133,7 @@ public class CalcApiController {
     }
 
     /* completegacha */
-    @PostMapping("/swrceiling")
+    @PostMapping("/swrCeiling")
     public String swrceiling(
         @RequestBody String dto,
         @LoginUser UserDto.Response user

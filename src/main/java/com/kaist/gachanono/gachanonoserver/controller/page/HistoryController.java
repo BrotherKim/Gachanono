@@ -187,10 +187,9 @@ public class HistoryController {
     }
 
     /* Simlation */
-    @GetMapping("/history/sim/{id}/{gacha_id}")
+    @GetMapping("/history/sim/{id}")
     public String sim(
         @PathVariable Long id,
-        @PathVariable Long gacha_id,
         @LoginUser UserDto.Response user,
         Model model
     ) {
@@ -210,6 +209,6 @@ public class HistoryController {
 
         // gacha_id를 가지고 simulation page를 띄워준다.
 
-        return "history/calc";
+        return "history/simulation" + dto.getGacha_id();
     }
 }
