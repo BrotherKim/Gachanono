@@ -1,5 +1,3 @@
-천장이 있는 복원추출(Sampling with replacement with ceiling),
-Manual,itemProb,tryCnt,maxTryCnt,
-1. 확률(itemProb),
-2. 시도 횟수(tryCnt),
-3. 최대 시도 횟수(maxTryCnt),
+천장이 있는 복원추출(Sampling with replacement with ceiling),,,,itemProb ,tryCnt,maxTryCnt
+Manual,itemProb,tryCnt,maxTryCnt,확률,시도 횟수,최대 시도 횟수
+,,,,10,2,20
