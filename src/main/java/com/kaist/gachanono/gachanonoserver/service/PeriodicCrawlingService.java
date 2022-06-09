@@ -24,7 +24,7 @@ public class PeriodicCrawlingService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.template import *; Craw(%s, '%s', '%s', '%s');\""
+                "python3 -c \"from src.main.python.template import *; Craw(%s, '%s', '%s', '%s');\""
                 , URLs.toString()
                 , tableSpecStr
                 , lineSpecStr

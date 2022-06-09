@@ -132,7 +132,7 @@ public class CalcService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_1(%d, %s);\""
+                "python3 -c \"from src.main.python.compute import *; FUNC_1(%d, %s);\""
                 , itemCnt
                 , itemProbs.toString()
             );
@@ -154,7 +154,7 @@ public class CalcService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_2(%d, %f, %d);\""
+                "python3 -c \"from src.main.python.compute import *; FUNC_2(%d, %f, %d);\""
                 , startCnt
                 , itemProb
                 , tryCnt
@@ -194,7 +194,7 @@ public class CalcService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %d);\""
+                "python3 -c \"from src.main.python.compute import *; FUNC_3(%s, %s, %d);\""
                 , ranges
                 , itemProbs.toString()
                 , tryCnt
@@ -217,7 +217,7 @@ public class CalcService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_4(%f, %d, %d);\""
+                "python3 -c \"from src.main.python.compute import *; FUNC_4(%f, %d, %d);\""
                 , itemProb
                 , tryCnt
                 , maxTryCnt
@@ -240,7 +240,7 @@ public class CalcService {
         try {
             String cmd = 
             String.format(
-                "python -c \"from src.main.python.compute import *; FUNC_5(%f, %d);\""
+                "python3 -c \"from src.main.python.compute import *; FUNC_5(%f, %d);\""
                 , itemProb
                 , tryCnt
             );

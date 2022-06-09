@@ -54,10 +54,17 @@ const read = {
                 };
             },
             mounted: function () {
-                this.CreateUserProbTable($('#gacha_id').val());
+                let gacha_id = $('#gacha_id').val();
+                this.CreateUserProbTable(gacha_id);
                 let chartData = $('#outputcalcjson').val();
-                console.log(chartData);
-                this.UpdateCharts(chartData);
+                // console.log(gacha_id);
+                // console.log(chartData);
+
+                if (gacha_id == 1) {
+                    this.UpdateCompleteGachaCharts(chartData);
+                } else {
+                    this.UpdateCharts(chartData);
+                }
                 // console.log(this.table.userProbTable);
                 // this.userProbTable.spreadsheet.setValueFromCoords(3, 3, '3');
                 // DEBUG.table.userProbTable.spreadsheet.setValueFromCoords(3, 3, '3');
@@ -76,7 +83,8 @@ const read = {
                 UpdateCompleteGachaCharts: function (chartData) {
                     chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');
                     var arr = chartData.split('},');
-                    //console.log(arr);
+                    console.log(arr);
+                    console.log(chartData);
                     var areaChartData = JSON.parse(arr[0].trim());
 
                     this.AreaChart(areaChartData);
@@ -101,7 +109,7 @@ const read = {
                                 csv: '/assets/selection/' + gachaid + '.csv',
                                 csvHeaders: false,
                                 defaultColAlign: 'left',
-                                editable: false,
+                                editable: false
                             });
                         }
                     });
@@ -245,7 +253,7 @@ const read = {
                     });
                 },
                 AreaChart: function (areaChartData) {
-                    
+
                     var self = this;
 
                     // set price
@@ -262,8 +270,6 @@ const read = {
                             break;
                         }
                     }
-                    
-                    
 
                     $('#myAreaChart').remove();
                     $('#areaChartDiv').append(
