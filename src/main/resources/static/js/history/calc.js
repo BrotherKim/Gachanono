@@ -50,6 +50,9 @@ const calc = {
                     gacha: {
                         selected: ''
                     },
+                    recommend: {
+                        list: []
+                    },
                     message: 'Hello Vue!'
                 };
             },
@@ -60,6 +63,8 @@ const calc = {
                 this.price.selected = $('#price_id').val()
                 this.CreateUserProbTable($('#gacha_id').val());
                 this.CreateCrawledProbTable($('#game_id').val());
+                this.GameSelected();
+                this.ItemSelected();
             },
             methods: {
                 GameSelected: function () {
@@ -80,6 +85,37 @@ const calc = {
                         .fail(function (error) {
                             alert(JSON.stringify(error));
                         });
+                },
+                ItemSelected: function () {
+                    var self = this;
+                    $
+                        .ajax({
+                            type: 'GET',
+                            url: '/api/prob/recommend/' + self.item.selected,
+                            dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (retval) {
+                                self.recommend.list = retval.content;
+                                self.recommend.len = self.recommend.list.length;
+                                // self.item.list = retval.content;
+                            }
+                        })
+                        .done(function () {
+                            //self.CreateCrawledProbTable(self.game.selected);
+                        })
+                        .fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                },
+                GachaSelected: function () {
+                    var self = this;
+                    self.CreateUserProbTable(self.gacha.selected);
+                },
+                SelectRecommendGacha: function (event) {
+                    console.log(event.target);
+                    console.log(event.target.value);
+                    this.gacha.selected = event.target.value;
+                    this.GachaSelected();
                 },
                 UpdateCharts: function (chartData) {
                     chartData = chartData.replace(/(['"])?([a-zA-Z0-9]+)(['"])?:/g, '"$2":');

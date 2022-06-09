@@ -24,7 +24,7 @@ public class TestController {
         String tableSpecStr = "table.MsoNormalTable";
         String lineSpecStr = "tr";
         String cellSpecStr = "td p.MsoNormal";
-        return periodicCrawlingService.craw(URLs, tableSpecStr, lineSpecStr, cellSpecStr);
+        return periodicCrawlingService.craw(1, URLs, tableSpecStr, lineSpecStr, cellSpecStr);
     }
 
 }

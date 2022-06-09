@@ -721,13 +721,22 @@ const gacha = {
 
                     // console.log(data); return;
 
+                    let resultId = '';
                     $
-                        .ajax(
-                            {type: 'POST', url: '/api/history/save', dataType: 'JSON', contentType: 'application/json; charset=utf-8', data: JSON.stringify(data)}
-                        )
+                        .ajax({
+                            type: 'POST',
+                            url: '/api/history/save',
+                            dataType: 'JSON',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            success: function (retval) {
+                                //console.log(retval);
+                                resultId = retval;
+                            },
+                        })
                         .done(function () {
                             alert('등록되었습니다.');
-                            window.location.href = '/history/list';
+                            window.location.href = '/history/read/' + resultId;
                         })
                         .fail(function (error) {
                             alert(JSON.stringify(error));

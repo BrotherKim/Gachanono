@@ -131,7 +131,10 @@
                 </div>
                 <div class="card-body">
                     <div style="float: left;" v-for="rec in recommend.list" v-bind:value="rec.id">
-                        <button :value="rec.gacha_id" class="btn btn-primary" v-on:click="SelectRecommendGacha($event)">
+                        <button
+                            :value="rec.gacha_id"
+                            class="btn btn-primary"
+                            v-on:click="SelectRecommendGacha($event)">
                             {{rec.gachaname}}{{rec.gacha_id}}
                             <i class="fa-solid fa-thumbs-up"></i>{{rec.good}}
                             <i class="fa-solid fa-eye"></i>{{rec.view}}
@@ -148,44 +151,7 @@
                     <div id="crawledProbTable" style="width: 100%;"></div>
                 </div>
             </div>
-
-            <!--div class="card mb-4"> <div class="card-header"> <i class="fa-solid
-            fa-thumbs-up"></i> 아이템별 가챠 추천 </div> <div class="card-body"> 컴플리트가챠(좋아요[10]
-            조회수[100]) / 구간확률(좋아요[5] 조회수[10]) / 천장뽑기(좋아요[1] 조회수[1000]) </div> </div> <div
-            class="card mb-4"> <div class="card mb-4"> <div class="card-header"> <i
-            class="fa-solid fa-square-poll-vertical"></i> 확률 정보 선택 및 아이템 정보 입력 </div> </div>
-            </div-->
-
-            <!--div class="card mb-4"> <div class="card-header"> <i class="fa-solid
-            fa-square-poll-vertical"></i> 확률 결과 </div> <div id="areaChartDiv"
-            class="card-body"> <p>1번 이상 50% 확률로 성공하기 위해서는 7회 이상 시도하셔야 합니다.</p> <p>1번 이상 80%
-            확률로 성공하기 위해서는 16회 이상 시도하셔야 합니다.</p> <p>1번 이상 90% 확률로 성공하기 위해서는 22회 이상 시도하셔야
-            합니다.</p> <p>1번 이상 99% 확률로 성공하기 위해서는 44회 이상 시도하셔야 합니다.</p> <canvas
-            id="myAreaChart" width="100%" height="40"></canvas> </div> <div id="barChartDiv"
-            class="card-body"> <p>0회 뽑힐 확률은 81%입니다.</p> <p>1회 뽑힐 확률은 10%입니다.</p> <p>2회 뽑힐
-            확률은 1%입니다.</p> <p>한번도 뽑히지 않을 확률은 81%입니다.</p> <canvas id="myBarChart"
-            width="100%" height="40"></canvas> </div> </div-->
         </div>
-        <!--div class="container-fluid px-4"> <div class="card mb-4"> <div
-        class="card-header"> <i class="fa-solid fa-bolt-lightning"></i> 시뮬레이션 </div>
-        <div class="card-body"> <div style="float: left"> <p>투입 희망 금액</p> <input
-        type="text" class="form-control" id="avail_money" placeholder="입력하세요."/> </div>
-        <div style="float: left"> <p>1회 뽑기 가격</p> <input type="text"
-        class="form-control" id="item_cost" v-model="price.selected"/> </div> <div
-        style="float: left"> <p>남은 금액</p> <p class="form-control" style="width: 185px;"
-        id="left_money">0</p> </div> <div style="float: left"> <p>전체 시도 횟수</p> <p
-        class="form-control" style="width: 185px;" id="total_try">0</p> </div> </div>
-        </div> <div class="card mb-4"> <div class="card-header"> <i class="fa-solid
-        fa-square-poll-vertical"></i> 시뮬레이션 결과 </div> <div class="card-body"> <div
-        class="visualization-wrapper" id="barCoin"></div> <div
-        class="interactive-wrapper"> <label for="try"> 시도횟수 = <span
-        id="try-value">1</span> </label> <input id="try" class="inputDist greenSlider"
-        type="range" min="1" max="100" step="1" value="1"/> <div class="button-1"
-        id="form_chance">Try</label> </div> <div style="text-align:center; font-size:
-        18px;"> <span id="success_test"></span><br><br></div> <div id="share"></div>
-        <link rel="stylesheet" type="text/css" href="/css/jssocials.css"/> <link
-        rel="stylesheet" type="text/css" href="/css/jssocials-theme-flat.css"/> <script
-        src="/js/jssocials.min.js"></script> </div> </div> </div-->
         <script src="/js/prob/gacha.js"></script>
     </div>
 </html>

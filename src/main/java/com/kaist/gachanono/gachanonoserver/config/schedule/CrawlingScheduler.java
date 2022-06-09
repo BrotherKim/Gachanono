@@ -25,19 +25,28 @@ public class CrawlingScheduler {
      * Cron 표현식을 사용한 작업 예약
      **/
     // 초(0-59) 분(0-59) 시간(0-23) 일(1-31) 월(1-12) 요일(0-7)
-    @Scheduled(cron = "1 0 0 * * *")  // 매일 00:00:01에 실행
+    @Scheduled(cron = "0 4 15 * * *") // 매일 14:15:00에 실행
     public void scheduleTaskUsingCronExpression() {
         long now = System.currentTimeMillis() / 1000;
         logger.info( "schedule tasks using cron jobs - {}", now);
     }
 
-    @Scheduled(cron = "0 4 15 * * *") // 매일 14:15:00에 실행
-    public String test() {
+    @Scheduled(cron = "1 0 0 * * *")  // 매일 00:00:01에 실행
+    public String kartriderCraw() {
         List<String> URLs = new ArrayList<String>();
         URLs.add("'https://m.nexon.com/probability/705?language=ko'");
         String tableSpecStr = "table.MsoNormalTable";
         String lineSpecStr = "tr";
         String cellSpecStr = "td p.MsoNormal";
-        return periodicCrawlingService.craw(URLs, tableSpecStr, lineSpecStr, cellSpecStr);
+        return periodicCrawlingService.craw(1, URLs, tableSpecStr, lineSpecStr, cellSpecStr);
+    }
+    @Scheduled(cron = "1 0 0 * * *")  // 매일 00:00:01에 실행
+    public String mapleCraw() {
+        List<String> URLs = new ArrayList<String>();
+        URLs.add("'https://m.nexon.com/probability/705?language=ko'");
+        String tableSpecStr = "table.MsoNormalTable";
+        String lineSpecStr = "tr";
+        String cellSpecStr = "td p.MsoNormal";
+        return periodicCrawlingService.craw(2, URLs, tableSpecStr, lineSpecStr, cellSpecStr);
     }
 }
