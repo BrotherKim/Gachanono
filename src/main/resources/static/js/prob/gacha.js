@@ -120,7 +120,7 @@ const gacha = {
                         mounted: function () {
                             this.spreadsheet = jspreadsheet(this.$el, {
                                 minDimensions: [
-                                    12, 30
+                                    30, 30
                                 ],
                                 defaultColWidth: 100,
                                 tableOverflow: true,

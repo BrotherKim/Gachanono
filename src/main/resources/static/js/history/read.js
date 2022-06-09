@@ -92,7 +92,7 @@ const read = {
                         mounted: function () {
                             this.spreadsheet = jspreadsheet(this.$el, {
                                 minDimensions: [
-                                    6, 30
+                                    30, 30
                                 ],
                                 defaultColWidth: 100,
                                 tableOverflow: true,
