@@ -1,189 +1,222 @@
 <!DOCTYPE html>
 <html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorator="layouts/layout">
-    <!-- add custom css -->
-    <th:block layout:fragment="/css"></th:block>
-    <!-- add custom script -->
-    <th:block layout:fragment="script">
-        <!-- script -->
-        <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://bossanova.uk/jspreadsheet/v4/jexcel.css"
-            type="text/css"/>
-        <script src="https://jsuites.net/v4/jsuites.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://jsuites.net/v4/jsuites.css"
-            type="text/css"/>
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layouts/layout"
+>
+  <!-- add custom css -->
+  <th:block layout:fragment="/css"></th:block>
+  <!-- add custom script -->
+  <th:block layout:fragment="script">
+    <!-- script -->
+    <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://bossanova.uk/jspreadsheet/v4/jexcel.css"
+      type="text/css"
+    />
+    <script src="https://jsuites.net/v4/jsuites.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://jsuites.net/v4/jsuites.css"
+      type="text/css"
+    />
 
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://fonts.googleapis.com/css?family=Material+Icons"/>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Material+Icons"
+    />
+  </th:block>
+  <div layout:fragment="content">
+    <div class="container-fluid px-4">
+      <!-- content -->
+      <div id="history_list">
+        <div class="col-md-12">
+          <form class="card">
+            <div class="card-header d-flex justify-content-between">
+              <label for="id">번호 : [[${history.id}]]</label>
+              <input type="hidden" id="id" th:value="${history.id}" />
+              <label for="createdDate">[[${history.createdDate}]]</label>
+            </div>
+            <div class="card-header d-flex justify-content-between">
+              <label for="writer">작성자 : [[${history.writer}]]</label>
+              <label for="view">
+                <i class="bi bi-eye-fill"> [[${history.view}]]</i>
+              </label>
+            </div>
+            <div class="card mb-4">
+              <div class="card-header">
+                <i class="fa-solid fa-database"></i>
+                게임/아이템 정보
+              </div>
+              <div class="card-body">
+                <div style="float: left">
+                  <p>게임 이름</p>
+                  <input
+                    readonly="readonly"
+                    type="text"
+                    class="form-control"
+                    id="game"
+                    th:value="${history.gamename}"
+                  />
+                  <input
+                    type="hidden"
+                    id="game_id"
+                    th:value="${history.game_id}"
+                  />
+                </div>
+                <div style="float: left">
+                  <p>아이템 이름</p>
+                  <input
+                    readonly="readonly"
+                    type="text"
+                    class="form-control"
+                    id="item"
+                    th:value="${history.itemname}"
+                  />
+                  <input
+                    type="hidden"
+                    id="item_id"
+                    th:value="${history.item_id}"
+                  />
+                </div>
+                <div style="float: left">
+                  <p>1회 뽑기 가격</p>
+                  <input
+                    readonly="readonly"
+                    type="text"
+                    class="form-control"
+                    id="price"
+                    th:value="${history.price}"
+                  />
+                </div>
+                <div style="float: left">
+                  <p>가챠 종류</p>
+                  <input
+                    readonly="readonly"
+                    type="text"
+                    class="form-control"
+                    id="gacha"
+                    th:value="${history.gachaname}"
+                  />
+                  <input
+                    type="hidden"
+                    id="gacha_id"
+                    th:value="${history.gacha_id}"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  id="writer"
+                  th:value="${user.nickname}"
+                />
+              </div>
+              <div class="card-body">
+                <input
+                  type="hidden"
+                  readonly="readonly"
+                  class="form-control"
+                  id="inputprobcsv"
+                  th:value="${history.inputprobcsv}"
+                />
+                <div id="userProbTable" style="width: 100%"></div>
+              </div>
+              <div class="card-body">
+                <input
+                  type="hidden"
+                  readonly="readonly"
+                  class="form-control"
+                  id="outputcalcjson"
+                  th:value="${history.outputcalcjson}"
+                />
+                <div id="crawledProbTable" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-header">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                확률 결과
+              </div>
+              <div id="areaChartDiv" class="card-body">
+                <p>
+                  권장 소비자 가격(85% 확률 기준) : {{chart.area.eightyfive *
+                  chart.area.price}}원({{chart.area.eightyfive}}번)
+                </p>
+                <p>
+                  {{chart.area.hoverProb}}% 확률에 따른 가격 :
+                  {{chart.area.hoverCnt *
+                  chart.area.price}}원({{chart.area.hoverCnt}}번)
+                </p>
+                <canvas id="myAreaChart" width="100%" height="40"></canvas>
+              </div>
+              <div
+                th:if="${history.gacha_id} != 1"
+                id="barChartDiv"
+                class="card-body"
+              >
+                <p>한번도 뽑히지 않을 확률은 {{ chart.bar.zero }}%입니다.</p>
+                <p>1회 이상 뽑힐 확률은 {{ chart.bar.one }}%입니다.</p>
+                <canvas id="myBarChart" width="100%" height="40"></canvas>
+              </div>
+            </div>
+          </form>
 
-    </th:block>
-    <div layout:fragment="content">
-        <div class="container-fluid px-4">
-            <!-- content -->
-            <div id="history_list">
-                <div class="col-md-12">
-                    <form class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <label for="id">번호 : [[${history.id}]]</label>
-                            <input type="hidden" id="id" th:value="${history.id}">
-                            <label for="createdDate">[[${history.createdDate}]]</label>
-                        </div>
-                        <div class="card-header d-flex justify-content-between">
-                            <label for="writer">작성자 : [[${history.writer}]]</label>
-                            <label for="view">
-                                <i class=" bi bi-eye-fill">
-                                    [[${history.view}]]</i>
-                            </label>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fa-solid fa-database"></i>
-                                게임/아이템 정보
-                            </div>
-                            <div class="card-body">
-                                <div style="float: left;">
-                                    <p>
-                                        게임 이름
-                                    </p>
-                                    <input
-                                        readonly="readonly"
-                                        type="text"
-                                        class="form-control"
-                                        id="game"
-                                        th:value="${history.gamename}"/>
-                                    <input type="hidden" id="game_id" th:value="${history.game_id}">
-                                </div>
-                                <div style="float: left;">
-                                    <p>
-                                        아이템 이름
-                                    </p>
-                                    <input
-                                        readonly="readonly"
-                                        type="text"
-                                        class="form-control"
-                                        id="item"
-                                        th:value="${history.itemname}"/>
-                                    <input type="hidden" id="item_id" th:value="${history.item_id}">
-                                </div>
-                                <div style="float: left;">
-                                    <p>
-                                        1회 뽑기 가격
-                                    </p>
-                                    <input
-                                        readonly="readonly"
-                                        type="text"
-                                        class="form-control"
-                                        id="price"
-                                        th:value="${history.price}"/>
-                                </div>
-                                <div style="float: left;">
-                                    <p>
-                                        가챠 종류
-                                    </p>
-                                    <input
-                                        readonly="readonly"
-                                        type="text"
-                                        class="form-control"
-                                        id="gacha"
-                                        th:value="${history.gachaname}"/>
-                                    <input type="hidden" id="gacha_id" th:value="${history.gacha_id}">
-                                </div>
-                                <input
-                                    type="hidden"
-                                    class="form-control"
-                                    id="writer"
-                                    th:value="${user.nickname}"/>
-                            </div>
-                            <div class="card-body">
-                                <input
-                                    type="hidden"
-                                    readonly="readonly"
-                                    class="form-control"
-                                    id="inputprobcsv"
-                                    th:value="${history.inputprobcsv}"/>
-                                <div id="userProbTable" style="width: 100%;"></div>
-                            </div>
-                            <div class="card-body">
-                                <input
-                                    type="hidden"
-                                    readonly="readonly"
-                                    class="form-control"
-                                    id="outputcalcjson"
-                                    th:value="${history.outputcalcjson}"/>
-                                <div id="crawledProbTable" style="width: 100%;"></div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fa-solid fa-square-poll-vertical"></i>
-                                확률 결과
-                            </div>
-                            <div id="areaChartDiv" class="card-body">
-                                <p>권장 소비자 가격(85% 확률 기준) : {{chart.area.eightyfive * chart.area.price}}원({{chart.area.eightyfive}}번)</p>
-                                <p>{{chart.area.hoverProb}}% 확률에 따른 가격 : {{chart.area.hoverCnt * chart.area.price}}원({{chart.area.hoverCnt}}번)</p>
-                                <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                            </div>
-                            <div th:if="${history.gacha_id} != 1" id="barChartDiv" class="card-body">
-                                <p>한번도 뽑히지 않을 확률은 {{ chart.bar.zero }}%입니다.</p>
-                                <p>1회 이상 뽑힐 확률은 {{ chart.bar.one }}%입니다.</p>
-                                <canvas id="myBarChart" width="100%" height="40"></canvas>
-                            </div>
-                        </div>
-                    </form>
-
-                    <a
-                        th:if="${user}"
-                        href="/history/list"
-                        role="button"
-                        class="btn btn-info bi bi-arrow-return-left">
-                        목록</a>
-                    <!--a th:if="${user} and ${writer}" th:href="@{'/history/update/' +
+          <a
+            th:if="${user}"
+            href="/history/list"
+            role="button"
+            class="btn btn-info bi bi-arrow-return-left"
+          >
+            목록</a
+          >
+          <!--a th:if="${user} and ${writer}" th:href="@{'/history/update/' +
                     ${history.id}}" role="button" class="btn btn-primary bi bi-pencil-square">
                     수정</a-->
-                    <button
-                        th:if="${user} and ${writer}"
-                        type="button"
-                        onclick=""
-                        id="btn-delete"
-                        class="btn btn-danger bi bi-trash">
-                        삭제</button>
-                    <a
-                        th:if="${user}"
-                        th:href="@{'/history/good/' + ${history.id}}"
-                        role="button"
-                        class="btn btn-success bi bi-hand-thumbs-up">
-                        좋아요</a>
-                    <a
-                        th:if="${user}"
-                        th:href="@{'/history/calc/' + ${history.id}}"
-                        role="button"
-                        class="btn btn-success bi bi-hand-thumbs-up">
-                        해당 확률 정보로 계산</a>
-                    <!--button th:if="${user}" type="button" v-on:click="CalcProb()" role="button"
+          <button
+            th:if="${user} and ${writer}"
+            type="button"
+            onclick=""
+            id="btn-delete"
+            class="btn btn-danger bi bi-trash"
+          >
+            삭제
+          </button>
+          <a
+            th:if="${user}"
+            th:href="@{'/history/good/' + ${history.id}}"
+            role="button"
+            class="btn btn-success bi bi-hand-thumbs-up"
+          >
+            좋아요</a
+          >
+          <a
+            th:if="${user}"
+            th:href="@{'/history/calc/' + ${history.id}}"
+            role="button"
+            class="btn btn-warning bi bi bi-calculator"
+          >
+            해당 확률 정보로 계산</a
+          >
+          <!--button th:if="${user}" type="button" v-on:click="CalcProb()" role="button"
                     class="btn btn-info bi bi-arrow-return-left"> 해당 확률 정보로 확률 계산</button-->
-                    <a
-                        th:if="${user}"
-                        th:href="@{'/history/sim/' + ${history.id}}"
-                        role="button"
-                        class="btn btn-success bi bi-hand-thumbs-up">
-                        해당 확률 정보로 시뮬레이션</a>
-                </div>
-            </div>
+          <a
+            th:if="${user}"
+            th:href="@{'/history/sim/' + ${history.id}}"
+            role="button"
+            class="btn btn-warning bi bi-lightning-charge"
+          >
+            해당 확률 정보로 시뮬레이션</a
+          >
         </div>
-
+      </div>
     </div>
+  </div>
 </html>
 
 <!-- add custom script -->
 <th:block layout:fragment="script">
-    <script src="/js/history/read.js"></script>
-    <script src="/js/history.js"></script>
+  <script src="/js/history/read.js"></script>
+  <script src="/js/history.js"></script>
 </th:block>

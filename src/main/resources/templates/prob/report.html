@@ -1,92 +1,135 @@
 <!DOCTYPE html>
 <html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorator="layouts/layout">
-    <!-- add custom css -->
-    <th:block layout:fragment="/css"></th:block>
-    <!-- add custom script -->
-    <th:block layout:fragment="script">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layouts/layout"
+>
+  <!-- add custom css -->
+  <th:block layout:fragment="/css"></th:block>
+  <!-- add custom script -->
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+      /*<![CDATA[*/
 
-            /**
-    		 * 게시글 조회
-	        */
-            function goView(id) {
-                location.href = `/board/view/${id}`;
-            }
+      /**
+       * 게시글 조회
+       */
+      function goView(id) {
+        location.href = `/board/view/${id}`;
+      }
 
-            /*]]>*/
-        </script>
-    </th:block>
+      /*]]>*/
+    </script>
+  </th:block>
 
-    <div layout:fragment="content">
-        <div class="container-fluid px-4">
-            <h1 class="mt-4">확률 결과</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item">
-                    <a href="/">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item active">Report</li>
-            </ol>
-            <div class="card mb-4">
+  <div layout:fragment="content">
+    <div class="container-fluid px-4">
+      <h1 class="mt-4">확률 결과</h1>
+      <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">
+          <a href="/">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Report</li>
+      </ol>
+      <!-- <div class="card mb-4">
                 <div class="card-body">
                     확률 결과를 조회하는 페이지의 매뉴얼 위치입니다.
                 </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fa-solid fa-calculator"></i>
-                    확률 정보
-                </div>
-                <div class="card-body">
-                    <div style="float: left;">
-                    <p> 게임 이름 </p> 
-                    <input type="text" class="form-control" id="input" placeholder="입력하세요.">
-                    </div>
-                    <div style="float: left;">
-                    <p> 아이템 이름 </p> 
-                    <input type="text" class="form-control" id="input" placeholder="입력하세요.">
-                    </div>
-                    <div style="float: left;">
-                    <p> 가챠 종류 </p> 
-                    <input type="text" class="form-control" id="input" placeholder="입력하세요.">
-                    </div>
-                    <div style="float: left;">
-                    <p> 1회 뽑기 가격 </p> 
-                    <input type="text" class="form-control" id="input" placeholder="입력하세요.">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div>
-                    <div style="float: left;"><input type="text" class="form-control" id="input" placeholder="몇"></div>
-                    <div style="float: left;"><p> 퍼센트 확률로 </p></div>
-                    <div style="float: left;"><input type="text" class="form-control" id="input" placeholder="몇"></div>
-                    <div style="float: left;"><p> 회 시도했을 때 확률은? </p></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fa-solid fa-square-poll-vertical"></i>
-                    확률 결과
-                </div>
-                <div class="card-body">
-                    <canvas id="myBarChart" width="100%" height="40"></canvas>
-                    <p>0회 뽑힐 확률은 81%입니다.</p>
-                    <p>1회 뽑힐 확률은 10%입니다.</p>
-                    <p>2회 뽑힐 확률은 1%입니다.</p>
-                    <p>한번도 뽑히지 않을 확률은 81%입니다.</p>
-                </div>
-                <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                    <p>1번 이상 50% 확률로 성공하기 위해서는 7회 이상 시도하셔야 합니다.</p>
-                    <p>1번 이상 80% 확률로 성공하기 위해서는 16회 이상 시도하셔야 합니다.</p>
-                    <p>1번 이상 90% 확률로 성공하기 위해서는 22회 이상 시도하셔야 합니다.</p>
-                    <p>1번 이상 99% 확률로 성공하기 위해서는 44회 이상 시도하셔야 합니다.</p>
-                </div>
-            </div>
+            </div> -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fa-solid fa-calculator"></i>
+          확률 정보
         </div>
+        <div class="card-body">
+          <div style="float: left">
+            <p>게임 이름</p>
+            <input
+              type="text"
+              class="form-control"
+              id="input"
+              placeholder="입력하세요."
+            />
+          </div>
+          <div style="float: left">
+            <p>아이템 이름</p>
+            <input
+              type="text"
+              class="form-control"
+              id="input"
+              placeholder="입력하세요."
+            />
+          </div>
+          <div style="float: left">
+            <p>가챠 종류</p>
+            <input
+              type="text"
+              class="form-control"
+              id="input"
+              placeholder="입력하세요."
+            />
+          </div>
+          <div style="float: left">
+            <p>1회 뽑기 가격</p>
+            <input
+              type="text"
+              class="form-control"
+              id="input"
+              placeholder="입력하세요."
+            />
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div style="float: left">
+              <input
+                type="text"
+                class="form-control"
+                id="input"
+                placeholder="몇"
+              />
+            </div>
+            <div style="float: left"><p>퍼센트 확률로</p></div>
+            <div style="float: left">
+              <input
+                type="text"
+                class="form-control"
+                id="input"
+                placeholder="몇"
+              />
+            </div>
+            <div style="float: left"><p>회 시도했을 때 확률은?</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fa-solid fa-square-poll-vertical"></i>
+          확률 결과
+        </div>
+        <div class="card-body">
+          <canvas id="myBarChart" width="100%" height="40"></canvas>
+          <p>0회 뽑힐 확률은 81%입니다.</p>
+          <p>1회 뽑힐 확률은 10%입니다.</p>
+          <p>2회 뽑힐 확률은 1%입니다.</p>
+          <p>한번도 뽑히지 않을 확률은 81%입니다.</p>
+        </div>
+        <div class="card-body">
+          <canvas id="myAreaChart" width="100%" height="40"></canvas>
+          <p>
+            1번 이상 50% 확률로 성공하기 위해서는 7회 이상 시도하셔야 합니다.
+          </p>
+          <p>
+            1번 이상 80% 확률로 성공하기 위해서는 16회 이상 시도하셔야 합니다.
+          </p>
+          <p>
+            1번 이상 90% 확률로 성공하기 위해서는 22회 이상 시도하셔야 합니다.
+          </p>
+          <p>
+            1번 이상 99% 확률로 성공하기 위해서는 44회 이상 시도하셔야 합니다.
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 </html>
