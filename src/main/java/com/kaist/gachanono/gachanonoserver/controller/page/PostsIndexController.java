@@ -65,9 +65,11 @@ public class PostsIndexController {
         @LoginUser UserDto.Response user
     ) {
 
-        if (user != null) {
-            model.addAttribute("user", user);
+        if (user == null) {
+            return "redirect:/auth/login";    
         }
+
+        model.addAttribute("user", user);
 
         List<Game> games = gameService.gameList();
         model.addAttribute("games", games);

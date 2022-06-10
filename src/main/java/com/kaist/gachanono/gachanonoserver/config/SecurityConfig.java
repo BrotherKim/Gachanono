@@ -66,10 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                    "/",
                     "/auth/**",
-                    "/posts/read/**",
-                    "/posts/search/**",
                     "/login",
                     "/error",
                     "/favicon.ico",
